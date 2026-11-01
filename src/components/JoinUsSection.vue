@@ -100,7 +100,7 @@ import router from '../router';
   font-weight: 700;
   letter-spacing: 2px;
 
-  color: #d4a84f;
+  color: #ab1e8d;
 }
 
 .join-us-content h2 {

@@ -1,32 +1,41 @@
+
+<script setup lang="ts">
+import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon } from "mdb-vue-ui-kit";
+
+const currentYear = new Date().getFullYear();
+</script>
+
 <template>
   <footer class="site-footer">
-
     <!-- Main Footer -->
     <div class="footer-main">
       <MDBContainer>
         <MDBRow class="g-5">
-
           <!-- Brand -->
           <MDBCol lg="4" md="6">
             <div class="footer-brand">
-
-              <!-- Replace with your actual logo -->
-              <img
-                src="/us4africa-logo.png"
-                alt="US4Africa"
-                class="footer-logo"
-              />
+              <RouterLink to="/" class="brand-link" aria-label="US4Africa Home">
+                <img
+                  src="/us4africa-logo.png"
+                  alt="US4Africa"
+                  class="footer-logo"
+                />
+              </RouterLink>
 
               <p class="footer-description">
-                Connecting people, resources, and ministries to create
+                Empowering African ministries through support and service.
+                We connect people, resources and communities to create
                 lasting transformation across Africa.
               </p>
 
-              <div class="social-links">
+              <div class="social-links" aria-label="Social media">
+                <!-- Replace # with your official profile URLs -->
                 <a
                   href="#"
                   aria-label="Facebook"
                   class="social-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <MDBIcon icon="facebook-f" />
                 </a>
@@ -35,6 +44,8 @@
                   href="#"
                   aria-label="Instagram"
                   class="social-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <MDBIcon icon="instagram" />
                 </a>
@@ -43,6 +54,8 @@
                   href="#"
                   aria-label="YouTube"
                   class="social-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <MDBIcon icon="youtube" />
                 </a>
@@ -51,109 +64,93 @@
                   href="#"
                   aria-label="LinkedIn"
                   class="social-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <MDBIcon icon="linkedin-in" />
                 </a>
               </div>
-
             </div>
           </MDBCol>
 
-          <!-- Quick Links -->
-          <MDBCol lg="2" md="6">
-            <h5 class="footer-heading">
-              Quick Links
-            </h5>
+          <!-- Explore -->
+          <MDBCol lg="2" md="6" sm="6">
+            <h5 class="footer-heading">Explore</h5>
 
             <ul class="footer-links">
               <li>
-                <a href="/">Home</a>
+                <RouterLink to="/">Home</RouterLink>
               </li>
-
               <li>
-                <a href="/about">About Us</a>
+                <RouterLink to="/about">About Us</RouterLink>
               </li>
-
               <li>
-                <a href="/programs">Programs</a>
+                <RouterLink to="/programs">Our Works</RouterLink>
               </li>
-
               <li>
-                <a href="/get-involved">Get Involved</a>
+                <RouterLink to="/get-involved">Get Involved</RouterLink>
               </li>
-
               <li>
-                <a href="/contact">Contact Us</a>
+                <RouterLink to="/contact">Contact Us</RouterLink>
               </li>
             </ul>
           </MDBCol>
 
           <!-- Get Involved -->
-          <MDBCol lg="3" md="6">
-            <router-link to="/get-involved">
-              <h5 class="footer-heading">
-                Get Involved
-              </h5>
-            </router-link>
+          <MDBCol lg="3" md="6" sm="6">
+            <h5 class="footer-heading">Make a Difference</h5>
+
             <ul class="footer-links">
               <li>
-                <router-link to="/donate">
-                  Donate
-                </router-link>
+                <RouterLink to="/donate">Make a Donation</RouterLink>
               </li>
-
               <li>
-                <router-link to="/get-involved">
-                  Volunteer
-                </router-link>
+                <RouterLink to="/get-involved">Volunteer With Us</RouterLink>
               </li>
-
               <li>
-                <router-link to="/get-involved">
-                  Partner With Us
-                </router-link>
+                <RouterLink to="/get-involved">Partner With Us</RouterLink>
               </li>
-
               <li>
-                <router-link to="/contact">
-                  Support Our Mission
-                </router-link>
+                <RouterLink to="/programs">Explore Our Works</RouterLink>
+              </li>
+              <li>
+                <RouterLink to="/contact">Support Our Mission</RouterLink>
               </li>
             </ul>
           </MDBCol>
 
           <!-- Contact -->
           <MDBCol lg="3" md="6">
-            <h5 class="footer-heading">
-              Connect With Us
-            </h5>
+            <h5 class="footer-heading">Connect With Us</h5>
 
             <div class="contact-item">
               <MDBIcon icon="envelope" />
-              <a href="mailto:info@us4africa.org">
-                info@us4africa.org
+              <a href="mailto:Admin@us4africa.org">
+                Admin@us4africa.org
               </a>
             </div>
 
             <div class="contact-item">
-              <MDBIcon icon="globe" />
-              <span>
-                Serving communities across Africa
-              </span>
+              <MDBIcon icon="phone" />
+              <a href="tel:+27737822117">+27 73 782 2117</a>
             </div>
 
-            <router-link to="/donate">
-              <MDBBtn
-                color="primary"
-                size="lg"
-                class="footer-donate"
-                href="/donate"
-              >
-                Donate Now
-              </MDBBtn>
-            </router-link>
-          </MDBCol>
+            <div class="contact-item">
+              <MDBIcon icon="globe" />
+              <span>Serving communities across Africa</span>
+            </div>
 
+            <RouterLink to="/donate" class="footer-cta-link">
+              <MDBBtn class="footer-donate">
+                Give Today
+                <MDBIcon icon="arrow-right" class="ms-2" />
+              </MDBBtn>
+            </RouterLink>
+
+            <p class="footer-cta-note">
+              Your generosity helps support lasting change.
+            </p>
+          </MDBCol>
         </MDBRow>
       </MDBContainer>
     </div>
@@ -161,8 +158,7 @@
     <!-- Bottom Bar -->
     <div class="footer-bottom">
       <MDBContainer>
-        <MDBRow class="align-items-center">
-
+        <MDBRow class="align-items-center gy-3">
           <MDBCol md="6">
             <p class="copyright">
               © {{ currentYear }} US4Africa. All rights reserved.
@@ -171,136 +167,119 @@
 
           <MDBCol md="6">
             <div class="legal-links">
-              <a href="/privacy-policy">
+              <RouterLink to="/privacy-policy">
                 Privacy Policy
-              </a>
+              </RouterLink>
 
-              <a href="/terms">
+              <RouterLink to="/terms">
                 Terms of Use
-              </a>
+              </RouterLink>
             </div>
           </MDBCol>
-
         </MDBRow>
       </MDBContainer>
     </div>
-
   </footer>
 </template>
 
-<script setup>
-import {
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBBtn,
-  MDBIcon
-} from 'mdb-vue-ui-kit'
-import router from '../router';
-
-const currentYear = new Date().getFullYear()
-</script>
-
 <style scoped>
-/* =========================================
-   FOOTER
-========================================= */
-
+/* FOOTER */
 .site-footer {
-  background-color: #111d33;
-  color: #ffffff;
+  background: #ffffff;
+  color: #30243a;
+  border-top: 4px solid #54208c;
 }
 
-/* =========================================
-   MAIN FOOTER
-========================================= */
-
+/* MAIN SECTION */
 .footer-main {
-  padding: 80px 0 70px;
+  padding: 76px 0 64px;
 }
 
-/* =========================================
-   BRAND
-========================================= */
-
+/* BRAND */
 .footer-brand {
   max-width: 360px;
 }
 
+.brand-link {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
 .footer-logo {
-  width: 170px;
+  display: block;
+  width: 175px;
+  max-width: 100%;
   height: auto;
-  margin-bottom: 24px;
+  object-fit: contain;
 }
 
 .footer-description {
-  margin-bottom: 28px;
-
-  font-size: 0.98rem;
-  line-height: 1.8;
-
-  color: rgba(255, 255, 255, 0.72);
+  margin: 0 0 25px;
+  color: #655d6b;
+  font-size: 0.95rem;
+  line-height: 1.85;
 }
 
-/* =========================================
-   SOCIAL LINKS
-========================================= */
-
+/* SOCIAL LINKS */
 .social-links {
   display: flex;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 11px;
 }
 
 .social-link {
-  width: 40px;
-  height: 40px;
-
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  width: 41px;
+  height: 41px;
 
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #54208c;
+  background: #f5f0fa;
+  border: 1px solid #e7dcef;
   border-radius: 50%;
 
-  color: #ffffff;
-
   text-decoration: none;
-
   transition:
+    color 0.25s ease,
     background-color 0.25s ease,
     border-color 0.25s ease,
     transform 0.25s ease;
 }
 
 .social-link:hover {
-  background-color: #b58a3a;
-  border-color: #b58a3a;
   color: #ffffff;
-
+  background: #54208c;
+  border-color: #54208c;
   transform: translateY(-3px);
 }
 
-/* =========================================
-   HEADINGS
-========================================= */
-
+/* HEADINGS */
 .footer-heading {
-  margin-bottom: 25px;
+  position: relative;
+  margin: 0 0 24px;
+  padding-bottom: 12px;
 
-  font-size: 1.05rem;
-  font-weight: 700;
-
-  color: #ffffff;
+  color: #54208c;
+  font-size: 1.02rem;
+  font-weight: 750;
 }
 
-/* =========================================
-   LINKS
-========================================= */
+.footer-heading::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 36px;
+  height: 3px;
+  background: #c6283d;
+  border-radius: 3px;
+}
 
+/* NAVIGATION LINKS */
 .footer-links {
   margin: 0;
   padding: 0;
-
   list-style: none;
 }
 
@@ -309,11 +288,10 @@ const currentYear = new Date().getFullYear()
 }
 
 .footer-links a {
-  color: rgba(255, 255, 255, 0.7);
-
+  color: #655d6b;
+  font-size: 0.93rem;
+  line-height: 1.6;
   text-decoration: none;
-
-  font-size: 0.95rem;
 
   transition:
     color 0.2s ease,
@@ -321,112 +299,127 @@ const currentYear = new Date().getFullYear()
 }
 
 .footer-links a:hover {
-  color: #d4a84f;
+  color: #c6283d;
   padding-left: 4px;
 }
 
-/* =========================================
-   CONTACT
-========================================= */
-
+/* CONTACT */
 .contact-item {
   display: flex;
   align-items: flex-start;
   gap: 12px;
+  margin-bottom: 17px;
 
-  margin-bottom: 18px;
-
-  color: rgba(255, 255, 255, 0.72);
-
-  font-size: 0.95rem;
-  line-height: 1.6;
+  color: #655d6b;
+  font-size: 0.92rem;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
 }
 
-.contact-item .fa {
-  margin-top: 4px;
-  color: #d4a84f;
+.contact-item :deep(svg),
+.contact-item :deep(i) {
+  flex-shrink: 0;
+  margin-top: 5px;
+  color: #c6283d;
 }
 
 .contact-item a {
-  color: rgba(255, 255, 255, 0.72);
+  color: #655d6b;
   text-decoration: none;
-
   transition: color 0.2s ease;
 }
 
 .contact-item a:hover {
-  color: #d4a84f;
+  color: #54208c;
 }
 
-/* =========================================
-   DONATE BUTTON
-========================================= */
+/* DONATION CTA */
+.footer-cta-link {
+  display: inline-block;
+  margin-top: 9px;
+  text-decoration: none;
+}
 
 .footer-donate {
-  margin-top: 15px;
+  padding: 12px 22px !important;
+  border: 2px solid #c6283d !important;
+  border-radius: 50px !important;
 
-  border-radius: 8px;
+  color: #ffffff !important;
+  background: #c6283d !important;
 
-  padding: 12px 25px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: none;
+  box-shadow: none !important;
 
-  font-weight: 600;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.25s ease;
 }
 
-/* =========================================
-   BOTTOM BAR
-========================================= */
+.footer-donate:hover {
+  color: #ffffff !important;
+  background: #54208c !important;
+  border-color: #54208c !important;
+  transform: translateY(-2px);
+}
 
+.footer-cta-note {
+  margin: 12px 0 0;
+  color: #817887;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+/* BOTTOM BAR */
 .footer-bottom {
-  padding: 22px 0;
-
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 21px 0;
+  background: #f8f5fb;
+  border-top: 1px solid #eee6f3;
 }
 
 .copyright {
   margin: 0;
-
-  font-size: 0.85rem;
-
-  color: rgba(255, 255, 255, 0.55);
+  color: #716778;
+  font-size: 0.83rem;
+  line-height: 1.7;
 }
 
 .legal-links {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 25px;
+  gap: 24px;
 }
 
 .legal-links a {
-  font-size: 0.85rem;
-
-  color: rgba(255, 255, 255, 0.55);
-
+  color: #716778;
+  font-size: 0.83rem;
   text-decoration: none;
-
   transition: color 0.2s ease;
 }
 
 .legal-links a:hover {
-  color: #d4a84f;
+  color: #c6283d;
 }
 
-/* =========================================
-   TABLET
-========================================= */
-
-@media (max-width: 991px) {
+/* TABLET */
+@media (max-width: 991.98px) {
   .footer-main {
-    padding: 65px 0 55px;
+    padding: 60px 0 48px;
+  }
+
+  .footer-brand {
+    max-width: 420px;
   }
 }
 
-/* =========================================
-   MOBILE
-========================================= */
-
-@media (max-width: 767px) {
+/* MOBILE */
+@media (max-width: 767.98px) {
   .footer-main {
-    padding: 55px 0 45px;
+    padding: 48px 0 38px;
   }
 
   .footer-brand {
@@ -443,8 +436,26 @@ const currentYear = new Date().getFullYear()
 
   .legal-links {
     justify-content: center;
-    margin-top: 12px;
     gap: 18px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .footer-logo {
+    width: 155px;
+  }
+
+  .footer-main {
+    padding-top: 40px;
+  }
+
+  .social-link {
+    width: 39px;
+    height: 39px;
+  }
+
+  .legal-links {
+    gap: 16px;
   }
 }
 </style>

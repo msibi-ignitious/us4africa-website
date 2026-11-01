@@ -22,3 +22,20 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+cat >> .gitignore <<'EOF'
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+
+# Private donor data exports
+/backend/us4africa-donations.csv
+/backend/us4africa-donors.csv
+
+# Backend dependencies
+/backend/node_modules/
+EOF

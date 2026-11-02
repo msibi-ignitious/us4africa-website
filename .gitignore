@@ -7,22 +7,23 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Dependencies and build output
+node_modules/
+dist/
+dist-ssr/
 *.local
+/backend/node_modules/
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-cat >> .gitignore <<'EOF'
 
 # Environment variables and secrets
 .env
@@ -36,6 +37,6 @@ cat >> .gitignore <<'EOF'
 /backend/us4africa-donations.csv
 /backend/us4africa-donors.csv
 
-# Backend dependencies
-/backend/node_modules/
-EOF
+
+# Neon local configuration
+.neon

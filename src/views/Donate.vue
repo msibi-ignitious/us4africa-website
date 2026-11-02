@@ -651,7 +651,7 @@ const paymentReady = false
   color: #fff;
   background:
     linear-gradient(100deg, rgba(45, 18, 77, .96), rgba(73, 29, 112, .84)),
-    url('/donate.jpg') center/cover no-repeat;
+    url('/src/assets/donate.jpg') center/cover no-repeat;
 }
 
 .hero-overlay {

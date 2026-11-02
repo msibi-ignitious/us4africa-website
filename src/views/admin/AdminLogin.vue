@@ -52,7 +52,7 @@ async function handleLogin() {
     <section class="login-brand-panel">
       <div class="brand-content">
         <div class="admin-brand">
-          <img src="/us4africa-logo.png" alt="US4Africa logo" />
+          <img src="/src/assets/us4africa-logo.png" alt="US4Africa logo" />
           <span>US4Africa Admin</span>
         </div>
         <p class="brand-tagline">

@@ -16,7 +16,7 @@ const currentYear = new Date().getFullYear();
             <div class="footer-brand">
               <RouterLink to="/" class="brand-link" aria-label="US4Africa Home">
                 <img
-                  src="/us4africa-logo.png"
+                  src="/src/assets/us4africa-logo.png"
                   alt="US4Africa"
                   class="footer-logo"
                 />

@@ -50,7 +50,7 @@ onUnmounted(() => {
         @click="closeMenu"
       >
         <img
-          src="/us4africa-logo.png"
+          src="/src/assets/us4africa-logo.png"
           alt="US4Africa"
           class="navbar-logo-image"
         />

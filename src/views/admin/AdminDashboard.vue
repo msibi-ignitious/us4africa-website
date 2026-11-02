@@ -226,7 +226,7 @@ onMounted(async () => {
     <header class="dashboard-header">
       <div>
         <div class="admin-brand">
-          <img src="/us4africa-logo.png" alt="US4Africa logo" />
+          <img src="/src/assets/us4africa-logo.png" alt="US4Africa logo" />
           <span>US4Africa Administration</span>
         </div>
 

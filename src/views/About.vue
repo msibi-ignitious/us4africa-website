@@ -454,7 +454,7 @@ const partners = [
       rgba(65, 22, 99, 0.84) 48%,
       rgba(44, 13, 66, 0.36) 100%
     ),
-    url("/home.jpg") center / cover no-repeat;
+    url("/src/assets/home.jpg") center / cover no-repeat;
 }
 
 .hero-content {

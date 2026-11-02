@@ -15,7 +15,7 @@ function logout() {
   <header class="admin-nav">
     <div class="brand">
       <!-- Use the same logo path as your existing admin pages -->
-      <img src="/us4africa-logo.png" alt="US4Africa logo" />
+      <img src="/src/assets/us4africa-logo.png" alt="US4Africa logo" />
       <div>
         <strong>US4Africa</strong>
         <span>Administration Portal</span>

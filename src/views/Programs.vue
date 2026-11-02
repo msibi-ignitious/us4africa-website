@@ -41,7 +41,7 @@
 
         <article class="initiative-row">
           <div class="initiative-image">
-            <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1200&q=85" alt="Young people gathered for a group activity" loading="lazy" />
+            <img src="/src/assets/youth.jpg" alt="Young people gathered for a group activity" loading="lazy" />
             <span class="image-tag">01 / YOUTH</span>
           </div>
           <div class="initiative-content">
@@ -64,7 +64,7 @@
 
         <article class="initiative-row initiative-row-reverse">
           <div class="initiative-image">
-            <img src="https://images.unsplash.com/photo-1472162072942-cd5147eb3902?auto=format&fit=crop&w=1200&q=85" alt="Children spending time together outdoors" loading="lazy" />
+            <img src="/src/assets/children.jpg" alt="Children spending time together outdoors" loading="lazy" />
             <span class="image-tag">02 / CHILDREN</span>
           </div>
           <div class="initiative-content">
@@ -87,7 +87,7 @@
 
         <article class="initiative-row">
           <div class="initiative-image">
-            <img src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=85" alt="Ministry and community partners collaborating around a table" loading="lazy" />
+            <img src="/src/assets/people.jpg" alt="Ministry and community partners collaborating around a table" loading="lazy" />
             <span class="image-tag">03 / MINISTRIES</span>
           </div>
           <div class="initiative-content">
@@ -310,7 +310,7 @@ onBeforeUnmount(() => {
   align-items: center;
   padding: 110px max(8%, calc((100% - 1180px) / 2));
   color: var(--white);
-  background: var(--purple-deep) url('https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=2200&q=90') center 40% / cover no-repeat;
+  background: var(--purple-deep) url('/src/assets/youth-2.jpg') center 40% / cover no-repeat;
   isolation: isolate;
 }
 .hero-shade { position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgba(35, 11, 58, .96) 0%, rgba(61, 20, 94, .86) 49%, rgba(61, 20, 94, .24) 100%); }

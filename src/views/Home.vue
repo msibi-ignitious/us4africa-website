@@ -33,7 +33,7 @@
 
       <div class="hero-visual">
         <img
-          src="/com.jpg"
+          src="/src/assets/com.jpg"
           alt="Community-focused work supported by US4Africa"
           class="hero-image"
         />
@@ -82,7 +82,7 @@
       <div class="impact-grid">
         <article class="impact-card">
           <img
-            src="/youth.jpg"
+            src="/src/assets/youth.jpg"
             alt="Community-focused work supported by US4Africa"
             loading="lazy"
           />
@@ -101,7 +101,7 @@
 
         <article class="impact-card">
           <img
-            src="/children.jpg"
+            src="/src/assets/children.jpg"
             alt="Children's outreach and learning"
             loading="lazy"
           />
@@ -120,7 +120,7 @@
 
         <article class="impact-card">
           <img
-            src="/slt.jpg"
+            src="/src/assets/slt.jpg"
             alt="Ministry leadership and community development"
             loading="lazy"
           />
@@ -156,7 +156,7 @@
     <div class="stories-grid">
       <article class="story-card">
         <img
-          src="/stud.jpg"
+          src="/src/assets/stud.jpg"
           alt="A student pursuing their education"
           loading="lazy"
         />
@@ -175,7 +175,7 @@
 
       <article class="story-card">
         <img
-          src="/hope.jpg"
+          src="/src/assets/hope.jpg"
           alt="Children learning and taking part in activities"
           loading="lazy"
         />
@@ -194,7 +194,7 @@
 
       <article class="story-card">
         <img
-          src="/mentorship.jpg"
+          src="/src/assets/mentorship.jpg"
           alt="A mentor encouraging a young person"
           loading="lazy"
         />
@@ -213,7 +213,7 @@
 
       <article class="story-card">
         <img
-          src="/com.jpg"
+          src="/src/assets/com.jpg"
           alt="Community members working together"
           loading="lazy"
         />

@@ -1,4 +1,6 @@
 
+//Donors
+
 import { Router } from 'express';
 import { z } from 'zod';
 
@@ -130,11 +132,14 @@ router.get('/stats', async (_req, res) => {
   }
 });
 
+
+
 // GET /api/donors/analytics
 // Detailed fundraising analytics for the administrator dashboard.
 router.get('/analytics', async (_req, res) => {
   try {
     const now = new Date();
+
     const twelveMonthsAgo = new Date(
       now.getFullYear(),
       now.getMonth() - 11,
@@ -143,25 +148,14 @@ router.get('/analytics', async (_req, res) => {
 
     const [
       recurringBreakdown,
-      campaignBreakdown,
       donorTotals,
       monthlyDonations
     ] = await Promise.all([
+
       // Recurring versus one-time paid donations.
       prisma.donation.groupBy({
         by: ['recurring', 'currency'],
         where: { status: 'PAID' },
-        _sum: { amount: true },
-        _count: { _all: true }
-      }),
-
-      // Paid donations grouped by campaign and currency.
-      prisma.donation.groupBy({
-        by: ['donorboxCampaignName', 'currency'],
-        where: {
-          status: 'PAID',
-          donorboxCampaignName: { not: null }
-        },
         _sum: { amount: true },
         _count: { _all: true }
       }),
@@ -178,7 +172,9 @@ router.get('/analytics', async (_req, res) => {
       prisma.donation.findMany({
         where: {
           status: 'PAID',
-          donationDate: { gte: twelveMonthsAgo }
+          donationDate: {
+            gte: twelveMonthsAgo
+          }
         },
         select: {
           amount: true,
@@ -188,11 +184,15 @@ router.get('/analytics', async (_req, res) => {
       })
     ]);
 
-    // Retrieve the donor details for the highest contributors.
-    const donorIds = [...new Set(donorTotals.map(item => item.donorId))];
+    // Retrieve donor details for highest contributors.
+    const donorIds = [
+      ...new Set(donorTotals.map(item => item.donorId))
+    ];
 
     const donorRecords = await prisma.donor.findMany({
-      where: { id: { in: donorIds } },
+      where: {
+        id: { in: donorIds }
+      },
       select: {
         id: true,
         firstName: true,
@@ -205,6 +205,7 @@ router.get('/analytics', async (_req, res) => {
       donorRecords.map(donor => [donor.id, donor])
     );
 
+    // Calculate top donors.
     const topDonors = donorTotals
       .map(item => ({
         donor: donorLookup.get(item.donorId) ?? null,
@@ -224,7 +225,9 @@ router.get('/analytics', async (_req, res) => {
 
       const month = [
         donation.donationDate.getFullYear(),
-        String(donation.donationDate.getMonth() + 1).padStart(2, '0')
+        String(
+          donation.donationDate.getMonth() + 1
+        ).padStart(2, '0')
       ].join('-');
 
       const key = `${month}-${donation.currency}`;
@@ -261,16 +264,10 @@ router.get('/analytics', async (_req, res) => {
         donations: item._count._all
       })),
 
-      campaignBreakdown: campaignBreakdown.map(item => ({
-        campaign: item.donorboxCampaignName,
-        currency: item.currency,
-        amount: item._sum.amount?.toString() ?? '0',
-        donations: item._count._all
-      })),
-
       topDonors,
       monthlyTrends
     });
+
   } catch (error) {
     console.error('Fundraising analytics failed:', error);
 
@@ -364,13 +361,11 @@ router.get('/:id/donations', async (req, res) => {
         take: limit,
         select: {
           id: true,
-          donorboxDonationId: true,
           amount: true,
           currency: true,
           status: true,
           recurring: true,
           recurringInterval: true,
-          donorboxCampaignName: true,
           designation: true,
           donationDate: true,
           amountRefunded: true,

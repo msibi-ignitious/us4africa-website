@@ -1,3 +1,5 @@
+
+//export.js
 import { Router } from 'express';
 
 import { prisma } from '../db.js';
@@ -91,7 +93,7 @@ router.get('/donations.csv', async (_req, res) => {
       'Status',
       'Recurring',
       'Recurring Interval',
-      'Campaign',
+      'Donation Designation',
       'Designation',
       'Donation Date',
       'Amount Refunded',
@@ -109,7 +111,7 @@ router.get('/donations.csv', async (_req, res) => {
       donation.status,
       donation.recurring ? 'Yes' : 'No',
       donation.recurringInterval,
-      donation.donorboxCampaignName,
+      donation.designation,
       donation.designation,
       donation.donationDate?.toISOString() ?? '',
       donation.amountRefunded?.toString() ?? '',

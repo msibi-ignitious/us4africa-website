@@ -402,11 +402,10 @@
 <script setup>
 import { reactive, ref } from 'vue'
 
-/*
- * Update this route if your donation page uses a different path.
- * Donation buttons pass the amount and type in the query string.
- * Your donation page must read these parameters if you want to
- * preselect the amount in your Donorbox checkout.
+/**
+ * Donation page route.
+ * Donation buttons pass the selected amount and donation type
+ * to the donation page through query parameters.
  */
 const DONATION_PAGE_URL = '/donate'
 

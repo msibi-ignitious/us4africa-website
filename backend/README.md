@@ -1,35 +1,107 @@
-# US4Africa backend starter
+# US4Africa Backend
 
-Node.js + Express + PostgreSQL + Prisma + Resend. Includes a donor/donation schema, health check, Donorbox V2 webhook signature verification, idempotent webhook event handling, donor upsert, donation persistence and a thank-you email after a verified `paid` event.
+Node.js + Express + PostgreSQL + Prisma + Resend.
+
+This backend provides the foundation for US4Africa's donor and donation management system. It includes donor and donation data models, database connectivity, API health checks, and email acknowledgements through Resend.
 
 ## Requirements
+
 - Node.js 20+
-- PostgreSQL
-- Donorbox custom webhook access
-- Resend account and a verified sender domain
+- PostgreSQL database
+- Resend account
+- A verified sender domain for outgoing emails
 
 ## Windows / PowerShell setup
-1. Extract this folder into `C:\Users\ignis\US4Africa2.0\backend`.
-2. Open a terminal in `backend`.
-3. Run `npm install` then `Copy-Item .env.example .env`.
-4. Create a PostgreSQL database called `us4africa`.
-5. Edit `.env` with your database password, Donorbox secret and Resend credentials.
-6. Run `npm run db:generate`, then `npm run db:migrate`.
-7. Run `npm run dev`.
-8. Check `http://localhost:4000/api/health`.
 
-## Resend
-Create a Resend account, verify a domain you control, create an API key, and set `RESEND_API_KEY` and `EMAIL_FROM` in `.env`. The sender must use your verified domain. `Admin@us4africa.org` can be the reply-to address if it is monitored.
+1. Open a terminal in `C:\Users\ignis\US4Africa2.0\backend`.
+2. Install dependencies:
 
-## Donorbox
-Custom webhooks are included on Pro/Premium. Standard currently requires the API & Zapier add-on (listed at $17/month). In Donorbox, create a custom webhook using V2 payload format and subscribe to `donation.created` and `donation.updated`. Point it to `https://YOUR_API_DOMAIN/api/webhooks/donorbox`; copy that endpoint's Signature Secret into `DONORBOX_WEBHOOK_SECRET`.
+   ```powershell
+   npm install
+   ```
 
-The signature is checked against the exact raw body using the `Donorbox-Signature` timestamp and HMAC-SHA256 signature. Configure the endpoint only after deploying an HTTPS backend or use a secure temporary tunnel for development.
+3. Create your environment file:
+
+   ```powershell
+   Copy-Item .env.example .env
+   ```
+
+4. Configure your database connection and email settings in `.env`.
+5. Generate the Prisma client:
+
+   ```powershell
+   npm run db:generate
+   ```
+
+6. Apply database migrations:
+
+   ```powershell
+   npm run db:migrate
+   ```
+
+7. Start the development server:
+
+   ```powershell
+   npm run dev
+   ```
+
+8. Check the health endpoint:
+
+   `http://localhost:4000/api/health`
+
+## Database
+
+The backend uses PostgreSQL with Prisma ORM.
+
+The database stores donor information, donation records, donation statuses and acknowledgement information.
+
+**Important:** Existing donor and donation records must be preserved when modifying the database schema. Use new Prisma migrations for schema changes. Do not edit migrations that have already been applied to the database.
+
+## Email notifications — Resend
+
+Resend is used to send donor acknowledgement emails.
+
+To configure it:
+
+1. Create a Resend account.
+2. Verify a domain you control.
+3. Create an API key.
+4. Configure the following variables in `.env`:
+
+   - `RESEND_API_KEY`
+   - `EMAIL_FROM`
+
+The sender address must use your verified domain. `Admin@us4africa.org` can be configured as the reply-to address if it is monitored.
+
+Email failures should be recorded so they can be investigated. Automatic retry handling may be added in a future development phase.
 
 ## Important
-Only a verified webhook with status `paid` triggers the US4Africa acknowledgement. Donorbox remains responsible for payment processing and its official receipt. No card or bank details are stored. This is a starter: protected admin endpoints, retry queue/worker, audit and retention policies, backups, rate limiting and deployment hardening remain to be implemented before production. Email failures are recorded but automatic retries are not yet implemented.
+
+- The backend does not process card or bank payments.
+- No card or bank account details should be stored in this database.
+- Donation records must be handled securely.
+- Email acknowledgements are sent through Resend.
+- Protect administrative endpoints before production deployment.
+- Configure database backups, access controls, rate limiting, logging and appropriate data-retention policies before production use.
 
 ## Endpoints
-- `GET /` service info
-- `GET /api/health` API/database health
-- `POST /api/webhooks/donorbox` Donorbox V2 webhook
+
+- `GET /` — Service information
+- `GET /api/health` — API and database health check
+
+Additional donor, donation and administrative endpoints are available through their respective API routes, where configured.
+
+## Deployment
+
+The backend is intended to be deployed as a Node.js service.
+
+Production deployment requires:
+
+- A hosted PostgreSQL database.
+- Correct production environment variables.
+- HTTPS enabled.
+- A secure JWT secret.
+- A configured frontend origin.
+- Database migrations applied before the application serves production traffic.
+
+Never commit `.env` files, API keys, database credentials or other secrets to Git.

@@ -83,8 +83,7 @@ export async function sendDonationAcknowledgement({ donor, donation }) {
 
       <p style="font-size:12px;color:#777777;">
         This email acknowledges your donation to US4Africa.
-        Your official payment receipt is provided by Donorbox.
-        Please retain that receipt for your records.
+        Please retain any payment confirmation issued by your payment provider.
       </p>
     </div>
   `;
@@ -99,7 +98,7 @@ Your generosity helps us empower African ministries through support and service.
 With gratitude,
 The US4Africa Team
 
-Your official payment receipt is provided by Donorbox.
+Please retain any payment confirmation issued by your payment provider.
   `.trim();
 
   const { data, error } = await resend.emails.send({

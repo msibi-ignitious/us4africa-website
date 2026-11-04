@@ -1,3 +1,4 @@
+
 import { Router } from 'express';
 import { z } from 'zod';
 
@@ -40,13 +41,11 @@ router.get('/', async (req, res) => {
         take: limit,
         select: {
           id: true,
-          donorboxDonationId: true,
           amount: true,
           currency: true,
           status: true,
           recurring: true,
           recurringInterval: true,
-          donorboxCampaignName: true,
           designation: true,
           donationDate: true,
           amountRefunded: true,

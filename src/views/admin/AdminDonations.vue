@@ -15,13 +15,11 @@ interface Donor {
 
 interface Donation {
   id: string;
-  donorboxDonationId: string;
   amount: string | number;
   currency: string;
   status: string;
   recurring: boolean;
   recurringInterval: string | null;
-  donorboxCampaignName: string | null;
   designation: string | null;
   donationDate: string | null;
   amountRefunded: string | number | null;
@@ -64,8 +62,7 @@ const filteredDonations = computed(() => {
     const matchesSearch =
       !search ||
       donorName.includes(search) ||
-      donation.donor.email.toLowerCase().includes(search) ||
-      donation.donorboxDonationId.toLowerCase().includes(search);
+      donation.donor.email.toLowerCase().includes(search);
 
     const matchesStatus =
       statusFilter.value === "ALL" ||
@@ -248,7 +245,7 @@ onMounted(loadDonations);
         <input
           v-model="searchTerm"
           type="search"
-          placeholder="Search donor, email or donation ID..."
+          placeholder="Search donor name or email..."
         />
 
         <select v-model="statusFilter">

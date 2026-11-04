@@ -7,7 +7,6 @@ import { config } from './config.js';
 import { prisma } from './db.js';
 
 import healthRouter from './routes/health.js';
-import webhooksRouter from './routes/webhooks.js';
 import authRouter from './routes/auth.js';
 import donorsRouter from './routes/donors.js';
 import donationsRouter from './routes/donations.js';
@@ -22,20 +21,10 @@ app.use(cors({
   methods: ['GET', 'POST'],
   allowedHeaders: [
     'Content-Type',
-    'Authorization',
-    'Donorbox-Signature'
+    'Authorization'
   ]
 }));
 
-
-// Preserve the raw body for Donorbox signature verification.
-app.use(
-  '/api/webhooks',
-  express.raw({ type: 'application/json', limit: '1mb' }),
-  webhooksRouter
-);
-
-// Parse JSON before registering routes that need req.body.
 app.use(express.json({ limit: '100kb' }));
 
 app.get('/', (_req, res) => {

@@ -28,7 +28,6 @@ enum AcknowledgementStatus {
 
 model Donor {
   id              String     @id @default(cuid())
-  donorboxDonorId String?    @unique
   firstName       String?
   lastName        String?
   email           String     @unique
@@ -42,7 +41,6 @@ model Donor {
 
 model Donation {
   id                    String                @id @default(cuid())
-  donorboxDonationId    String                @unique
   donorId               String
   donor                 Donor                 @relation(fields: [donorId], references: [id])
   amount                Decimal               @db.Decimal(12, 2)
@@ -50,8 +48,6 @@ model Donation {
   status                DonationStatus        @default(PENDING)
   recurring             Boolean               @default(false)
   recurringInterval     String?
-  donorboxCampaignId    String?
-  donorboxCampaignName  String?
   designation           String?
   donationDate          DateTime?
   amountRefunded        Decimal?              @db.Decimal(12, 2)

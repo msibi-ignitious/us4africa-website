@@ -146,10 +146,12 @@ router.get('/analytics', async (_req, res) => {
       1
     );
 
+  
     const [
       recurringBreakdown,
       donorTotals,
-      monthlyDonations
+      monthlyDonations,
+      campaignTotals
     ] = await Promise.all([
 
       // Recurring versus one-time paid donations.
@@ -181,7 +183,16 @@ router.get('/analytics', async (_req, res) => {
           currency: true,
           donationDate: true
         }
+      }),
+
+      // Paid donations grouped by designation and currency.
+      prisma.donation.groupBy({
+        by: ['designation', 'currency'],
+        where: { status: 'PAID' },
+        _sum: { amount: true },
+        _count: { _all: true }
       })
+
     ]);
 
     // Retrieve donor details for highest contributors.
@@ -256,6 +267,35 @@ router.get('/analytics', async (_req, res) => {
         amount: item.amount.toFixed(2)
       }));
 
+    // Calculate campaign performance using donation designation.
+    const campaignMap = new Map();
+
+    for (const item of campaignTotals) {
+      const campaign = item.designation?.trim() || 'General Donations';
+      const key = `${campaign}-${item.currency}`;
+
+      const existing = campaignMap.get(key);
+
+      if (existing) {
+        existing.amount += Number(item._sum.amount ?? 0);
+        existing.donations += item._count._all;
+      } else {
+        campaignMap.set(key, {
+          campaign,
+          currency: item.currency,
+          amount: Number(item._sum.amount ?? 0),
+          donations: item._count._all
+        });
+      }
+    }
+
+    const campaignBreakdown = [...campaignMap.values()]
+      .sort((a, b) => b.amount - a.amount)
+      .map(item => ({
+        ...item,
+        amount: item.amount.toFixed(2)
+      }));
+
     return res.json({
       recurringBreakdown: recurringBreakdown.map(item => ({
         type: item.recurring ? 'RECURRING' : 'ONE_TIME',
@@ -264,6 +304,7 @@ router.get('/analytics', async (_req, res) => {
         donations: item._count._all
       })),
 
+      campaignBreakdown,
       topDonors,
       monthlyTrends
     });

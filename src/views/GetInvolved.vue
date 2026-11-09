@@ -405,7 +405,7 @@ const DONATION_PAGE_URL = '/donate'
 const donationOptions = [
   {
     id: 'corporate',
-    title: 'Corporate Partnership',
+    title: 'Church Partnership',
     amount: 100,
     category: 'PARTNER WITH US',
     description:

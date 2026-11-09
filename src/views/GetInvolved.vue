@@ -342,13 +342,6 @@
               >
                 <option value="General Enquiry">General Enquiry</option>
                 <option value="Volunteering">Volunteering</option>
-                <option value="Donation">Making a Donation</option>
-                <option value="Corporate Partnership">
-                  Corporate Partnership
-                </option>
-                <option value="Bronze Sponsor">Bronze Sponsorship</option>
-                <option value="Silver Sponsor">Silver Sponsorship</option>
-                <option value="Gold Sponsor">Gold Sponsorship</option>
               </select>
             </div>
 

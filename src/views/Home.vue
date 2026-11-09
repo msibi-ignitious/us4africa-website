@@ -1,42 +1,23 @@
-
 <template>
   <main class="us-home">
-    <!-- Hero -->
+    <!-- HERO -->
     <section class="hero">
       <div class="hero-copy">
         <span class="eyebrow">FAITH • SERVICE • COMMUNITY</span>
-
-        <h1>
-          Empowering Ministries.
-          <span>Strengthening Communities.</span>
-        </h1>
-
+        <h1>Empowering Ministries.<span>Strengthening Communities.</span></h1>
         <p class="hero-description">
-          We partner with African ministries to equip leaders,
-          support communities and help people experience lasting
-          transformation through faith and service.
+          We partner with African ministries to equip leaders, support communities
+          and help people experience lasting transformation through faith and service.
         </p>
-
         <div class="hero-actions">
-          <RouterLink to="/donate" class="btn btn-red">
-            Give Today <span aria-hidden="true">↗</span>
-          </RouterLink>
-          <RouterLink to="/programs" class="btn btn-outline">
-            Explore Our Work
-          </RouterLink>
+          <RouterLink to="/donate" class="btn btn-red">Give Today <span aria-hidden="true">↗</span></RouterLink>
+          <RouterLink to="/programs" class="btn btn-outline">Explore Our Work</RouterLink>
         </div>
-
-        <p class="hero-note">
-          Your generosity helps local ministries serve their communities.
-        </p>
+        <p class="hero-note">Your generosity helps local ministries serve their communities.</p>
       </div>
 
       <div class="hero-visual">
-        <img
-          src="/src/assets/com.jpg"
-          alt="Community-focused work supported by US4Africa"
-          class="hero-image"
-        />
+        <img src="/src/assets/com.jpg" alt="Community-focused work supported by US4Africa" class="hero-image" />
         <div class="image-caption">
           <span class="caption-mark">✳</span>
           <div>
@@ -48,241 +29,398 @@
       </div>
     </section>
 
-    <!-- Mission -->
-    <section class="mission section-pad">
-      <div class="mission-heading">
-        <span class="eyebrow purple-text">WHY WE EXIST</span>
-        <h2>Change grows when communities are equipped.</h2>
-      </div>
-      <div class="mission-copy">
+    <!-- MISSION: INFINITE FULL-WIDTH CAROUSEL -->
+    <section class="mission-section">
+      <div class="mission-intro">
+        <span class="eyebrow purple-text">OUR MISSION</span>
+        <h2>Empowering ministries. Transforming communities.</h2>
         <p>
-          US4Africa is a charitable organisation dedicated to
-          empowering African ministries through support and service.
-          We believe local leaders are essential to creating meaningful,
-          sustainable change in the communities they serve.
+          We believe lasting transformation begins when local ministries and leaders
+          have the support, resources and partnerships they need to serve their communities.
         </p>
-        <RouterLink to="/about" class="text-link">
-          Discover our journey <span aria-hidden="true">→</span>
-        </RouterLink>
+      </div>
+
+      <div class="mission-carousel">
+        <button class="carousel-arrow" type="button" aria-label="Previous mission card" @click="scrollMission(-1)">&#10094;</button>
+
+        <div
+          ref="missionCarousel"
+          class="mission-track"
+          aria-label="Our mission"
+          @scroll.passive="handleMissionScroll"
+          @keydown.left.prevent="scrollMission(-1)"
+          @keydown.right.prevent="scrollMission(1)"
+          tabindex="0"
+        >
+          <!-- Clone of final slide -->
+          <article class="mission-card" data-clone aria-hidden="true">
+            <img src="/src/assets/slt.jpg" alt="" />
+            <div class="mission-card-content">
+              <span>03 / OUR VISION</span>
+              <h3>Transforming Lives</h3>
+              <p>Investing in local leadership and sustainable community development for lasting impact.</p>
+              <span class="mission-card-link">Learn about our vision →</span>
+            </div>
+          </article>
+
+          <article class="mission-card">
+            <img src="/src/assets/youth.jpg" alt="Youth ministry and discipleship" />
+            <div class="mission-card-content">
+              <span>OUR PURPOSE</span>
+              <h3>Supporting Local Ministries</h3>
+              <p>At US4Africa, we collaborate with local African ministires to enhance their efforts in spreading the Gospel And serving communities. Our partnerrship empowers indigenous leaders with the resources they need to make lasting impact within their communities.</p>
+              <RouterLink to="/about#partners">Discover More</RouterLink>
+            </div>
+          </article>
+
+          <article class="mission-card">
+            <img src="/src/assets/children.jpg" alt="Children participating in community outreach" />
+            <div class="mission-card-content">
+              <span>OUR COMMITMENT</span>
+              <h3>Building Empowered Communities</h3>
+              <p>We believe in the potential of every community. Through strategic support and outreach, we help transform lives by providing educationla materials, community development, and spiritual guidance.</p>
+              <RouterLink to="/get-involved">Get Involved →</RouterLink>
+            </div>
+          </article>
+
+          <article class="mission-card">
+            <img src="/src/assets/slt.jpg" alt="Leadership development and ministry training" />
+            <div class="mission-card-content">
+              <span>OUR VISION</span>
+              <h3>Fostering Leadership Development</h3>
+              <p>Investing in future leaders is crucial for sustainable growth. Our Leadership Experience (LXP) Trust focuses on nurturing and mentoring emerging leaders within African ministries.</p>
+              <RouterLink to="/about">Learn about LXP →</RouterLink>
+            </div>
+          </article>
+
+          <!-- Clone of first slide -->
+          <article class="mission-card" data-clone aria-hidden="true">
+            <img src="/src/assets/youth.jpg" alt="" />
+            <div class="mission-card-content">
+              <span>01 / OUR PURPOSE</span>
+              <h3>Empowering Ministries</h3>
+              <p>Equipping African ministries with the support, resources and partnerships to fulfil their calling.</p>
+              <span class="mission-card-link">Discover our mission →</span>
+            </div>
+          </article>
+        </div>
+
+        <button class="carousel-arrow" type="button" aria-label="Next mission card" @click="scrollMission(1)">&#10095;</button>
+      </div>
+
+      <div class="mission-pagination" aria-label="Carousel slide position">
+        <span>{{ String(missionIndex + 1).padStart(2, '0') }}</span>
+        <span class="pagination-line"><span :style="{ width: `${((missionIndex + 1) / 3) * 100}%` }"></span></span>
+        <span>03</span>
       </div>
     </section>
 
-    <!-- Impact areas -->
+    <!-- OUR WORK -->
     <section class="impact section-pad">
       <div class="section-heading">
         <div>
           <span class="eyebrow purple-text">WHERE WE FOCUS</span>
           <h2>Our work. Our purpose.</h2>
         </div>
-        <RouterLink to="/programs" class="text-link">
-          Explore all programmes →
-        </RouterLink>
+        <RouterLink to="/programs" class="text-link">Explore all programmes →</RouterLink>
       </div>
 
       <div class="impact-grid">
         <article class="impact-card">
-          <img
-            src="/src/assets/youth.jpg"
-            alt="Community-focused work supported by US4Africa"
-            loading="lazy"
-          />
+          <img src="/src/assets/youth.jpg" alt="Youth ministry and discipleship" loading="lazy" />
           <div class="impact-card-body">
             <span class="card-number">YOUTH MINISTRY</span>
             <h3>Growing the next generation</h3>
-            <p>
-              Supporting youth discipleship, spiritual growth and
-              the development of young leaders through our partners.
-            </p>
-            <RouterLink to="/programs" class="text-link">
-              Discover the work →
-            </RouterLink>
+            <p>Supporting youth discipleship, spiritual growth and the development of young leaders through our partners.</p>
+            <RouterLink to="/programs#youth-ministry" class="text-link">Youth Ministry</RouterLink>
           </div>
         </article>
 
         <article class="impact-card">
-          <img
-            src="/src/assets/children.jpg"
-            alt="Children's outreach and learning"
-            loading="lazy"
-          />
+          <img src="/src/assets/children.jpg" alt="Children's outreach and learning" loading="lazy" />
           <div class="impact-card-body">
             <span class="card-number">CHILDREN MINISTRY</span>
             <h3>Helping children flourish</h3>
-            <p>
-              Supporting caring environments where children can learn,
-              grow, build relationships and explore their potential.
-            </p>
-            <RouterLink to="/programs" class="text-link">
-              Discover the work →
-            </RouterLink>
+            <p>Supporting caring environments where children can learn, grow, build relationships and explore their potential.</p>
+            <RouterLink to="/programs#children-ministry" class="text-link">Children's Ministry</RouterLink>
           </div>
         </article>
 
         <article class="impact-card">
-          <img
-            src="/src/assets/slt.jpg"
-            alt="Ministry leadership and community development"
-            loading="lazy"
-          />
+          <img src="/src/assets/slt.jpg" alt="Ministry leadership and community development" loading="lazy" />
           <div class="impact-card-body">
-            <span class="card-number"> LEADERSHIP DEVELOPMENT</span>
+            <span class="card-number">LEADERSHIP DEVELOPMENT</span>
             <h3>Equipping local leaders</h3>
-            <p>
-              Helping ministries access resources, encouragement and
-              partnerships that strengthen their community work.
-            </p>
-            <RouterLink to="/programs" class="text-link">
-              Discover the work →
-            </RouterLink>
+            <p>Helping ministries access resources, encouragement and partnerships that strengthen their community work.</p>
+            <RouterLink to="/programs#ministry-empowerment" class="text-link">SLT</RouterLink>
           </div>
         </article>
       </div>
     </section>
 
-   <!-- Stories -->
-  <section class="stories section-pad">
-    <div class="stories-heading">
-      <span class="eyebrow">BEHIND THE IMPACT</span>
-      <h2>Transformative Impact — Real Stories, Real Change</h2>
-      <p>
-        Discover how faith, partnership and service are making a
-        difference in the lives of people and communities.
-      </p>
-      <!--outerLink to="/stories" class="btn btn-white">
-        Read impact stories →
-      </RouterLink> -->
-    </div>
-
-    <div class="stories-grid">
-      <article class="story-card">
-        <img
-          src="/src/assets/stud.jpg"
-          alt="A student pursuing their education"
-          loading="lazy"
-        />
-        <div class="story-card-content">
-          <span class="story-category">LEADERSHIP DEVELOPMENT</span>
-          <h3>A Student’s Journey</h3>
-          <p>
-            A story of perseverance, opportunity and the hope that
-            education can bring.
-          </p>
-          <RouterLink to="/stories" class="story-link">
-            Read the story ↗
-          </RouterLink>
-        </div>
-      </article>
-
-      <article class="story-card">
-        <img
-          src="/src/assets/hope.jpg"
-          alt="Children learning and taking part in activities"
-          loading="lazy"
-        />
-        <div class="story-card-content">
-          <span class="story-category">CHILDREN</span>
-          <h3>Hope for the Children</h3>
-          <p>
-            Creating spaces where children can learn, grow and
-            experience care and encouragement.
-          </p>
-          <RouterLink to="/stories" class="story-link">
-            Read the story ↗
-          </RouterLink>
-        </div>
-      </article>
-
-      <article class="story-card">
-        <img
-          src="/src/assets/mentorship.jpg"
-          alt="A mentor encouraging a young person"
-          loading="lazy"
-        />
-        <div class="story-card-content">
-          <span class="story-category">MENTORSHIP</span>
-          <h3>Growing Through Mentorship</h3>
-          <p>
-            Discover the impact of guidance, discipleship and
-            relationships that help people grow.
-          </p>
-          <RouterLink to="/stories" class="story-link">
-            Read the story ↗
-          </RouterLink>
-        </div>
-      </article>
-
-      <article class="story-card">
-        <img
-          src="/src/assets/com.jpg"
-          alt="Community members working together"
-          loading="lazy"
-        />
-        <div class="story-card-content">
-          <span class="story-category">COMMUNITY</span>
-          <h3>Stronger Communities</h3>
-          <p>
-            Local people and ministries working together to bring
-            meaningful change to their communities.
-          </p>
-          <RouterLink to="/stories" class="story-link">
-            Read the story ↗
-          </RouterLink>
-        </div>
-      </article>
-    </div>
-  </section>
-
-    <!-- Blog -->
-    <section class="updates section-pad">
-      <div class="section-heading">
-        <div>
-          <span class="eyebrow purple-text">FROM OUR COMMUNITY</span>
-          <h2>News, reflections & updates.</h2>
-        </div>
-        <RouterLink to="/blog" class="text-link">
-          Visit the blog →
-        </RouterLink>
+    <!-- STORIES -->
+    <section class="stories section-pad">
+      <div class="stories-heading">
+        <span class="eyebrow">BEHIND THE IMPACT</span>
+        <h2>Transformative Impact — Real Stories, Real Change</h2>
+        <p>Discover how faith, partnership and service are making a difference in the lives of people and communities.</p>
+        <RouterLink to="/stories" class="btn btn-white">Read impact stories →</RouterLink>
       </div>
 
-      <div class="blog-intro">
-        <div class="blog-icon" aria-hidden="true">✳</div>
-        <div>
-          <h3>Stories worth sharing.</h3>
-          <p>
-            Follow our journey through programme updates, partner
-            highlights, community projects and reflections on service.
-          </p>
-        </div>
-        <RouterLink to="/blog" class="btn btn-outline">
-          Read our blog
-        </RouterLink>
+      <div class="stories-grid">
+        <article class="story-card">
+          <img src="/src/assets/stud.jpg" alt="A student pursuing their education" loading="lazy" />
+          <div class="story-card-content">
+            <span class="story-category">LEADERSHIP DEVELOPMENT</span>
+            <h3>A Student’s Journey</h3>
+            <p>A story of perseverance, opportunity and the hope that education can bring.</p>
+            <RouterLink to="/stories" class="story-link">Read the story ↗</RouterLink>
+          </div>
+        </article>
+
+        <article class="story-card">
+          <img src="/src/assets/hope.jpg" alt="Children learning and taking part in activities" loading="lazy" />
+          <div class="story-card-content">
+            <span class="story-category">CHILDREN</span>
+            <h3>Hope for the Children</h3>
+            <p>Creating spaces where children can learn, grow and experience care and encouragement.</p>
+            <RouterLink to="/stories" class="story-link">Read the story ↗</RouterLink>
+          </div>
+        </article>
+
+        <article class="story-card">
+          <img src="/src/assets/mentorship.jpg" alt="A mentor encouraging a young person" loading="lazy" />
+          <div class="story-card-content">
+            <span class="story-category">MENTORSHIP</span>
+            <h3>Growing Through Mentorship</h3>
+            <p>Discover the impact of guidance, discipleship and relationships that help people grow.</p>
+            <RouterLink to="/stories" class="story-link">Read the story ↗</RouterLink>
+          </div>
+        </article>
+
+        <article class="story-card">
+          <img src="/src/assets/com.jpg" alt="Community members working together" loading="lazy" />
+          <div class="story-card-content">
+            <span class="story-category">COMMUNITY</span>
+            <h3>Stronger Communities</h3>
+            <p>Local people and ministries working together to bring meaningful change to their communities.</p>
+            <RouterLink to="/stories" class="story-link">Read the story ↗</RouterLink>
+          </div>
+        </article>
       </div>
     </section>
 
-    <!-- Call to action -->
-    <section class="home-cta section-pad">
-      <div>
+    <!-- DONATION CALL TO ACTION -->
+    <section class="home-cta section-pad" id="home-donation">
+      <div class="cta-copy">
         <span class="eyebrow">BE PART OF THE CHANGE</span>
-        <h2>There is a place for you in this story.</h2>
+        <h2>Your generosity can make a lasting difference.</h2>
         <p>
-          Give, volunteer or partner with us to help local ministries
-          continue serving their communities.
+          Support African ministries, empower local leaders and help communities
+          access the resources they need to flourish.
         </p>
       </div>
-      <div class="cta-actions">
-        <RouterLink to="/donate" class="btn btn-white">
-          Support our work
-        </RouterLink>
-        <RouterLink to="/get-involved" class="cta-link">
-          Get involved →
-        </RouterLink>
-      </div>
+
+      <form class="home-donation-form" @submit.prevent="continueToDonation">
+        <div class="home-form-heading">
+          <span class="eyebrow">MAKE A DIFFERENCE</span>
+          <h3>Your Gift. Their Future.</h3>
+          <p>Choose how you would like to support our work.</p>
+        </div>
+
+        <div class="home-form-step">
+          <label class="home-field-label">Giving frequency</label>
+          <div class="home-frequency">
+            <button type="button" :class="{ active: frequency === 'once' }" @click="frequency = 'once'">
+              <strong>One-Time</strong><small>Give once</small>
+            </button>
+            <button type="button" :class="{ active: frequency === 'monthly' }" @click="frequency = 'monthly'">
+              <strong>Monthly</strong><small>Give consistently</small>
+            </button>
+          </div>
+        </div>
+
+        <div class="home-form-step">
+          <label class="home-field-label">Choose your amount (USD)</label>
+          <div class="home-amount-grid">
+            <button
+              v-for="amount in amounts"
+              :key="amount"
+              type="button"
+              :class="{ active: customAmount === null && selectedAmount === amount }"
+              @click="selectHomeAmount(amount)"
+            >${{ amount }}</button>
+          </div>
+
+          <label for="home-custom-amount" class="home-field-label">Or enter a custom amount</label>
+          <div class="home-custom-amount">
+            <span>$</span>
+            <input
+              id="home-custom-amount"
+              v-model.number="customAmount"
+              type="number"
+              min="1"
+              step="0.01"
+              placeholder="Enter your amount"
+              @input="updateHomeCustomAmount"
+            />
+          </div>
+        </div>
+
+        <div class="home-form-step">
+          <label class="home-field-label" for="home-designation">Where would you like your gift to go?</label>
+          <select id="home-designation" v-model="designation" class="home-designation-select">
+            <option v-for="item in designations" :key="item.value" :value="item.value">{{ item.label }}</option>
+          </select>
+        </div>
+
+        <div class="home-donation-summary">
+          <div class="summary-row">
+            <span>{{ frequency === 'monthly' ? 'Monthly gift' : 'One-time gift' }}</span>
+            <strong>{{ formattedHomeAmount }}</strong>
+          </div>
+          <button type="submit" class="home-donate-submit" :disabled="!isValidAmount">
+            Continue to Donate <span aria-hidden="true">↗</span>
+          </button>
+          <p class="home-secure-note">Your gift helps strengthen ministries and communities across Africa.</p>
+        </div>
+      </form>
     </section>
   </main>
 </template>
 
 <script setup>
-import { RouterLink } from 'vue-router'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const frequency = ref('once')
+const selectedAmount = ref(50)
+const customAmount = ref(null)
+const designation = ref('where-needed')
+const missionCarousel = ref(null)
+const missionIndex = ref(0)
+
+const amounts = [25, 50, 100, 250]
+
+const designations = [
+  { value: 'where-needed', label: 'Where Most Needed' },
+  { value: 'dogs', label: 'Youth Discipleship (DoGs)' },
+  { value: 'kcp', label: 'Children Outreach (KCP)' },
+  { value: 'general', label: 'General Ministry Support' },
+]
+
+const currentHomeAmount = computed(() =>
+  customAmount.value !== null ? Number(customAmount.value) : selectedAmount.value
+)
+
+const isValidAmount = computed(() =>
+  Number.isFinite(currentHomeAmount.value) && currentHomeAmount.value >= 1
+)
+
+const formattedHomeAmount = computed(() =>
+  new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    maximumFractionDigits: 2,
+  }).format(currentHomeAmount.value || 0)
+)
+
+function selectHomeAmount(amount) {
+  selectedAmount.value = amount
+  customAmount.value = null
+}
+
+function updateHomeCustomAmount() {
+  if (customAmount.value !== null && customAmount.value !== '') {
+    customAmount.value = Math.max(0, Number(customAmount.value))
+  }
+}
+
+function continueToDonation() {
+  if (!isValidAmount.value) return
+
+  router.push({
+    path: '/donate',
+    query: {
+      amount: String(currentHomeAmount.value),
+      type: frequency.value,
+      designation: designation.value,
+    },
+  })
+}
+
+/*
+ * Infinite carousel:
+ * The first and last slides are cloned in the template.
+ * We start on the first real slide (index 1), then silently jump
+ * from a clone to its matching real slide after scrolling settles.
+ */
+let missionScrollTimer = null
+let isRepositioning = false
+
+function missionSlideWidth() {
+  return missionCarousel.value?.clientWidth || 0
+}
+
+function scrollMission(direction) {
+  const track = missionCarousel.value
+  if (!track || isRepositioning) return
+
+  track.scrollTo({
+    left: track.scrollLeft + direction * missionSlideWidth(),
+    behavior: 'smooth',
+  })
+}
+
+function handleMissionScroll() {
+  if (missionScrollTimer) window.clearTimeout(missionScrollTimer)
+
+  missionScrollTimer = window.setTimeout(() => {
+    const track = missionCarousel.value
+    if (!track || isRepositioning) return
+
+    const width = missionSlideWidth()
+    if (!width) return
+
+    const rawIndex = Math.round(track.scrollLeft / width)
+    const totalSlides = track.children.length
+
+    if (rawIndex === 0) {
+      isRepositioning = true
+      track.scrollTo({ left: width * (totalSlides - 2), behavior: 'auto' })
+      missionIndex.value = 2
+    } else if (rawIndex === totalSlides - 1) {
+      isRepositioning = true
+      track.scrollTo({ left: width, behavior: 'auto' })
+      missionIndex.value = 0
+    } else {
+      missionIndex.value = rawIndex - 1
+    }
+
+    requestAnimationFrame(() => {
+      isRepositioning = false
+    })
+  }, 120)
+}
+
+function setInitialMissionSlide() {
+  const track = missionCarousel.value
+  if (!track) return
+  track.scrollTo({ left: missionSlideWidth(), behavior: 'auto' })
+}
+
+onMounted(async () => {
+  await nextTick()
+  setInitialMissionSlide()
+  window.addEventListener('resize', setInitialMissionSlide)
+})
+
+onBeforeUnmount(() => {
+  if (missionScrollTimer) window.clearTimeout(missionScrollTimer)
+  window.removeEventListener('resize', setInitialMissionSlide)
+})
 </script>
 
 <style scoped>
@@ -297,639 +435,166 @@ import { RouterLink } from 'vue-router'
   color: var(--ink);
   font-family: inherit;
 }
-
-.us-home * {
-  box-sizing: border-box;
-}
-
-.us-home a {
-  text-decoration: none;
-}
-
-.section-pad {
-  padding: 88px max(6%, calc((100% - 1200px) / 2));
-}
-
-.eyebrow {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  line-height: 1.6;
-}
-
-.purple-text {
-  color: var(--purple);
-}
+.us-home * { box-sizing: border-box; }
+.us-home a { text-decoration: none; }
+.section-pad { padding: 88px max(6%, calc((100% - 1200px) / 2)); }
+.eyebrow { display: inline-block; font-size: 11px; font-weight: 800; letter-spacing: 2px; line-height: 1.6; }
+.purple-text { color: var(--purple); }
 
 .hero {
   min-height: 590px;
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
+  grid-template-columns: 1.05fr .95fr;
   align-items: center;
   gap: 52px;
   padding: 72px max(6%, calc((100% - 1200px) / 2)) 88px;
   overflow: hidden;
 }
-
-.hero-copy {
-  max-width: 590px;
-}
-
-.hero-copy .eyebrow {
-  color: var(--purple);
-  margin-bottom: 22px;
-}
-
-.hero h1 {
-  font-size: clamp(40px, 5vw, 66px);
-  letter-spacing: -2.5px;
-  line-height: 1.08;
-  font-weight: 800;
-  margin: 0 0 24px;
-}
-
-.hero h1 span {
-  color: var(--purple);
-  display: block;
-}
-
-.hero-description {
-  color: var(--muted);
-  font-size: 17px;
-  line-height: 1.85;
-  max-width: 530px;
-  margin-bottom: 28px;
-}
-
-.hero-actions,
-.cta-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 13px;
-}
-
-.btn {
-  min-height: 48px;
-  padding: 14px 21px;
-  border-radius: 5px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  font-size: 13px;
-  font-weight: 750;
-  transition: transform 0.2s, background 0.2s;
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-}
-
-.btn-red {
-  background: var(--red);
-  color: white;
-}
-
-.btn-red:hover {
-  background: #a91f2b;
-}
-
-.btn-outline {
-  color: var(--purple);
-  border: 1px solid #d8c8e3;
-  background: white;
-}
-
-.btn-outline:hover {
-  background: #f8f3fb;
-}
-
-.btn-white {
-  color: var(--purple-dark);
-  background: white;
-}
-
-.hero-note {
-  color: var(--muted);
-  font-size: 12px;
-  margin-top: 20px;
-  line-height: 1.6;
-}
-
-.hero-visual {
-  position: relative;
-  min-width: 0;
-  padding: 0 0 34px 20px;
-}
-
-.hero-image {
-  display: block;
-  width: 100%;
-  height: 440px;
-  object-fit: cover;
-  border-radius: 180px 180px 8px 8px;
-  position: relative;
-  z-index: 1;
-  background: #f1eaf5;
-}
-
-.purple-orb {
-  position: absolute;
-  z-index: 0;
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  background: #eee2f6;
-  right: -20px;
-  top: -30px;
-}
-
-.image-caption {
-  position: absolute;
-  z-index: 2;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  padding: 19px;
-  max-width: 330px;
-  background: white;
-  box-shadow: 0 12px 35px #27143b18;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-}
-
-.caption-mark {
-  color: var(--red);
-  font-size: 30px;
-}
-
-.image-caption strong,
-.image-caption span {
-  display: block;
-}
-
-.image-caption strong {
-  font-size: 13px;
-  margin-bottom: 4px;
-}
-
-.image-caption div span {
-  color: var(--muted);
-  font-size: 11px;
-  line-height: 1.5;
-}
-
-.mission {
-  display: grid;
-  grid-template-columns: 1fr 0.9fr;
-  gap: 80px;
-  align-items: start;
-  background: #faf8fc;
-  border-top: 1px solid #f3eef6;
-  border-bottom: 1px solid #f3eef6;
-}
-
-.mission h2,
-.section-heading h2,
-.stories h2,
-.home-cta h2 {
-  font-size: clamp(30px, 3.4vw, 44px);
-  line-height: 1.18;
-  letter-spacing: -1.2px;
-  margin: 13px 0 0;
-  font-weight: 800;
-}
-
-.mission-copy p {
-  font-size: 16px;
-  line-height: 1.9;
-  color: var(--muted);
-  margin: 0 0 22px;
-}
-
-.text-link {
-  color: var(--purple);
-  font-weight: 750;
-  font-size: 13px;
-  display: inline-flex;
-  gap: 8px;
-  align-items: center;
-}
-
-.text-link:hover {
-  color: var(--red);
-}
-
-.section-heading {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 25px;
-  margin-bottom: 35px;
-}
-
-.section-heading h2 {
-  margin-top: 10px;
-}
-
-.impact-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 25px;
-}
-
-.impact-card {
-  border: 1px solid var(--line);
-  border-radius: 7px;
-  overflow: hidden;
-  background: white;
-  transition: transform 0.25s, box-shadow 0.25s;
-}
-
-.impact-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px #29133d0d;
-}
-
-.impact-card > img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  display: block;
-  background: #f1eaf5;
-}
-
-.impact-card-body {
-  padding: 25px 23px 28px;
-}
-
-.card-number {
-  color: var(--red);
-  font-size: 10px;
-  letter-spacing: 1.5px;
-  font-weight: 800;
-}
-
-.impact-card h3 {
-  font-size: 21px;
-  line-height: 1.3;
-  margin: 13px 0 12px;
-}
-
-.impact-card p {
-  color: var(--muted);
-  line-height: 1.8;
-  font-size: 14px;
-  min-height: 100px;
-  margin-bottom: 22px;
-}
-
-.stories {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  background: var(--purple-dark);
-  color: white;
-}
-
-.stories-heading {
-  width: 100%;
-  max-width: 850px;
-  margin: 0 auto 2.5rem;
-  text-align: center;
-}
-
-.stories-heading .eyebrow {
-  color: #e8c7f8;
-}
-
-.stories h2 {
-  margin-bottom: 20px;
-}
-
-.stories-heading > p {
-  color: #e2d7e9;
-  font-size: 15px;
-  line-height: 1.9;
-  margin-bottom: 27px;
-}
-
-.stories-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1.25rem;
-  width: 100%;
-}
-
-.story-card {
-  overflow: hidden;
-  border-radius: 1.25rem;
-  background: #fff;
-  box-shadow: 0 12px 35px rgba(30, 20, 60, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.story-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 45px rgba(30, 20, 60, 0.14);
-}
-
-.story-card img {
-  display: block;
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-}
-
-.story-card-content {
-  padding: 1.5rem;
-}
-
-.story-category {
-  color: #8b2bd1;
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-}
-
-.story-card h3 {
-  margin: 0.75rem 0;
-  color: #25143b;
-  font-size: 1.25rem;
-}
-
-.story-card p {
-  color: #686273;
-  line-height: 1.7;
-}
-
-.story-link {
-  display: inline-block;
-  margin-top: 0.5rem;
-  color: #8b2bd1;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-.story-link:hover {
-  color: #d62845;
-}
-
-.story-feature {
-  position: relative;
-  min-height: 390px;
-  border-radius: 7px;
-  overflow: hidden;
-  background: #352040;
-}
-
-.story-feature > img {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  inset: 0;
-  opacity: 0.56;
-}
-
-.story-overlay {
-  position: absolute;
-  inset: 0;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: end;
-  background: linear-gradient(transparent 10%, #170c22e8 100%);
-}
-
-.story-overlay > span {
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 2px;
-  color: #f3d7ff;
-}
-
-.story-overlay h3 {
-  font-size: 27px;
-  margin: 12px 0;
-}
-
-.story-overlay p {
-  color: #eee5f2;
-  font-size: 14px;
-  line-height: 1.7;
-  max-width: 390px;
-}
-
-.story-link {
-  color: white;
-  font-size: 13px;
-  font-weight: 750;
-  margin-top: 10px;
-}
-
-.updates {
-  background: #fff;
-}
-
-.blog-intro {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-  padding: 30px;
-  border: 1px solid var(--line);
-  border-radius: 7px;
-}
-
-.blog-icon {
-  width: 60px;
-  height: 60px;
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  border-radius: 50%;
-  background: #f3eaf8;
-  color: var(--purple);
-  font-size: 30px;
-}
-
-.blog-intro > div:nth-child(2) {
-  flex: 1;
-}
-
-.blog-intro h3 {
-  margin: 0 0 8px;
-  font-size: 21px;
-}
-
-.blog-intro p {
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.8;
-  margin: 0;
-}
-
-.blog-intro .btn {
-  flex-shrink: 0;
-}
-
-.home-cta {
-  background: var(--purple);
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 40px;
-}
-
-.home-cta h2 {
-  max-width: 640px;
-}
-
-.home-cta > div:first-child > p {
-  max-width: 620px;
-  color: #eee1f5;
-  line-height: 1.8;
-  margin: 18px 0 0;
-}
-
-.home-cta .eyebrow {
-  color: #f0d8ff;
-}
-
-.cta-actions {
-  flex-shrink: 0;
-}
-
-.cta-link {
-  color: white;
-  font-size: 13px;
-  font-weight: 750;
-  padding: 12px 0;
-}
+.hero-copy { max-width: 590px; }
+.hero-copy .eyebrow { color: var(--purple); margin-bottom: 22px; }
+.hero h1 { font-size: clamp(40px, 5vw, 66px); letter-spacing: -2.5px; line-height: 1.08; font-weight: 800; margin: 0 0 24px; }
+.hero h1 span { color: var(--purple); display: block; }
+.hero-description { color: var(--muted); font-size: 17px; line-height: 1.85; max-width: 530px; margin-bottom: 28px; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 13px; }
+.hero-note { color: var(--muted); font-size: 12px; margin-top: 20px; line-height: 1.6; }
+.hero-visual { position: relative; min-width: 0; padding: 0 0 34px 20px; }
+.hero-image { display: block; width: 100%; height: 440px; object-fit: cover; border-radius: 180px 180px 8px 8px; position: relative; z-index: 1; background: #f1eaf5; }
+.purple-orb { position: absolute; z-index: 0; width: 140px; height: 140px; border-radius: 50%; background: #eee2f6; right: -20px; top: -30px; }
+.image-caption { position: absolute; z-index: 2; bottom: 0; left: 0; display: flex; align-items: center; gap: 13px; padding: 19px; max-width: 330px; background: white; box-shadow: 0 12px 35px #27143b18; border: 1px solid var(--line); border-radius: 6px; }
+.caption-mark { color: var(--red); font-size: 30px; }
+.image-caption strong, .image-caption div span { display: block; }
+.image-caption strong { font-size: 13px; margin-bottom: 4px; }
+.image-caption div span { color: var(--muted); font-size: 11px; line-height: 1.5; }
+.btn { min-height: 48px; padding: 14px 21px; border-radius: 5px; display: inline-flex; align-items: center; justify-content: center; gap: 12px; font-size: 13px; font-weight: 750; transition: transform .2s, background .2s; }
+.btn:hover { transform: translateY(-2px); }
+.btn-red { background: var(--red); color: white; }
+.btn-red:hover { background: #a91f2b; }
+.btn-outline { color: var(--purple); border: 1px solid #d8c8e3; background: white; }
+.btn-outline:hover { background: #f8f3fb; }
+.btn-white { color: var(--purple-dark); background: white; }
+
+/* Mission carousel — image left, content right */
+.mission-section { background: #faf8fc; padding: 90px 5%; overflow: hidden; }
+.mission-intro { max-width: 760px; margin: 0 auto 45px; text-align: center; }
+.mission-intro h2 { color: var(--ink); font-size: clamp(30px, 4vw, 46px); font-weight: 800; line-height: 1.2; margin: 15px 0; }
+.mission-intro p { color: var(--muted); font-size: 15px; line-height: 1.8; }
+.mission-carousel { display: flex; align-items: center; gap: 22px; width: 100%; }
+.mission-track { display: flex; width: 100%; flex: 1; min-width: 0; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
+.mission-track::-webkit-scrollbar { display: none; }
+.mission-card { display: flex; flex: 0 0 100%; width: 100%; min-width: 100%; min-height: 430px; overflow: hidden; border-radius: 14px; scroll-snap-align: start; background: #fff; border: 1px solid var(--line); box-shadow: 0 14px 38px rgba(35,12,55,.08); }
+.mission-card img { position: static; flex: 0 0 50%; width: 50%; height: auto; min-height: 430px; object-fit: cover; display: block; }
+.mission-card-content { display: flex; flex: 1; flex-direction: column; align-items: flex-start; justify-content: center; width: 50%; max-width: 650px; padding: clamp(35px, 5vw, 76px); color: var(--ink); }
+.mission-card-content > span:first-child { color: var(--red); font-size: 11px; font-weight: 800; letter-spacing: 2px; }
+.mission-card h3 { color: var(--purple-dark); font-size: clamp(30px, 3.5vw, 46px); font-weight: 800; line-height: 1.15; margin: 20px 0; }
+.mission-card p { color: var(--muted); font-size: 16px; line-height: 1.9; margin-bottom: 28px; }
+.mission-card a, .mission-card-link { display: inline-block; color: white; background: var(--red); padding: 13px 22px; border-radius: 4px; font-size: 13px; font-weight: 750; text-decoration: none; }
+.mission-card a:hover { background: var(--purple-dark); color: white; }
+.carousel-arrow { width: 46px; height: 46px; flex-shrink: 0; border: 1px solid #d8c8e3; border-radius: 50%; background: white; color: var(--purple); font-size: 18px; cursor: pointer; transition: .2s ease; z-index: 2; }
+.carousel-arrow:hover { background: var(--purple); color: white; }
+.mission-pagination { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 25px; color: var(--purple); font-size: 12px; font-weight: 800; }
+.pagination-line { width: 80px; height: 2px; background: #e3d8e9; overflow: hidden; }
+.pagination-line span { display: block; height: 100%; background: var(--red); transition: width .2s ease; }
+
+/* Our work */
+.section-heading { display: flex; align-items: end; justify-content: space-between; gap: 25px; margin-bottom: 35px; }
+.section-heading h2, .stories h2 { font-size: clamp(30px, 3.4vw, 44px); line-height: 1.18; letter-spacing: -1.2px; margin: 13px 0 0; font-weight: 800; }
+.text-link { color: var(--purple); font-weight: 750; font-size: 13px; display: inline-flex; gap: 8px; align-items: center; }
+.text-link:hover { color: var(--red); }
+.impact-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 25px; }
+.impact-card { border: 1px solid var(--line); border-radius: 7px; overflow: hidden; background: white; transition: transform .25s, box-shadow .25s; }
+.impact-card:hover { transform: translateY(-5px); box-shadow: 0 15px 35px #29133d0d; }
+.impact-card > img { width: 100%; height: 220px; object-fit: cover; display: block; background: #f1eaf5; }
+.impact-card-body { padding: 25px 23px 28px; }
+.card-number { color: var(--red); font-size: 10px; letter-spacing: 1.5px; font-weight: 800; }
+.impact-card h3 { font-size: 21px; line-height: 1.3; margin: 13px 0 12px; }
+.impact-card p { color: var(--muted); line-height: 1.8; font-size: 14px; min-height: 100px; margin-bottom: 22px; }
+
+/* Stories */
+.stories { display: flex; flex-direction: column; align-items: stretch; background: var(--purple-dark); color: white; }
+.stories-heading { width: 100%; max-width: 850px; margin: 0 auto 2.5rem; text-align: center; }
+.stories-heading .eyebrow { color: #e8c7f8; }
+.stories h2 { margin-bottom: 20px; }
+.stories-heading > p { color: #e2d7e9; font-size: 15px; line-height: 1.9; margin-bottom: 27px; }
+.stories-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.25rem; width: 100%; }
+.story-card { overflow: hidden; border-radius: 12px; background: #fff; box-shadow: 0 12px 35px rgba(30,20,60,.08); transition: transform .3s ease, box-shadow .3s ease; }
+.story-card:hover { transform: translateY(-6px); box-shadow: 0 18px 45px rgba(30,20,60,.14); }
+.story-card img { display: block; width: 100%; height: 220px; object-fit: cover; }
+.story-card-content { padding: 1.5rem; }
+.story-category { color: #8b2bd1; font-size: .75rem; font-weight: 700; letter-spacing: .12em; }
+.story-card h3 { margin: .75rem 0; color: #25143b; font-size: 1.25rem; }
+.story-card p { color: #686273; line-height: 1.7; font-size: 14px; }
+.story-link { display: inline-block; margin-top: .5rem; color: var(--purple); font-weight: 700; }
+.story-link:hover { color: var(--red); }
+
+/* Donation form */
+.home-cta { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 55px; background: var(--purple); color: white; }
+.cta-copy h2 { max-width: 560px; margin: 14px 0 20px; font-size: clamp(32px, 4vw, 48px); line-height: 1.2; font-weight: 800; letter-spacing: -1.2px; }
+.cta-copy p { max-width: 540px; color: #eee1f5; line-height: 1.9; }
+.home-cta .eyebrow { color: #f0d8ff; }
+.home-donation-form { padding: 32px; border: 1px solid #eee8f4; border-radius: 12px; background: #fff; color: var(--ink); box-shadow: 0 15px 45px rgba(20,10,35,.18); }
+.home-form-heading .eyebrow { color: var(--red); }
+.home-form-heading h3 { margin: 0 0 8px; color: var(--purple-dark); font-size: 26px; font-weight: 850; }
+.home-form-heading p { color: var(--muted); font-size: 13px; }
+.home-form-step { padding: 22px 0; border-top: 1px solid var(--line); }
+.home-field-label { display: block; margin-bottom: 11px; color: var(--ink); font-size: 13px; font-weight: 750; }
+.home-frequency { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.home-frequency button { display: flex; flex-direction: column; gap: 6px; padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: white; color: var(--ink); text-align: left; cursor: pointer; }
+.home-frequency button.active { border: 2px solid var(--purple); padding: 13px; background: #f3edfa; }
+.home-frequency small { color: var(--muted); }
+.home-amount-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; margin-bottom: 20px; }
+.home-amount-grid button { padding: 13px 5px; border: 1px solid var(--line); border-radius: 7px; background: white; color: var(--ink); font-weight: 800; cursor: pointer; }
+.home-amount-grid button.active { border-color: var(--purple); background: #f3edfa; color: var(--purple); }
+.home-custom-amount { display: flex; align-items: center; gap: 10px; padding: 0 13px; height: 48px; border: 1px solid var(--line); border-radius: 7px; }
+.home-custom-amount span { color: var(--muted); font-weight: 800; }
+.home-custom-amount input { width: 100%; height: 100%; border: 0; outline: none; color: var(--ink); background: transparent; }
+.home-designation-select { width: 100%; min-height: 46px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 7px; background: white; color: var(--ink); }
+.home-donation-summary { padding: 20px; border-radius: 8px; background: #faf8fc; }
+.summary-row { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; }
+.summary-row span { color: var(--muted); }
+.summary-row strong { color: var(--purple-dark); }
+.home-donate-submit { display: flex; width: 100%; align-items: center; justify-content: space-between; margin-top: 20px; padding: 15px 18px; border: 0; border-radius: 6px; background: var(--red); color: white; font-weight: 800; cursor: pointer; transition: background .2s ease; }
+.home-donate-submit:hover { background: #a91f2b; }
+.home-donate-submit:disabled { opacity: .55; cursor: not-allowed; }
+.home-secure-note { margin: 12px 0 0; color: var(--muted); font-size: 11px; line-height: 1.6; text-align: center; }
 
 @media (max-width: 900px) {
-  .hero {
-    grid-template-columns: 1fr 0.85fr;
-    gap: 28px;
-  }
-
-  .hero-image {
-    height: 360px;
-  }
-
-  .mission {
-    gap: 35px;
-  }
-
-  .impact-grid {
-    gap: 15px;
-  }
-
-  .impact-card-body {
-    padding: 20px 16px;
-  }
-
-  .stories-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .home-cta {
-    align-items: flex-start;
-    flex-direction: column;
-  }
+  .hero { grid-template-columns: 1fr .85fr; gap: 28px; }
+  .hero-image { height: 360px; }
+  .impact-grid { gap: 15px; }
+  .impact-card-body { padding: 20px 16px; }
+  .stories-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .home-cta { grid-template-columns: 1fr; gap: 35px; }
+  .home-donation-form { width: 100%; max-width: 650px; }
 }
-
 @media (max-width: 650px) {
-  .section-pad {
-    padding: 58px 22px;
-  }
-
-  .hero {
-    grid-template-columns: 1fr;
-    padding: 55px 22px 65px;
-    gap: 35px;
-  }
-
-  .hero h1 {
-    font-size: clamp(39px, 10vw, 54px);
-    letter-spacing: -1.7px;
-  }
-
-  .hero-description {
-    font-size: 15px;
-  }
-
-  .hero-visual {
-    padding-left: 12px;
-    margin-right: 10px;
-  }
-
-  .hero-image {
-    height: 330px;
-  }
-
-  .image-caption {
-    max-width: 290px;
-    padding: 14px;
-  }
-
-  .mission,
-  .stories {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
-  .section-heading {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .impact-grid {
-    grid-template-columns: 1fr;
-    gap: 22px;
-  }
-
-  .impact-card > img {
-    height: 235px;
-  }
-
-  .impact-card p {
-    min-height: 0;
-  }
- .story-card {
-    transition: none;
-  }
-
-  .story-card:hover {
-    transform: none;
-  }
-  .blog-intro {
-    align-items: flex-start;
-    flex-direction: column;
-    padding: 23px;
-  }
-
-  .home-cta {
-    gap: 28px;
-  }
+  .section-pad { padding: 58px 22px; }
+  .hero { grid-template-columns: 1fr; padding: 55px 22px 65px; gap: 35px; }
+  .hero h1 { font-size: clamp(39px, 10vw, 54px); letter-spacing: -1.7px; }
+  .hero-description { font-size: 15px; }
+  .hero-visual { padding-left: 12px; margin-right: 10px; }
+  .hero-image { height: 330px; }
+  .image-caption { max-width: 290px; padding: 14px; }
+  .mission-section { padding: 65px 18px; }
+  .mission-carousel { gap: 0; }
+  .mission-card { flex-direction: column; min-height: 0; }
+  .mission-card img { flex: 0 0 auto; width: 100%; height: 240px; min-height: 240px; }
+  .mission-card-content { width: 100%; max-width: none; padding: 30px 25px 35px; }
+  .mission-card h3 { font-size: 30px; margin: 14px 0; }
+  .mission-card p { font-size: 14px; }
+  .carousel-arrow { display: none; }
+  .section-heading { align-items: flex-start; flex-direction: column; }
+  .impact-grid { grid-template-columns: 1fr; gap: 22px; }
+  .impact-card > img { height: 235px; }
+  .impact-card p { min-height: 0; }
+  .stories-grid { grid-template-columns: 1fr; }
+  .story-card { transition: none; }
+  .story-card:hover { transform: none; }
+  .home-donation-form { padding: 23px 18px; }
+  .home-amount-grid { grid-template-columns: repeat(2, 1fr); }
+  .home-cta { gap: 28px; }
 }
-
 @media (prefers-reduced-motion: reduce) {
-  .impact-card,
-  .btn {
-    transition: none;
-  }
- .story-card {
-    transition: none;
-  }
-
-  .story-card:hover {
-    transform: none;
-  }
+  .impact-card, .btn, .story-card, .mission-track { transition: none; scroll-behavior: auto; }
+  .impact-card:hover, .story-card:hover, .btn:hover { transform: none; }
 }
 </style>

@@ -225,11 +225,6 @@ onMounted(async () => {
   <main class="admin-dashboard">
     <header class="dashboard-header">
       <div>
-        <div class="admin-brand">
-          <img src="/src/assets/us4africa-logo.png" alt="US4Africa logo" />
-          <span>US4Africa Administration</span>
-        </div>
-
         <h1>Fundraising Dashboard</h1>
         <p class="subtitle">
           Donor activity, fundraising performance and campaign insights
@@ -237,7 +232,7 @@ onMounted(async () => {
       </div>
 
       <button class="nav-button" @click="router.push('/admin/donors')">
-        👥 Manage Donors
+        Manage Donors
       </button>
     </header>
 

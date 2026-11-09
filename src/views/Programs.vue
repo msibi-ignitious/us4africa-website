@@ -39,14 +39,14 @@
           <p>Practical ways we serve, support, and walk alongside communities.</p>
         </div>
 
-        <article class="initiative-row">
+        <section id="youth-ministry" class="initiative-row" >
           <div class="initiative-image">
             <img src="/src/assets/youth.jpg" alt="Young people gathered for a group activity" loading="lazy" />
-            <span class="image-tag">01 / YOUTH</span>
+            <span class="image-tag">YOUTH MINISTRY</span>
           </div>
           <div class="initiative-content">
-            <span class="initiative-kicker">DISCIPLESHIP · LEADERSHIP · PURPOSE</span>
-            <h3>D.O.Gs Fellowship</h3>
+            <span class="initiative-kicker">DISCIPLESHIP · RELATIONSHIPS · PURPOSE</span>
+            <h3>Youth Discipleship & Mentorship</h3>
             <p class="initiative-lead">Helping young people grow in faith and lead with character.</p>
             <p>
               Discipleship of God (D.O.Gs), a youth discipleship initiative under The Leadership
@@ -60,12 +60,12 @@
             </ul>
             <RouterLink to="/contact" class="text-link">Connect with us about D.O.Gs <span aria-hidden="true">↗</span></RouterLink>
           </div>
-        </article>
+        </section>
 
-        <article class="initiative-row initiative-row-reverse">
+        <section id="children-ministry" class="initiative-row initiative-row-reverse" >
           <div class="initiative-image">
             <img src="/src/assets/children.jpg" alt="Children spending time together outdoors" loading="lazy" />
-            <span class="image-tag">02 / CHILDREN</span>
+            <span class="image-tag">CHILDREN MINISTRY</span>
           </div>
           <div class="initiative-content">
             <span class="initiative-kicker">CARE · LEARNING · BELONGING</span>
@@ -83,16 +83,16 @@
             </ul>
             <RouterLink to="/contact" class="text-link">Connect with us about KCP <span aria-hidden="true">↗</span></RouterLink>
           </div>
-        </article>
+        </section>
 
-        <article class="initiative-row">
+        <section id="ministry-empowerment" class="initiative-row">
           <div class="initiative-image">
             <img src="/src/assets/people.jpg" alt="Ministry and community partners collaborating around a table" loading="lazy" />
             <span class="image-tag">03 / MINISTRIES</span>
           </div>
           <div class="initiative-content">
             <span class="initiative-kicker">RESOURCES · TRAINING · PARTNERSHIP</span>
-            <h3>Ministry Empowerment</h3>
+            <h3>Leadership & Ministry Empowerment</h3>
             <p class="initiative-lead">Walking alongside ministries so they can serve their communities well.</p>
             <p>
               We seek to strengthen African ministries by helping connect them with resources,
@@ -106,7 +106,7 @@
             </ul>
             <RouterLink to="/get-involved" class="text-link">Explore ministry partnerships <span aria-hidden="true">↗</span></RouterLink>
           </div>
-        </article>
+        </section>
       </div>
     </section>
 

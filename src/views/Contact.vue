@@ -13,85 +13,13 @@
           We're here to assist you and answer any questions
           you may have.
         </p>
-
-        <a href="#get-in-touch" class="gold-button">
-          Contact Our Team <span aria-hidden="true">→</span>
-        </a>
       </div>
 
       <div class="hero-decoration" aria-hidden="true"></div>
     </section>
 
-    <!-- FAQ -->
-    <section id="faqs" class="faq-section">
-      <div class="section-heading">
-        <span class="eyebrow">HOW CAN WE HELP?</span>
-        <h2>Frequently Asked Questions</h2>
-        <p>
-          Find answers to the most common inquiries about our
-          mission and operations.
-        </p>
-      </div>
-
-      <div class="faq-layout">
-        <div class="faq-intro">
-          <div class="faq-icon" aria-hidden="true">?</div>
-          <h3>Have Questions?</h3>
-          <p>
-            Learn more about our work, how your contributions
-            make a difference, and the many ways you can
-            support ministries across Africa.
-          </p>
-
-          <a href="#get-in-touch" class="text-link">
-            Still need help? Contact us
-            <span aria-hidden="true">→</span>
-          </a>
-        </div>
-
-        <div class="faq-list">
-          <article
-            v-for="(faq, index) in faqs"
-            :key="faq.question"
-            class="faq-item"
-            :class="{ 'is-open': openFaq === index }"
-          >
-            <button
-              class="faq-question"
-              type="button"
-              :aria-expanded="openFaq === index"
-              :aria-controls="`faq-answer-${index}`"
-              @click="toggleFaq(index)"
-            >
-              <span>{{ faq.question }}</span>
-              <span class="faq-toggle" aria-hidden="true">
-                {{ openFaq === index ? '−' : '+' }}
-              </span>
-            </button>
-
-            <div
-              v-if="openFaq === index"
-              :id="`faq-answer-${index}`"
-              class="faq-answer"
-            >
-              <p>{{ faq.answer }}</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <!-- GET IN TOUCH -->
     <section id="get-in-touch" class="get-in-touch-section">
-      <div class="section-heading">
-        <span class="eyebrow">LET'S CONNECT</span>
-        <h2>Get In Touch</h2>
-        <p>
-          Please reach out to our mission today for any
-          questions or support.
-        </p>
-      </div>
-
       <div class="contact-grid">
         <!-- CONTACT INFORMATION -->
         <div class="contact-information">
@@ -261,6 +189,65 @@
       </div>
     </section>
 
+    <!-- FAQ -->
+    <section id="faqs" class="faq-section">
+      <div class="section-heading">
+        <span class="eyebrow">HOW CAN WE HELP?</span>
+        <h2>Frequently Asked Questions</h2>
+        <p>
+          Find answers to the most common inquiries about our
+          mission and operations.
+        </p>
+      </div>
+
+      <div class="faq-layout">
+        <div class="faq-intro">
+          <div class="faq-icon" aria-hidden="true">?</div>
+          <h3>Have Questions?</h3>
+          <p>
+            Learn more about our work, how your contributions
+            make a difference, and the many ways you can
+            support ministries across Africa.
+          </p>
+
+          <a href="#get-in-touch" class="text-link">
+            Still need help? Contact us
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
+
+        <div class="faq-list">
+          <article
+            v-for="(faq, index) in faqs"
+            :key="faq.question"
+            class="faq-item"
+            :class="{ 'is-open': openFaq === index }"
+          >
+            <button
+              class="faq-question"
+              type="button"
+              :aria-expanded="openFaq === index"
+              :aria-controls="`faq-answer-${index}`"
+              @click="toggleFaq(index)"
+            >
+              <span>{{ faq.question }}</span>
+              <span class="faq-toggle" aria-hidden="true">
+                {{ openFaq === index ? '−' : '+' }}
+              </span>
+            </button>
+
+            <div
+              v-if="openFaq === index"
+              :id="`faq-answer-${index}`"
+              class="faq-answer"
+            >
+              <p>{{ faq.answer }}</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- FINAL CTA -->
     <section class="contact-cta">
       <span class="eyebrow">LET'S MAKE A DIFFERENCE</span>
@@ -268,10 +255,9 @@
       <p>
         Your time, generosity, and partnership can help
         transform lives across Africa.
-      </p>
-      <a href="/get-involved" class="gold-button">
-        Get Involved <span aria-hidden="true">→</span>
-      </a>
+      </p><RouterLink to="/get-involved" class="gold-button">
+        Get Involved 
+      </RouterLink>
     </section>
 
   </main>

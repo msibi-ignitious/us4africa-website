@@ -18,20 +18,20 @@ function logout() {
       <img src="/src/assets/us4africa-logo.png" alt="US4Africa logo" />
       <div>
         <strong>US4Africa</strong>
-        <span>Administration Portal</span>
+        <span>Admin Portal</span>
       </div>
     </div>
 
     <nav class="nav-links">
       <RouterLink to="/admin/dashboard">
-        <span>▦</span> Dashboard
+        Dashboard
       </RouterLink>
 
       <RouterLink to="/admin/donors">
-        <span>♙</span> Donors
+        Donors
       </RouterLink>
       <RouterLink to="/admin/donations">
-        <span>♡</span> Donations
+        Donations
       </RouterLink>
     </nav>
 

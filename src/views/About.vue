@@ -6,28 +6,28 @@ const journey = [
     date: "Our Foundation",
     description:
       "US4Africa was established with a vision to empower African ministries through support, service and meaningful partnerships.",
-    image: "/about.jpg",
+    image: "/src/assets/mentorship.jpg",
   },
   {
     title: "Serving Through Leadership",
     date: "December 2025",
     description:
       "Leadership development and servant-hearted service reflect our commitment to equipping people to make a lasting difference.",
-    image: "/leader.jpg",
+    image: "/src/assets/slt.jpg",
   },
   {
     title: "Growing Through Partnership",
     date: "Our Ongoing Journey",
     description:
       "We believe local ministries are essential to community transformation. We seek to connect people, resources and organisations around shared goals.",
-    image: "/leader.jpg",
+    image: "/src/assets/youth.jpg",
   },
   {
     title: "Building a Hopeful Future",
     date: "Looking Ahead",
     description:
       "We continue working towards a future where ministries have greater access to the resources and support they need to serve their communities.",
-    image: "/about.jpg",
+    image: "/src/assets/slt.jpg",
   },
 ];
 
@@ -81,25 +81,30 @@ const team = [
     image: "/download.png",
   },
 ];
-
 const partners = [
   {
     number: "01",
     title: "Local Ministries",
     description:
-      "Supporting ministry-led work that responds to the needs of local communities.",
+      "US4Africa collaborates with numerous local churches across Africa, providing them with the resources and support they need to reach their communities. These partnerships are essential for fostering spiritual growth and community development, as local churches are often at the heart of their communities, addressing both spiritual and practical needs.",
+    image: "/src/assets/ithemba.jpg",
+    buttonText: "View Partners",
   },
   {
     number: "02",
-    title: "Community Organisations",
+    title: "Non-Profit Organisations",
     description:
-      "Encouraging collaboration with organisations that share a commitment to serving people.",
+      "We are proud to partner with a variety of non-profit organisations that share our mission of empowering African ministries. These collaborations allow us to combine resources, expertise and networks to enhance the effectiveness of our collective efforts in ministry and outreach.",
+    image: "/src/assets/v4all.jpg",
+    buttonText: "Explore Collaborations",
   },
   {
     number: "03",
-    title: "Supporters and Sponsors",
+    title: "Corporate Sponsors",
     description:
-      "Connecting generous individuals and businesses with opportunities to make a difference.",
+      "Corporate sponsors play a vital role in supporting our mission at US4Africa. Their contributions provide financial assistance and help raise awareness about the challenges faced by communities in Africa, enabling us to reach even more people in need. Through these partnerships, we create sustainable impact and foster long-term growth for the ministries we support.",
+    image: "/src/assets/corporate-sponsors.jpg",
+    buttonText: "See Sponsors",
   },
 ];
 </script>
@@ -130,15 +135,12 @@ const partners = [
           <RouterLink to="/donate" class="button button-red">
             Support Our Mission
           </RouterLink>
-
-          <a href="#our-story" class="button button-outline">
-            Discover Our Story
-          </a>
         </div>
 
         <div class="hero-caption">
           <span class="caption-line"></span>
           <span>Faith in action. Service with purpose.</span>
+          <span class="caption-line"></span>          
         </div>
       </div>
 
@@ -168,7 +170,7 @@ const partners = [
           </p>
 
           <RouterLink to="/programs" class="text-link">
-            Explore Our Works <span aria-hidden="true">→</span>
+            Explore Our Works
           </RouterLink>
         </div>
       </div>
@@ -226,16 +228,12 @@ const partners = [
           </p>
         </div>
 
-        <div class="journey-list">
+        <div class="journey-grid">
           <article
             v-for="(item, index) in journey"
             :key="item.title"
-            class="journey-item"
+            class="journey-card"
           >
-            <div class="journey-marker">
-              <span>{{ String(index + 1).padStart(2, "0") }}</span>
-            </div>
-
             <div class="journey-image-wrap">
               <img
                 :src="item.image"
@@ -243,6 +241,10 @@ const partners = [
                 class="journey-image"
                 loading="lazy"
               />
+
+              <span class="journey-number">
+                {{ String(index + 1).padStart(2, "0") }}
+              </span>
             </div>
 
             <div class="journey-content">
@@ -319,7 +321,7 @@ const partners = [
       </div>
     </section>    
 <!-- PARTNERSHIPS -->
-  <section class="partners-section section-space">
+  <section id="partners" class="partners-section section-space">
     <div class="content-container">
       <div class="section-heading">
         <span class="eyebrow">STRONGER TOGETHER</span>
@@ -330,32 +332,44 @@ const partners = [
         </p>
       </div>
 
-      <div class="partners-list">
-        <article
-          v-for="partner in partners"
-          :key="partner.number"
-          class="partner-row"
-        >
-          <div class="partner-text">
-            <span class="partner-number">{{ partner.number }}</span>
-            <h3>{{ partner.title }}</h3>
-            <p>{{ partner.description }}</p>
+       <div class="partners-grid">
+      <article
+        v-for="partner in partners"
+        :key="partner.number"
+        class="partner-card"
+      >
+        <h3 class="partner-title">
+          {{ partner.title }}
+        </h3>
 
-            <RouterLink to="/get-involved" class="partner-link">
-              Partner With Us
-              <span aria-hidden="true">→</span>
-            </RouterLink>
-          </div>
-
+        <div class="partner-card-content">
           <div class="partner-image-wrap">
             <img
+              :src="partner.image"
+              :alt="partner.title"
               class="partner-image"
               loading="lazy"
             />
           </div>
-        </article>
-      </div>
 
+          <div class="partner-info">
+            <span class="partner-number">
+              {{ partner.number }}
+            </span>
+
+            <p>{{ partner.description }}</p>
+
+            <RouterLink
+              to="/get-involved"
+              class="partner-button"
+            >
+              {{ partner.buttonText }}
+              <span aria-hidden="true">→</span>
+            </RouterLink>
+          </div>
+        </div>
+      </article>
+    </div>
       <div class="partners-link-wrap">
         <RouterLink to="/get-involved" class="text-link">
           Discover How to Get Involved
@@ -765,85 +779,122 @@ const partners = [
 }
 
 /* JOURNEY */
-.journey-list {
-  max-width: 960px;
-  margin: 0 auto;
+.story-section {
+  background: #faf8fc;
 }
 
-.journey-item {
+.journey-grid {
   display: grid;
-  grid-template-columns: 54px minmax(180px, 0.8fr) 1.2fr;
-  align-items: center;
-  gap: 28px;
-  padding: 30px 0;
-  border-bottom: 1px solid var(--line);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px;
+  align-items: stretch;
 }
 
-.journey-item:first-child {
-  padding-top: 0;
-}
-
-.journey-marker {
-  align-self: stretch;
+.journey-card {
   display: flex;
-  justify-content: center;
-  padding-top: 10px;
-  border-right: 1px solid #e8dced;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(53, 16, 82, 0.04);
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-.journey-marker span {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  color: var(--purple);
-  background: var(--purple-light);
-  font-size: 0.78rem;
-  font-weight: 800;
+.journey-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 32px rgba(53, 16, 82, 0.11);
 }
 
 .journey-image-wrap {
+  position: relative;
   overflow: hidden;
-  border-radius: 8px;
-  background: #f2edf5;
+  height: 210px;
+  background: var(--purple-light);
 }
 
 .journey-image {
   display: block;
   width: 100%;
-  height: 185px;
+  height: 100%;
   object-fit: cover;
-  transition: transform 0.4s ease;
+  transition: transform 0.45s ease;
 }
 
-.journey-item:hover .journey-image {
-  transform: scale(1.035);
+.journey-card:hover .journey-image {
+  transform: scale(1.06);
+}
+
+.journey-number {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: var(--white);
+  background: var(--purple);
+  font-size: 0.85rem;
+  font-weight: 800;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+.journey-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 25px 22px 28px;
 }
 
 .journey-date {
   color: var(--red);
-  font-size: 0.77rem;
+  font-size: 0.76rem;
   font-weight: 800;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .journey-content h3 {
-  margin: 9px 0;
+  margin: 12px 0;
   color: var(--purple-dark);
-  font-size: 1.35rem;
-  font-weight: 750;
-  line-height: 1.35;
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1.4;
 }
 
 .journey-content p {
   margin: 0;
   color: var(--muted);
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   line-height: 1.8;
 }
 
+/* JOURNEY RESPONSIVE */
+@media (max-width: 991.98px) {
+  .journey-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .journey-grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .journey-image-wrap {
+    height: 230px;
+  }
+
+  .journey-content {
+    padding: 23px;
+  }
+}
 /* VALUES */
 .values-section {
   background: var(--purple-dark);
@@ -1022,6 +1073,163 @@ const partners = [
 .partners-link-wrap {
   margin-top: 32px;
   text-align: center;
+}
+
+.partnerships-section {
+  padding: 100px 0;
+  background: #f8f7fb;
+}
+
+.section-heading {
+  max-width: 720px;
+  margin: 0 auto 55px;
+  text-align: center;
+}
+
+.section-eyebrow {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: #7b2cbf;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.section-heading h2 {
+  margin-bottom: 18px;
+  color: #24113b;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+}
+
+.section-heading p {
+  color: #666;
+  line-height: 1.8;
+}
+
+.partners-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+.partner-card {
+  overflow: hidden;
+  padding: 28px;
+  background: #fff;
+  border: 1px solid #eee8f4;
+  border-radius: 18px;
+  box-shadow: 0 8px 30px rgba(40, 15, 65, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.partner-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 38px rgba(40, 15, 65, 0.11);
+}
+
+.partner-title {
+  margin-bottom: 22px;
+  color: #35145b;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.partner-card-content {
+  display: grid;
+  grid-template-columns: 38% 1fr;
+  gap: 30px;
+  align-items: center;
+}
+
+.partner-image-wrap {
+  overflow: hidden;
+  min-height: 260px;
+  height: 100%;
+  border-radius: 12px;
+}
+
+.partner-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.partner-card:hover .partner-image {
+  transform: scale(1.05);
+}
+
+.partner-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.partner-number {
+  margin-bottom: 12px;
+  color: #d62839;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.partner-info p {
+  margin-bottom: 24px;
+  color: #62606a;
+  font-size: 0.98rem;
+  line-height: 1.85;
+}
+
+.partner-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 22px;
+  color: #fff;
+  background: #6b2ca3;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background 0.25s ease, gap 0.25s ease;
+}
+
+.partner-button:hover {
+  gap: 18px;
+  color: #fff;
+  background: #d62839;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .partnerships-section {
+    padding: 65px 18px;
+  }
+
+  .partner-card {
+    padding: 20px;
+  }
+
+  .partner-card-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .partner-image-wrap,
+  .partner-image {
+    min-height: 220px;
+    max-height: 260px;
+  }
+
+  .partner-title {
+    font-size: 1.3rem;
+  }
 }
 
 /* FINAL CALL TO ACTION */

@@ -53,12 +53,47 @@ const routes = [
     name: "admin-donations",
     component: () => import("../views/admin/AdminDonations.vue"),
     meta: { requiresAdmin: true },
-  },
+  },{
+  path: "/blog",
+  name: "blog",
+  component: () => import("../views/Blog.vue"),
+},
+{
+  path: "/blog/:slug",
+  name: "blog-post",
+  component: () => import("../views/BlogPost.vue"),
+},
 ];
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes,
+
+  scrollBehavior(to) {
+    if (to.hash) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          const element = document.querySelector(to.hash);
+
+          if (element) {
+            const headerOffset = 100; // Adjust to your navbar height
+
+            const elementPosition =
+              element.getBoundingClientRect().top + window.scrollY;
+
+            resolve({
+              top: elementPosition - headerOffset,
+              behavior: "smooth",
+            });
+          } else {
+            resolve({ top: 0 });
+          }
+        }, 100);
+      });
+    }
+
+    return { top: 0, behavior: "smooth" };
+  },
 });
 
 router.beforeEach((to) => {
@@ -72,6 +107,7 @@ router.beforeEach((to) => {
     return "/admin/dashboard";
   }
 });
+
 
 
 export default router;

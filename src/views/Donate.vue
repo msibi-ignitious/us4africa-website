@@ -202,9 +202,23 @@ function getGiftFromQuery() {
 }
 
 watch(
-  () => [route.query.amount, route.query.type],
+  () => [
+    route.query.amount,
+    route.query.type,
+    route.query.designation,
+    route.query.dedication,
+  ],
   () => {
-    selectAmount(getGiftFromQuery())
+    const amount = getGiftFromQuery()
+    selectAmount(amount)
+
+    const requestedDesignation = String(route.query.designation || '')
+
+    if (designations.some(item => item.value === requestedDesignation)) {
+      designation.value = requestedDesignation
+    }
+
+    dedicationEnabled.value = route.query.dedication === '1'
   },
   { immediate: true },
 )
@@ -231,11 +245,6 @@ const paymentReady = false
           and helps create opportunities for a brighter future.
         </p>
 
-        <a href="#donation-form" class="primary-button">
-          Make a Donation
-          <span>↓</span>
-        </a>
-
         <div class="hero-trust">
           <span>Meaningful partnerships</span>
           <span class="trust-dot"></span>
@@ -247,7 +256,7 @@ const paymentReady = false
       <div class="hero-decoration decoration-two"></div>
     </section>
 
-    <!-- INTRODUCTION -->
+    <!-- INTRODUCTION
     <section class="intro-section">
       <span class="eyebrow">YOUR GENEROSITY MATTERS</span>
 
@@ -259,7 +268,7 @@ const paymentReady = false
         possible.
       </p>
     </section>
-
+     -->
     <!-- DONATION FORM -->
     <section id="donation-form" class="donation-section">
       <div class="donation-layout">
@@ -339,68 +348,31 @@ const paymentReady = false
           </div>
 
           <!-- DESIGNATION -->
-          <div class="form-step">
-            <div class="designation-list">
-              <label
-                v-for="item in designations"
-                :key="item.value"
-                class="designation-option"
-                :class="{ active: designation === item.value }"
-              >
-                <input
-                  v-model="designation"
-                  type="radio"
-                  name="designation"
-                  :value="item.value"
-                />
+<!-- DESIGNATION -->
+<div class="form-step">
+  <label for="designation" class="designation-label">
+    Choose where your donation goes
+  </label>
 
-                <span class="custom-radio"></span>
+  <select
+    id="designation"
+    v-model="designation"
+    class="designation-dropdown"
+    name="designation"
+  >
+    <option
+      v-for="item in designations"
+      :key="item.value"
+      :value="item.value"
+    >
+      {{ item.label }}
+    </option>
+  </select>
 
-                <span class="designation-content">
-                  <strong>{{ item.label }}</strong>
-                  <small>{{ item.description }}</small>
-                </span>
-              </label>
-            </div>
-          </div>
-
-          <!-- DEDICATION -->
-          <div class="form-step dedication-step">
-            <label class="dedication-toggle">
-              <input v-model="dedicationEnabled" type="checkbox" />
-
-              <span class="custom-checkbox"></span>
-
-              <span>
-                <strong>Dedicate this gift</strong>
-                <small>
-                  Make your contribution in honour or memory of someone.
-                </small>
-              </span>
-            </label>
-
-            <div v-if="dedicationEnabled" class="dedication-fields">
-              <div class="field-group">
-                <label for="recipient-name">Recipient's name</label>
-                <input
-                  id="recipient-name"
-                  v-model="dedication.recipientName"
-                  type="text"
-                  placeholder="Enter recipient's name"
-                />
-              </div>
-
-              <div class="field-group">
-                <label for="dedication-message">Optional message</label>
-                <textarea
-                  id="dedication-message"
-                  v-model="dedication.message"
-                  rows="3"
-                  placeholder="Write a short dedication message..."
-                ></textarea>
-              </div>
-            </div>
-          </div>
+  <small class="designation-description">
+    {{ designations.find(item => item.value === designation)?.description }}
+  </small>
+</div>
 
           <!-- DONOR DETAILS -->
           <div class="form-step">
@@ -481,6 +453,45 @@ const paymentReady = false
 
             <p class="required-note">* Required fields</p>
           </div>
+
+          <!-- DEDICATION -->
+          <div class="form-step dedication-step">
+            <label class="dedication-toggle">
+              <input v-model="dedicationEnabled" type="checkbox" />
+
+              <span class="custom-checkbox"></span>
+
+              <span>
+                <strong>Dedicate this gift</strong>
+                <small>
+                  Make your contribution in honour or memory of someone.
+                </small>
+              </span>
+            </label>
+
+            <div v-if="dedicationEnabled" class="dedication-fields">
+              <div class="field-group">
+                <label for="recipient-name">Recipient's name</label>
+                <input
+                  id="recipient-name"
+                  v-model="dedication.recipientName"
+                  type="text"
+                  placeholder="Enter recipient's name"
+                />
+              </div>
+
+              <div class="field-group">
+                <label for="dedication-message">Optional message</label>
+                <textarea
+                  id="dedication-message"
+                  v-model="dedication.message"
+                  rows="3"
+                  placeholder="Write a short dedication message..."
+                ></textarea>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         <!-- DONATION SUMMARY -->
@@ -547,52 +558,6 @@ const paymentReady = false
         </aside>
       </div>
     </section>
-
-    <!-- CORPORATE SPONSORSHIP -->
-    <section class="sponsorship-section">
-      <div class="section-heading">
-        <span class="eyebrow">PARTNER WITH US</span>
-        <h2>Corporate Sponsorship</h2>
-        <p>
-          Businesses can become partners in our mission and help us extend
-          our reach through meaningful support.
-        </p>
-      </div>
-
-      <div class="sponsorship-grid">
-        <article
-          v-for="tier in sponsorships"
-          :key="tier.id"
-          class="sponsorship-card"
-          :class="{ featured: tier.id === 'silver' }"
-        >
-          <span class="tier-label">{{ tier.name }} PARTNER</span>
-          <h3>{{ tier.name }} Sponsorship</h3>
-
-          <div class="tier-amount">
-            ${{ tier.amount.toLocaleString('en-US') }}
-          </div>
-
-          <p class="tier-frequency">One-time contribution</p>
-
-          <ul>
-            <li v-for="benefit in tier.benefits" :key="benefit">
-              <span>✓</span>
-              {{ benefit }}
-            </li>
-          </ul>
-
-          <button
-            type="button"
-            :class="tier.id === 'silver' ? 'primary-button' : 'outline-button'"
-            @click="selectSponsorship(tier.amount)"
-          >
-            Select {{ tier.name }}
-          </button>
-        </article>
-      </div>
-    </section>
-
     <!-- CLOSING CTA -->
     <section class="donate-cta">
       <span class="eyebrow">THANK YOU FOR GIVING</span>
@@ -601,10 +566,6 @@ const paymentReady = false
         Your generosity helps strengthen ministries, empower people and
         support lasting transformation.
       </p>
-      <a href="#donation-form" class="primary-button">
-        Make Your Gift
-        <span>↑</span>
-      </a>
     </section>
   </main>
 </template>
@@ -644,10 +605,10 @@ const paymentReady = false
 .donate-hero {
   position: relative;
   display: flex;
-  min-height: 510px;
+  min-height: 250px;
   align-items: center;
   overflow: hidden;
-  padding: 90px 9%;
+  padding: 100px 9%;
   color: #fff;
   background:
     linear-gradient(100deg, rgba(45, 18, 77, .96), rgba(73, 29, 112, .84)),
@@ -1105,6 +1066,39 @@ const paymentReady = false
   border-radius: 5px;
   background: #fff;
 }
+.designation-label {
+  display: block;
+  margin-bottom: 10px;
+  color: #35145e;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.designation-dropdown {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  color: #35145e;
+  font-size: 0.95rem;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.designation-dropdown:focus {
+  border-color: #54258a;
+  box-shadow: 0 0 0 3px rgba(84, 37, 138, 0.12);
+}
+
+.designation-description {
+  display: block;
+  margin-top: 8px;
+  color: #777;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
 
 .dedication-toggle input:checked + .custom-checkbox {
   border-color: var(--purple);
@@ -1426,6 +1420,7 @@ const paymentReady = false
 }
 
 .donate-cta {
+  max-height: 400px;
   padding: 85px 7%;
   color: #fff;
   background:

@@ -1,36 +1,40 @@
 
 <script setup lang="ts">
+import mentorshipImage from '../assets/mentorship.jpg'
+import sltImage from '../assets/slt.jpg'
+import youthImage from '../assets/youth.jpg'
+import ithembaImage from '../assets/ithemba.jpg'
+import v4allImage from '../assets/v4all.jpg'
 const journey = [
   {
     title: "The Visionary Beginning",
     date: "Our Foundation",
     description:
       "US4Africa was established with a vision to empower African ministries through support, service and meaningful partnerships.",
-    image: "/src/assets/mentorship.jpg",
+    image: mentorshipImage,
   },
   {
     title: "Serving Through Leadership",
     date: "December 2025",
     description:
       "Leadership development and servant-hearted service reflect our commitment to equipping people to make a lasting difference.",
-    image: "/src/assets/slt.jpg",
+    image: sltImage,
   },
   {
     title: "Growing Through Partnership",
     date: "Our Ongoing Journey",
     description:
       "We believe local ministries are essential to community transformation. We seek to connect people, resources and organisations around shared goals.",
-    image: "/src/assets/youth.jpg",
+    image: youthImage,
   },
   {
     title: "Building a Hopeful Future",
     date: "Looking Ahead",
     description:
       "We continue working towards a future where ministries have greater access to the resources and support they need to serve their communities.",
-    image: "/src/assets/slt.jpg",
+    image: sltImage,
   },
-];
-
+]
 const values = [
   {
     number: "01",
@@ -81,13 +85,14 @@ const team = [
     image: "/download.png",
   },
 ];
+
 const partners = [
   {
     number: "01",
     title: "Local Ministries",
     description:
       "US4Africa collaborates with numerous local churches across Africa, providing them with the resources and support they need to reach their communities. These partnerships are essential for fostering spiritual growth and community development, as local churches are often at the heart of their communities, addressing both spiritual and practical needs.",
-    image: "/src/assets/ithemba.jpg",
+    image: ithembaImage,
     buttonText: "View Partners",
   },
   {
@@ -95,10 +100,10 @@ const partners = [
     title: "Non-Profit Organisations",
     description:
       "We are proud to partner with a variety of non-profit organisations that share our mission of empowering African ministries. These collaborations allow us to combine resources, expertise and networks to enhance the effectiveness of our collective efforts in ministry and outreach.",
-    image: "/src/assets/v4all.jpg",
+    image: v4allImage,
     buttonText: "Explore Collaborations",
   },
-];
+]
 </script>
 
 <template>

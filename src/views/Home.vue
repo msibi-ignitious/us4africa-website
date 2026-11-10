@@ -10,7 +10,13 @@
           and help people experience lasting transformation through faith and service.
         </p>
         <div class="hero-actions">
-          <RouterLink to="/donate" class="btn btn-red">Give Today <span aria-hidden="true">↗</span></RouterLink>
+          <button
+            type="button"
+            class="btn btn-red"
+            @click="openDonationModal"
+          >
+            Give Today
+          </button>
           <RouterLink to="/programs" class="btn btn-outline">Explore Our Work</RouterLink>
         </div>
         <p class="hero-note">Your generosity helps local ministries serve their communities.</p>
@@ -129,30 +135,24 @@
         <article class="impact-card">
           <img src="/src/assets/youth.jpg" alt="Youth ministry and discipleship" loading="lazy" />
           <div class="impact-card-body">
-            <span class="card-number">YOUTH MINISTRY</span>
-            <h3>Growing the next generation</h3>
-            <p>Supporting youth discipleship, spiritual growth and the development of young leaders through our partners.</p>
-            <RouterLink to="/programs#youth-ministry" class="text-link">Youth Ministry</RouterLink>
+            <h3>Empowerment Through Resources</h3>
+            <p>We aim to empower ministries by providing essential resources, including training, materials, and financial support, enabling them to effectively reach and serve their communities. We believe that sustainable transformation occurs when local ministries are equipped with the tools, knowledge, and support they need to fulfill their calling and multiply their impact.</p>
           </div>
         </article>
 
         <article class="impact-card">
           <img src="/src/assets/children.jpg" alt="Children's outreach and learning" loading="lazy" />
           <div class="impact-card-body">
-            <span class="card-number">CHILDREN MINISTRY</span>
-            <h3>Helping children flourish</h3>
-            <p>Supporting caring environments where children can learn, grow, build relationships and explore their potential.</p>
-            <RouterLink to="/programs#children-ministry" class="text-link">Children's Ministry</RouterLink>
+            <h3>Community Transformation</h3>
+            <p>Our mission goes beyond spiritual guidance: we focus on holistic community transformation addressing educational and socio-economic barriers while also engaging issues of worldview and mindset. Many communities face limiting beliefs that affect how they see opportunity, responsibility, and their own potential. Through teaching, mentoring, and practical development initiatives, we help cultivate new ways of thinking that promote dignity, resilience, and hope. We create pathways for individuals and communities to grow, overcome challenges, and build a sustainable future.</p>
           </div>
         </article>
 
         <article class="impact-card">
           <img src="/src/assets/slt.jpg" alt="Ministry leadership and community development" loading="lazy" />
           <div class="impact-card-body">
-            <span class="card-number">LEADERSHIP DEVELOPMENT</span>
-            <h3>Equipping local leaders</h3>
-            <p>Helping ministries access resources, encouragement and partnerships that strengthen their community work.</p>
-            <RouterLink to="/programs#ministry-empowerment" class="text-link">SLT</RouterLink>
+            <h3>Sustainable Impact</h3>
+            <p>We pursue sustainable impact by building long-term, trust-based partnerships with local ministries. Rather than offering quick, short-lived interventions, we walk alongside leaders over time—helping them strengthen their capacity, refine their vision, and grow their influence in their own communities. This ongoing collaboration ensures that every resource, training effort, and project investment contributes to lasting change, continued growth, and ministries that can stand strong long after external support has ended.</p>
           </div>
         </article>
       </div>
@@ -164,7 +164,9 @@
         <span class="eyebrow">BEHIND THE IMPACT</span>
         <h2>Transformative Impact — Real Stories, Real Change</h2>
         <p>Discover how faith, partnership and service are making a difference in the lives of people and communities.</p>
-        <RouterLink to="/stories" class="btn btn-white">Read impact stories →</RouterLink>
+        <RouterLink to="/blog" class="btn btn-white">
+          Explore all stories →
+        </RouterLink>
       </div>
 
       <div class="stories-grid">
@@ -174,7 +176,7 @@
             <span class="story-category">LEADERSHIP DEVELOPMENT</span>
             <h3>A Student’s Journey</h3>
             <p>A story of perseverance, opportunity and the hope that education can bring.</p>
-            <RouterLink to="/stories" class="story-link">Read the story ↗</RouterLink>
+            <RouterLink to="/blog/a-students-journey" class="story-link">Read the story ↗</RouterLink>
           </div>
         </article>
 
@@ -184,17 +186,17 @@
             <span class="story-category">CHILDREN</span>
             <h3>Hope for the Children</h3>
             <p>Creating spaces where children can learn, grow and experience care and encouragement.</p>
-            <RouterLink to="/stories" class="story-link">Read the story ↗</RouterLink>
+            <RouterLink to="/blog/hope-for-the-children" class="story-link">Read the story ↗</RouterLink>
           </div>
         </article>
 
         <article class="story-card">
           <img src="/src/assets/mentorship.jpg" alt="A mentor encouraging a young person" loading="lazy" />
           <div class="story-card-content">
-            <span class="story-category">MENTORSHIP</span>
+            <span class="story-category">YOUTH</span>
             <h3>Growing Through Mentorship</h3>
             <p>Discover the impact of guidance, discipleship and relationships that help people grow.</p>
-            <RouterLink to="/stories" class="story-link">Read the story ↗</RouterLink>
+            <RouterLink to="/blog/growing-through-mentorship" class="story-link">Read the story ↗</RouterLink>
           </div>
         </article>
 
@@ -204,7 +206,7 @@
             <span class="story-category">COMMUNITY</span>
             <h3>Stronger Communities</h3>
             <p>Local people and ministries working together to bring meaningful change to their communities.</p>
-            <RouterLink to="/stories" class="story-link">Read the story ↗</RouterLink>
+            <RouterLink to="/blog/stronger-communities" class="story-link">Read the story ↗</RouterLink>
           </div>
         </article>
       </div>
@@ -212,215 +214,168 @@
 
     <!-- DONATION CALL TO ACTION -->
     <section class="home-cta section-pad" id="home-donation">
+
       <div class="cta-copy">
         <span class="eyebrow">BE PART OF THE CHANGE</span>
+
         <h2>Your generosity can make a lasting difference.</h2>
+
         <p>
-          Support African ministries, empower local leaders and help communities
-          access the resources they need to flourish.
+          Support African ministries, empower local leaders and help
+          communities access the resources they need to flourish.
         </p>
+
+        <button
+          type="button"
+          class="btn btn-white cta-donate-button"
+          @click="openDonationModal"
+        >
+          Donate Today <span aria-hidden="true">↗</span>
+        </button>
       </div>
 
-      <form class="home-donation-form" @submit.prevent="continueToDonation">
-        <div class="home-form-heading">
-          <span class="eyebrow">MAKE A DIFFERENCE</span>
-          <h3>Your Gift. Their Future.</h3>
-          <p>Choose how you would like to support our work.</p>
-        </div>
-
-        <div class="home-form-step">
-          <label class="home-field-label">Giving frequency</label>
-          <div class="home-frequency">
-            <button type="button" :class="{ active: frequency === 'once' }" @click="frequency = 'once'">
-              <strong>One-Time</strong><small>Give once</small>
-            </button>
-            <button type="button" :class="{ active: frequency === 'monthly' }" @click="frequency = 'monthly'">
-              <strong>Monthly</strong><small>Give consistently</small>
-            </button>
-          </div>
-        </div>
-
-        <div class="home-form-step">
-          <label class="home-field-label">Choose your amount (USD)</label>
-          <div class="home-amount-grid">
-            <button
-              v-for="amount in amounts"
-              :key="amount"
-              type="button"
-              :class="{ active: customAmount === null && selectedAmount === amount }"
-              @click="selectHomeAmount(amount)"
-            >${{ amount }}</button>
-          </div>
-
-          <label for="home-custom-amount" class="home-field-label">Or enter a custom amount</label>
-          <div class="home-custom-amount">
-            <span>$</span>
-            <input
-              id="home-custom-amount"
-              v-model.number="customAmount"
-              type="number"
-              min="1"
-              step="0.01"
-              placeholder="Enter your amount"
-              @input="updateHomeCustomAmount"
-            />
-          </div>
-        </div>
-
-        <div class="home-form-step">
-          <label class="home-field-label" for="home-designation">Where would you like your gift to go?</label>
-          <select id="home-designation" v-model="designation" class="home-designation-select">
-            <option v-for="item in designations" :key="item.value" :value="item.value">{{ item.label }}</option>
-          </select>
-        </div>
-
-        <div class="home-donation-summary">
-          <div class="summary-row">
-            <span>{{ frequency === 'monthly' ? 'Monthly gift' : 'One-time gift' }}</span>
-            <strong>{{ formattedHomeAmount }}</strong>
-          </div>
-          <button type="submit" class="home-donate-submit" :disabled="!isValidAmount">
-            Continue to Donate <span aria-hidden="true">↗</span>
-          </button>
-          <p class="home-secure-note">Your gift helps strengthen ministries and communities across Africa.</p>
-        </div>
-      </form>
     </section>
+    <DonationModal
+      v-model="isDonationModalOpen"
+      @donate="continueToDonation"
+    />
   </main>
 </template>
 
 <script setup>
-import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
-import { RouterLink, useRouter } from 'vue-router'
+  import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
+  import { RouterLink, useRouter } from 'vue-router'
+  import DonationModal from '../components/DonationModal.vue'
 
-const router = useRouter()
+  const router = useRouter()
 
-const frequency = ref('once')
-const selectedAmount = ref(50)
-const customAmount = ref(null)
-const designation = ref('where-needed')
-const missionCarousel = ref(null)
-const missionIndex = ref(0)
+  const frequency = ref('once')
+  const selectedAmount = ref(50)
+  const customAmount = ref(null)
+  const designation = ref('where-needed')
+  const missionCarousel = ref(null)
+  const missionIndex = ref(0)
 
-const amounts = [25, 50, 100, 250]
+  const amounts = [25, 50, 100, 250]
 
-const designations = [
-  { value: 'where-needed', label: 'Where Most Needed' },
-  { value: 'dogs', label: 'Youth Discipleship (DoGs)' },
-  { value: 'kcp', label: 'Children Outreach (KCP)' },
-  { value: 'general', label: 'General Ministry Support' },
-]
+  const designations = [
+    { value: 'where-needed', label: 'Where Most Needed' },
+    { value: 'dogs', label: 'Youth Discipleship (DoGs)' },
+    { value: 'kcp', label: 'Children Outreach (KCP)' },
+    { value: 'general', label: 'General Ministry Support' },
+  ]
 
-const currentHomeAmount = computed(() =>
-  customAmount.value !== null ? Number(customAmount.value) : selectedAmount.value
-)
+  const currentHomeAmount = computed(() =>
+    customAmount.value !== null ? Number(customAmount.value) : selectedAmount.value
+  )
 
-const isValidAmount = computed(() =>
-  Number.isFinite(currentHomeAmount.value) && currentHomeAmount.value >= 1
-)
+  const isValidAmount = computed(() =>
+    Number.isFinite(currentHomeAmount.value) && currentHomeAmount.value >= 1
+  )
 
-const formattedHomeAmount = computed(() =>
-  new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-    maximumFractionDigits: 2,
-  }).format(currentHomeAmount.value || 0)
-)
+  const formattedHomeAmount = computed(() =>
+    new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      maximumFractionDigits: 2,
+    }).format(currentHomeAmount.value || 0)
+  )
+  
+  const isDonationModalOpen = ref(false)
 
-function selectHomeAmount(amount) {
-  selectedAmount.value = amount
-  customAmount.value = null
-}
-
-function updateHomeCustomAmount() {
-  if (customAmount.value !== null && customAmount.value !== '') {
-    customAmount.value = Math.max(0, Number(customAmount.value))
+  function openDonationModal() {
+    isDonationModalOpen.value = true
   }
-}
 
-function continueToDonation() {
-  if (!isValidAmount.value) return
+  function continueToDonation(donationDetails) {
+    console.log('Received donation:', donationDetails)
 
-  router.push({
-    path: '/donate',
-    query: {
-      amount: String(currentHomeAmount.value),
-      type: frequency.value,
-      designation: designation.value,
-    },
-  })
-}
+    router.push({
+      path: '/donate',
+      query: {
+        amount: donationDetails.amount,
+        type: donationDetails.type,
+        designation: donationDetails.designation,
+      },
+    }).then(() => {
+      console.log('Navigation successful:', router.currentRoute.value.fullPath)
+    }).catch((error) => {
+      console.error('Navigation failed:', error)
+    })
+  }
+  /*
+  * Infinite carousel:
+  * The first and last slides are cloned in the template.
+  * We start on the first real slide (index 1), then silently jump
+  * from a clone to its matching real slide after scrolling settles.
+  */
+  let missionScrollTimer = null
+  let isRepositioning = false
 
-/*
- * Infinite carousel:
- * The first and last slides are cloned in the template.
- * We start on the first real slide (index 1), then silently jump
- * from a clone to its matching real slide after scrolling settles.
- */
-let missionScrollTimer = null
-let isRepositioning = false
+  function missionSlideWidth() {
+    return missionCarousel.value?.clientWidth || 0
+  }
 
-function missionSlideWidth() {
-  return missionCarousel.value?.clientWidth || 0
-}
-
-function scrollMission(direction) {
-  const track = missionCarousel.value
-  if (!track || isRepositioning) return
-
-  track.scrollTo({
-    left: track.scrollLeft + direction * missionSlideWidth(),
-    behavior: 'smooth',
-  })
-}
-
-function handleMissionScroll() {
-  if (missionScrollTimer) window.clearTimeout(missionScrollTimer)
-
-  missionScrollTimer = window.setTimeout(() => {
+  function scrollMission(direction) {
     const track = missionCarousel.value
     if (!track || isRepositioning) return
 
-    const width = missionSlideWidth()
-    if (!width) return
-
-    const rawIndex = Math.round(track.scrollLeft / width)
-    const totalSlides = track.children.length
-
-    if (rawIndex === 0) {
-      isRepositioning = true
-      track.scrollTo({ left: width * (totalSlides - 2), behavior: 'auto' })
-      missionIndex.value = 2
-    } else if (rawIndex === totalSlides - 1) {
-      isRepositioning = true
-      track.scrollTo({ left: width, behavior: 'auto' })
-      missionIndex.value = 0
-    } else {
-      missionIndex.value = rawIndex - 1
-    }
-
-    requestAnimationFrame(() => {
-      isRepositioning = false
+    track.scrollTo({
+      left: track.scrollLeft + direction * missionSlideWidth(),
+      behavior: 'smooth',
     })
-  }, 120)
-}
+  }
 
-function setInitialMissionSlide() {
-  const track = missionCarousel.value
-  if (!track) return
-  track.scrollTo({ left: missionSlideWidth(), behavior: 'auto' })
-}
+  function handleMissionScroll() {
+    if (missionScrollTimer) window.clearTimeout(missionScrollTimer)
 
-onMounted(async () => {
-  await nextTick()
-  setInitialMissionSlide()
-  window.addEventListener('resize', setInitialMissionSlide)
-})
+    missionScrollTimer = window.setTimeout(() => {
+      const track = missionCarousel.value
+      if (!track || isRepositioning) return
 
-onBeforeUnmount(() => {
-  if (missionScrollTimer) window.clearTimeout(missionScrollTimer)
-  window.removeEventListener('resize', setInitialMissionSlide)
-})
+      const width = missionSlideWidth()
+      if (!width) return
+
+      const rawIndex = Math.round(track.scrollLeft / width)
+      const totalSlides = track.children.length
+
+      if (rawIndex === 0) {
+        isRepositioning = true
+        track.scrollTo({ left: width * (totalSlides - 2), behavior: 'auto' })
+        missionIndex.value = 2
+      } else if (rawIndex === totalSlides - 1) {
+        isRepositioning = true
+        track.scrollTo({ left: width, behavior: 'auto' })
+        missionIndex.value = 0
+      } else {
+        missionIndex.value = rawIndex - 1
+      }
+
+      requestAnimationFrame(() => {
+        isRepositioning = false
+      })
+    }, 120)
+  }
+
+  function setInitialMissionSlide() {
+    const track = missionCarousel.value
+    if (!track) return
+    track.scrollTo({ left: missionSlideWidth(), behavior: 'auto' })
+  }
+
+  onMounted(async () => {
+    await nextTick()
+    setInitialMissionSlide()
+    window.addEventListener('resize', setInitialMissionSlide)
+    window.addEventListener('keydown', handleDonationKeydown)
+  })
+
+  onBeforeUnmount(() => {
+    if (missionScrollTimer) window.clearTimeout(missionScrollTimer)
+    window.removeEventListener('resize', setInitialMissionSlide)
+    window.removeEventListener('keydown', handleDonationKeydown)
+document.body.style.overflow = ''
+  })
 </script>
 
 <style scoped>
@@ -527,36 +482,89 @@ onBeforeUnmount(() => {
 .story-link:hover { color: var(--red); }
 
 /* Donation form */
-.home-cta { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 55px; background: var(--purple); color: white; }
-.cta-copy h2 { max-width: 560px; margin: 14px 0 20px; font-size: clamp(32px, 4vw, 48px); line-height: 1.2; font-weight: 800; letter-spacing: -1.2px; }
-.cta-copy p { max-width: 540px; color: #eee1f5; line-height: 1.9; }
-.home-cta .eyebrow { color: #f0d8ff; }
-.home-donation-form { padding: 32px; border: 1px solid #eee8f4; border-radius: 12px; background: #fff; color: var(--ink); box-shadow: 0 15px 45px rgba(20,10,35,.18); }
-.home-form-heading .eyebrow { color: var(--red); }
-.home-form-heading h3 { margin: 0 0 8px; color: var(--purple-dark); font-size: 26px; font-weight: 850; }
-.home-form-heading p { color: var(--muted); font-size: 13px; }
-.home-form-step { padding: 22px 0; border-top: 1px solid var(--line); }
-.home-field-label { display: block; margin-bottom: 11px; color: var(--ink); font-size: 13px; font-weight: 750; }
-.home-frequency { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-.home-frequency button { display: flex; flex-direction: column; gap: 6px; padding: 14px; border: 1px solid var(--line); border-radius: 8px; background: white; color: var(--ink); text-align: left; cursor: pointer; }
-.home-frequency button.active { border: 2px solid var(--purple); padding: 13px; background: #f3edfa; }
-.home-frequency small { color: var(--muted); }
-.home-amount-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; margin-bottom: 20px; }
-.home-amount-grid button { padding: 13px 5px; border: 1px solid var(--line); border-radius: 7px; background: white; color: var(--ink); font-weight: 800; cursor: pointer; }
-.home-amount-grid button.active { border-color: var(--purple); background: #f3edfa; color: var(--purple); }
-.home-custom-amount { display: flex; align-items: center; gap: 10px; padding: 0 13px; height: 48px; border: 1px solid var(--line); border-radius: 7px; }
-.home-custom-amount span { color: var(--muted); font-weight: 800; }
-.home-custom-amount input { width: 100%; height: 100%; border: 0; outline: none; color: var(--ink); background: transparent; }
-.home-designation-select { width: 100%; min-height: 46px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 7px; background: white; color: var(--ink); }
-.home-donation-summary { padding: 20px; border-radius: 8px; background: #faf8fc; }
-.summary-row { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; }
-.summary-row span { color: var(--muted); }
-.summary-row strong { color: var(--purple-dark); }
-.home-donate-submit { display: flex; width: 100%; align-items: center; justify-content: space-between; margin-top: 20px; padding: 15px 18px; border: 0; border-radius: 6px; background: var(--red); color: white; font-weight: 800; cursor: pointer; transition: background .2s ease; }
-.home-donate-submit:hover { background: #a91f2b; }
-.home-donate-submit:disabled { opacity: .55; cursor: not-allowed; }
-.home-secure-note { margin: 12px 0 0; color: var(--muted); font-size: 11px; line-height: 1.6; text-align: center; }
+/* DONATION CALL TO ACTION */
 
+.home-cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: var(--purple);
+  color: white;
+  min-height: 340px;
+}
+
+.cta-copy {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.cta-copy h2 {
+  margin: 14px 0 20px;
+  font-size: clamp(32px, 4vw, 48px);
+  line-height: 1.2;
+  font-weight: 800;
+  letter-spacing: -1.2px;
+}
+
+.cta-copy p {
+  max-width: 620px;
+  margin: 0 auto 28px;
+  color: #eee1f5;
+  line-height: 1.9;
+}
+
+.home-cta .eyebrow {
+  color: #f0d8ff;
+}
+
+.cta-donate-button {
+  border: none;
+  cursor: pointer;
+  min-width: 180px;
+}
+
+.cta-donate-button:hover {
+  background: #f3edfa;
+  color: var(--purple-dark);
+}
+
+/* Bottom CTA */
+
+.home-donation-prompt {
+  padding: 35px;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 12px;
+  background: white;
+  color: var(--ink);
+}
+
+.home-donation-prompt .eyebrow {
+  color: var(--red);
+}
+
+.home-donation-prompt h3 {
+  margin: 12px 0;
+  color: var(--purple-dark);
+  font-size: 28px;
+}
+
+.home-donation-prompt p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 25px;
+}
+@media (max-width: 650px) {
+  .home-cta {
+    min-height: 300px;
+    padding: 65px 22px;
+  }
+
+  .cta-copy h2 {
+    font-size: 34px;
+  }
+}
 @media (max-width: 900px) {
   .hero { grid-template-columns: 1fr .85fr; gap: 28px; }
   .hero-image { height: 360px; }
@@ -583,10 +591,48 @@ onBeforeUnmount(() => {
   .mission-card p { font-size: 14px; }
   .carousel-arrow { display: none; }
   .section-heading { align-items: flex-start; flex-direction: column; }
-  .impact-grid { grid-template-columns: 1fr; gap: 22px; }
-  .impact-card > img { height: 235px; }
-  .impact-card p { min-height: 0; }
-  .stories-grid { grid-template-columns: 1fr; }
+  /* Our Work - Mobile List Layout */
+  .impact-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .impact-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 10px;
+    transform: none;
+  }
+
+  .impact-card:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .impact-card > img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+  }
+
+  .impact-card-body {
+    padding: 22px 20px 25px;
+  }
+
+  .impact-card h3 {
+    font-size: 20px;
+  }
+
+  .impact-card p {
+    min-height: 0;
+    font-size: 14px;
+    line-height: 1.75;
+    margin-bottom: 18px;
+  }.stories-grid { grid-template-columns: 1fr; }
+
   .story-card { transition: none; }
   .story-card:hover { transform: none; }
   .home-donation-form { padding: 23px 18px; }
@@ -596,5 +642,31 @@ onBeforeUnmount(() => {
 @media (prefers-reduced-motion: reduce) {
   .impact-card, .btn, .story-card, .mission-track { transition: none; scroll-behavior: auto; }
   .impact-card:hover, .story-card:hover, .btn:hover { transform: none; }
+}
+
+@media (min-width: 651px) and (max-width: 950px) {
+  .impact-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 650px) {
+  .donation-modal-overlay {
+    padding: 12px;
+    align-items: center;
+  }
+
+  .donation-modal {
+    padding: 30px 20px;
+    max-height: 92vh;
+  }
+
+  .donation-modal-header h2 {
+    font-size: 27px;
+  }
+
+  .home-donation-prompt {
+    padding: 25px 20px;
+  }
 }
 </style>

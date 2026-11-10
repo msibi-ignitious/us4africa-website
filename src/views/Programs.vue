@@ -69,7 +69,7 @@
           </div>
           <div class="initiative-content">
             <span class="initiative-kicker">CARE · LEARNING · BELONGING</span>
-            <h3>Compassion Kids Care Point</h3>
+            <h3>Children Outreach</h3>
             <p class="initiative-lead">Supporting children as they learn, grow, and discover their potential.</p>
             <p>
               Compassion Kids Care Point (KCP), a children’s outreach initiative under LXP Trust,
@@ -88,7 +88,7 @@
         <section id="ministry-empowerment" class="initiative-row">
           <div class="initiative-image">
             <img src="/src/assets/people.jpg" alt="Ministry and community partners collaborating around a table" loading="lazy" />
-            <span class="image-tag">03 / MINISTRIES</span>
+            <span class="image-tag">SERVANT LEADERSHIP TRAINING</span>
           </div>
           <div class="initiative-content">
             <span class="initiative-kicker">RESOURCES · TRAINING · PARTNERSHIP</span>
@@ -111,26 +111,48 @@
     </section>
 
     <!-- IMPACT STORIES -->
+<!--
     <section class="impact-section">
       <div class="section-shell">
         <div class="section-heading impact-heading">
-          <span class="eyebrow">THE DIFFERENCE PEOPLE MAKE</span>
-          <h2>Impact is best told <span>through people.</span></h2>
+          <span class="eyebrow">REAL STORIES, REAL CHANGE</span>
+          <h2>Transformative  <span> Impact</span></h2>
           <p>We want to share the voices and experiences of the people, volunteers, and ministry partners connected with our work.</p>
         </div>
-        <div class="story-grid">
-          <article v-for="story in stories" :key="story.id" class="story-card">
-            <div class="story-topline"><span>{{ story.category }}</span><span class="story-number">{{ story.id }}</span></div>
-            <div class="story-icon" aria-hidden="true">{{ story.icon }}</div>
-            <h3>{{ story.title }}</h3>
-            <p>{{ story.description }}</p>
-            <span class="story-status">{{ story.status }}</span>
-          </article>
-        </div>
-        <p class="stories-note">We will publish personal testimonies here with the appropriate permission and approval.</p>
+
+          <div class="story-grid">
+            <article
+              v-for="story in stories"
+              :key="story.id"
+              class="story-card"
+            >
+              <div class="story-image">
+                <img
+                  :src="story.img"
+                  :alt="story.title"
+                  loading="lazy"
+                />
+              </div>
+
+              <div class="story-content">
+                <div class="story-topline">
+                  <span>{{ story.category }}</span>
+                  <span class="story-number">{{ story.id }}</span>
+                </div>
+
+                <h3>{{ story.title }}</h3>
+
+                <p>{{ story.description }}</p>
+
+                <span class="story-status">
+                  {{ story.status }}
+                </span>
+              </div>
+            </article>
+          </div>
       </div>
     </section>
-
+  -->
     <!-- VOLUNTEER CTA -->
     <section class="volunteer-cta">
       <div class="cta-orbit orbit-one" aria-hidden="true"></div>
@@ -140,7 +162,7 @@
         <h2>Be part of the change.</h2>
         <p>Your time, skills, generosity, and willingness to serve can help strengthen ministries and support communities.</p>
         <div class="cta-actions">
-          <button type="button" class="light-button" @click="openVolunteerModal">Become a Volunteer <span aria-hidden="true">→</span></button>
+          <button type="button" class="light-button" @click="openVolunteerModal">Become a Volunteer</button>
           <RouterLink to="/get-involved" class="cta-secondary-link">Other ways to get involved</RouterLink>
         </div>
       </div>
@@ -229,27 +251,24 @@ const volunteerForm = reactive({
 const stories = [
   {
     id: '01',
-    category: 'YOUTH DISCIPLESHIP',
-    icon: '✳',
+    category: "A STUDENT'S JOURNEY",
+    img: '/src/assets/stud.jpg',
     title: 'Growing in faith and character',
-    description: 'We look forward to sharing an approved story from a young person involved in D.O.Gs Fellowship.',
-    status: 'Testimony to be added',
+    description: 'Meet Amina, a bright student whose life changed when she received a scholarship through our educational support program. With access to quality education, she is now pursuing her dreams and inspiring her peers. Her story exemplifies the power of opportunity.',
   },
   {
     id: '02',
-    category: 'CHILDREN OUTREACH',
-    icon: '♡',
+    category: "HOPE FOR THE KIDS",
+    img: '/src/assets/children.jpg',
     title: 'A place to learn and belong',
-    description: 'We look forward to sharing an approved reflection from a child’s caregiver or a KCP volunteer.',
-    status: 'Testimony to be added',
+    description: "Thanks to our healthcare outreach, families like the Kafui's have access to vital medical services. After receiving treatment during one of our medical camps, they are now healthier and more hopeful for the future. Their gratitude fuels our mission.",
   },
   {
     id: '03',
-    category: 'MINISTRY PARTNERSHIP',
-    icon: '↗',
+    category: 'YOUTH MENTORSHIP',
+    img: '/src/assets/youth-2.jpg',
     title: 'Serving better, together',
-    description: 'We look forward to sharing a verified account from a ministry partner or supporter.',
-    status: 'Testimony to be added',
+    description: 'Through our community development efforts, villages have transformed their living conditions. The construction of new wells has provided clean water, significantly improving health and quality of life. These changes are a testament to the strength of collaboration.',
   },
 ]
 
@@ -357,15 +376,129 @@ onBeforeUnmount(() => {
 
 .impact-section { padding: 105px 0; background: var(--white); }
 .impact-heading { margin-bottom: 48px; }
-.story-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
-.story-card { display: flex; min-height: 330px; flex-direction: column; padding: 28px; border: 1px solid var(--line); border-radius: 8px; background: white; box-shadow: 0 12px 34px rgba(54, 22, 78, .045); }
-.story-topline { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: var(--red); font-size: .66rem; font-weight: 850; letter-spacing: .1em; }
-.story-number { color: #b7a9c4; font-size: .85rem; }
-.story-icon { display: grid; width: 48px; height: 48px; margin: 25px 0 20px; place-items: center; border-radius: 50%; background: var(--purple-soft); color: var(--purple); font-size: 1.55rem; }
-.story-card h3 { margin-bottom: 12px; color: var(--purple-deep); font-size: 1.25rem; font-weight: 800; }
-.story-card p { margin-bottom: 22px; color: var(--muted); font-size: .92rem; }
-.story-status { margin-top: auto; padding-top: 14px; border-top: 1px solid var(--line); color: var(--red); font-size: .77rem; font-weight: 750; }
-.stories-note { margin: 26px 0 0; color: var(--muted); font-size: .82rem; text-align: center; }
+
+.story-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  align-items: stretch;
+}
+
+.story-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 12px 34px rgba(54, 22, 78, .045);
+  transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.story-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 40px rgba(54, 22, 78, .10);
+}
+
+.story-image {
+  width: 100%;
+  height: 210px;
+  overflow: hidden;
+  background: var(--purple-soft);
+}
+
+.story-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+
+.story-card:hover .story-image img {
+  transform: scale(1.04);
+}
+
+.story-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 24px;
+}
+
+.story-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 20px;
+  color: var(--red);
+  font-size: .66rem;
+  font-weight: 850;
+  letter-spacing: .1em;
+}
+
+.story-number {
+  color: #b7a9c4;
+  font-size: .85rem;
+}
+
+.story-content h3 {
+  margin-bottom: 12px;
+  color: var(--purple-deep);
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.story-content p {
+  margin-bottom: 22px;
+  color: var(--muted);
+  font-size: .92rem;
+  line-height: 1.7;
+}
+
+.story-status {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  color: var(--red);
+  font-size: .77rem;
+  font-weight: 750;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .story-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .story-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .story-image {
+    height: 220px;
+  }
+
+  .story-content {
+    padding: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-card,
+  .story-image img {
+    transition: none;
+  }
+
+  .story-card:hover {
+    transform: none;
+  }
+}
 
 .volunteer-cta { position: relative; overflow: hidden; padding: 92px 24px; background: linear-gradient(120deg, #351154 0%, #54208c 68%, #6b2b9f 100%); color: white; text-align: center; isolation: isolate; }
 .cta-content { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }

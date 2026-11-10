@@ -9,9 +9,6 @@
           Discover the people, partnerships and initiatives making
           a difference in communities across Africa.
         </p>
-        <a href="#latest-stories" class="blog-hero-link">
-          Explore our stories ↓
-        </a>
       </div>
     </section>
 
@@ -120,7 +117,7 @@ const categories = [
   "All Stories",
   "Leadership Development",
   "Children Outreach",
-  "Mentorship",
+  "Youth ",
   "Community Development"
 ];
 

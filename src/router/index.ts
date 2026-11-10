@@ -1,3 +1,4 @@
+
 import { createRouter, createWebHashHistory } from "vue-router";
 
 const routes = [
@@ -17,20 +18,32 @@ const routes = [
     component: () => import("../views/Programs.vue"),
   },
   {
-    path: '/get-involved',
-    name: 'GetInvolved',
-    component: () => import('../views/GetInvolved.vue'),
-  },  
-  {
-    path: '/contact',
-    name: 'Contact',
-    component: () => import('../views/Contact.vue'),
+    path: "/get-involved",
+    name: "get-involved",
+    component: () => import("../views/GetInvolved.vue"),
   },
   {
-    path: '/donate',
-    name: 'Donate',
-    component: () => import('../views/Donate.vue'),
+    path: "/contact",
+    name: "contact",
+    component: () => import("../views/Contact.vue"),
   },
+  {
+    path: "/donate",
+    name: "donate",
+    component: () => import("../views/Donate.vue"),
+  },
+  {
+    path: "/blog",
+    name: "blog",
+    component: () => import("../views/Blog.vue"),
+  },
+  {
+    path: "/blog/:slug",
+    name: "blog-post",
+    component: () => import("../views/BlogPost.vue"),
+  },
+
+  // ADMIN ROUTES
   {
     path: "/admin/login",
     name: "admin-login",
@@ -53,16 +66,7 @@ const routes = [
     name: "admin-donations",
     component: () => import("../views/admin/AdminDonations.vue"),
     meta: { requiresAdmin: true },
-  },{
-  path: "/blog",
-  name: "blog",
-  component: () => import("../views/Blog.vue"),
-},
-{
-  path: "/blog/:slug",
-  name: "blog-post",
-  component: () => import("../views/BlogPost.vue"),
-},
+  },
 ];
 
 const router = createRouter({
@@ -76,7 +80,7 @@ const router = createRouter({
           const element = document.querySelector(to.hash);
 
           if (element) {
-            const headerOffset = 100; // Adjust to your navbar height
+            const headerOffset = 100;
 
             const elementPosition =
               element.getBoundingClientRect().top + window.scrollY;
@@ -92,22 +96,26 @@ const router = createRouter({
       });
     }
 
-    return { top: 0, behavior: "smooth" };
+    return {
+      top: 0,
+      behavior: "smooth",
+    };
   },
 });
 
+// ADMIN AUTHENTICATION GUARD
 router.beforeEach((to) => {
   const token = sessionStorage.getItem("us4africa_admin_token");
 
   if (to.meta.requiresAdmin && !token) {
-    return "/admin/login";
+    return { name: "admin-login" };
   }
 
   if (to.path === "/admin/login" && token) {
-    return "/admin/dashboard";
+    return { name: "admin-dashboard" };
   }
+
+  return true;
 });
-
-
 
 export default router;

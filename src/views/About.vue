@@ -98,14 +98,6 @@ const partners = [
     image: "/src/assets/v4all.jpg",
     buttonText: "Explore Collaborations",
   },
-  {
-    number: "03",
-    title: "Corporate Sponsors",
-    description:
-      "Corporate sponsors play a vital role in supporting our mission at US4Africa. Their contributions provide financial assistance and help raise awareness about the challenges faced by communities in Africa, enabling us to reach even more people in need. Through these partnerships, we create sustainable impact and foster long-term growth for the ministries we support.",
-    image: "/src/assets/corporate-sponsors.jpg",
-    buttonText: "See Sponsors",
-  },
 ];
 </script>
 
@@ -151,7 +143,7 @@ const partners = [
     <section class="intro-section section-space">
       <div class="content-container intro-grid">
         <div class="intro-label">
-          <span class="eyebrow">WHO WE ARE</span>
+          <span class="eyebrow">WHAT WE BELIEVE</span>
           <h2>
             Every community deserves the opportunity to flourish.
           </h2>
@@ -176,87 +168,6 @@ const partners = [
       </div>
     </section>
 
-    <!-- MISSION AND VISION -->
-    <section class="mission-section section-space">
-      <div class="content-container mission-grid">
-        <article class="mission-card">
-          <div class="mission-icon" aria-hidden="true">
-            <svg viewBox="0 0 48 48" fill="none">
-              <path
-                d="M24 40S6 29 6 17a10 10 0 0 1 18-6 10 10 0 0 1 18 6c0 12-18 23-18 23Z"
-                stroke="currentColor"
-                stroke-width="2.5"
-                stroke-linejoin="round"
-              />
-            </svg>
-          </div>
-
-          <span class="eyebrow">OUR MISSION</span>
-          <h2>Empowering through support and service.</h2>
-          <p>
-            To empower African ministries by connecting them with
-            resources, partnerships and practical support that help
-            them serve their communities.
-          </p>
-        </article>
-
-        <article class="vision-card">
-          <div class="vision-number">01 / 02</div>
-          <span class="eyebrow">OUR VISION</span>
-          <h2>A future where communities can thrive.</h2>
-          <p>
-            We aspire to see strong, equipped and connected ministries
-            contributing to lasting transformation across Africa.
-          </p>
-
-          <div class="vision-decoration" aria-hidden="true">
-            <span></span><span></span><span></span>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- OUR STORY -->
-    <section id="our-story" class="story-section section-space">
-      <div class="content-container">
-        <div class="section-heading">
-          <span class="eyebrow">THE STORY SO FAR</span>
-          <h2>Our Journey</h2>
-          <p>
-            A continuing journey of faith, service and a commitment
-            to strengthening ministries and communities.
-          </p>
-        </div>
-
-        <div class="journey-grid">
-          <article
-            v-for="(item, index) in journey"
-            :key="item.title"
-            class="journey-card"
-          >
-            <div class="journey-image-wrap">
-              <img
-                :src="item.image"
-                :alt="item.title"
-                class="journey-image"
-                loading="lazy"
-              />
-
-              <span class="journey-number">
-                {{ String(index + 1).padStart(2, "0") }}
-              </span>
-            </div>
-
-            <div class="journey-content">
-              <span class="journey-date">{{ item.date }}</span>
-              <h3>{{ item.title }}</h3>
-              <p>{{ item.description }}</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <!-- VALUES -->
     <section class="values-section section-space">
       <div class="content-container">
@@ -275,7 +186,6 @@ const partners = [
             :key="value.number"
             class="value-card"
           >
-            <span class="value-number">{{ value.number }}</span>
             <h3>{{ value.title }}</h3>
             <p>{{ value.description }}</p>
             <span class="value-accent"></span>
@@ -319,7 +229,8 @@ const partners = [
           </article>
         </div>
       </div>
-    </section>    
+    </section> 
+
 <!-- PARTNERSHIPS -->
   <section id="partners" class="partners-section section-space">
     <div class="content-container">
@@ -353,10 +264,6 @@ const partners = [
           </div>
 
           <div class="partner-info">
-            <span class="partner-number">
-              {{ partner.number }}
-            </span>
-
             <p>{{ partner.description }}</p>
 
             <RouterLink
@@ -379,6 +286,47 @@ const partners = [
     </div>
   </section>
 
+
+    <!-- OUR STORY -->
+    <section id="our-story" class="story-section section-space">
+      <div class="content-container">
+        <div class="section-heading">
+          <span class="eyebrow">THE STORY SO FAR</span>
+          <h2>Our Journey</h2>
+          <p>
+            A continuing journey of faith, service and a commitment
+            to strengthening ministries and communities.
+          </p>
+        </div>
+
+        <div class="journey-grid">
+          <article
+            v-for="(item, index) in journey"
+            :key="item.title"
+            class="journey-card"
+          >
+            <div class="journey-image-wrap">
+              <img
+                :src="item.image"
+                :alt="item.title"
+                class="journey-image"
+                loading="lazy"
+              />
+
+              <span class="journey-number">
+                {{ String(index + 1).padStart(2, "0") }}
+              </span>
+            </div>
+
+            <div class="journey-content">
+              <span class="journey-date">{{ item.date }}</span>
+              <h3>{{ item.title }}</h3>
+              <p>{{ item.description }}</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
 
     <!-- CALL TO ACTION -->
     <section class="about-cta">

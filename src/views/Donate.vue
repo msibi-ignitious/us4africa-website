@@ -13,6 +13,7 @@ const customAmount = ref<number | null>(null)
 const designation = ref('where-needed')
 const dedicationEnabled = ref(false)
 
+
 const donor = ref({
   firstName: '',
   lastName: '',
@@ -73,9 +74,10 @@ const amounts = [25, 50, 100, 250]
 
 const designations = [
   { value: 'where-needed', label: 'Where Most Needed', description: 'Support the areas where help is needed most.' },
-  { value: 'dogs', label: 'Youth Discipleship (DoGs)', description: 'Help equip and disciple the next generation.' },
-  { value: 'kcp', label: 'Children Outreach (KCP)', description: 'Support children through teaching, activities and care.' },
+  { value: 'youth', label: 'Youth Discipleship', description: 'Help equip and disciple the next generation.' },
+  { value: 'children', label: 'Children Outreach ', description: 'Support children through teaching, activities and care.' },
   { value: 'general', label: 'General Ministry Support', description: 'Strengthen the ministries and communities we serve.' },
+  { value: 'leadership', label: 'Leadership Development', description: 'Develop future leaders for African communities.' },
 ]
 
 const sponsorships = [
@@ -186,43 +188,51 @@ function selectSponsorship(amount: number) {
 }
 
 function getGiftFromQuery() {
-  const type = String(route.query.type || '').toLowerCase()
-  const amount = Number(route.query.amount || 0)
+  const type = String(route.query.type || 'once').toLowerCase()
+  const requestedAmount = Number(route.query.amount)
 
-  if (type.includes('bronze') || amount === 500) return 500
-  if (type.includes('silver') || amount === 1000) return 1000
-  if (type.includes('gold') || amount === 2500) return 2500
-  if (type.includes('monthly') || type.includes('recurring')) {
-    frequency.value = 'monthly'
+  // Always reset frequency when navigating between donation types
+  frequency.value =
+    type.includes('monthly') || type.includes('recurring')
+      ? 'monthly'
+      : 'once'
+
+  // Recognise sponsorship amounts and regular donation amounts
+  if (Number.isFinite(requestedAmount) && requestedAmount >= 1) {
+    return requestedAmount
+  }
+
+  if (frequency.value === 'monthly') {
     return 25
   }
-  if (amount > 0) return amount
 
   return 50
 }
 
+function applyDonationQuery() {
+  const amount = getGiftFromQuery()
+
+  selectAmount(amount)
+
+  const requestedDesignation = String(
+    route.query.designation || 'where-needed'
+  )
+
+  designation.value = designations.some(
+    item => item.value === requestedDesignation
+  )
+    ? requestedDesignation
+    : 'where-needed'
+
+  dedicationEnabled.value = route.query.dedication === '1'
+}
 watch(
-  () => [
-    route.query.amount,
-    route.query.type,
-    route.query.designation,
-    route.query.dedication,
-  ],
+  () => route.query,
   () => {
-    const amount = getGiftFromQuery()
-    selectAmount(amount)
-
-    const requestedDesignation = String(route.query.designation || '')
-
-    if (designations.some(item => item.value === requestedDesignation)) {
-      designation.value = requestedDesignation
-    }
-
-    dedicationEnabled.value = route.query.dedication === '1'
+    applyDonationQuery()
   },
-  { immediate: true },
+  { immediate: true, deep: true }
 )
-
 const paymentReady = false
 </script>
 
@@ -427,17 +437,16 @@ const paymentReady = false
                 {{ fieldErrors.email }}
               </p>
              <div class="form-group">
-                <label for="country">Country <span class="required">*</span></label>
-
+                <label for="country">Country <span class="required">*</span></label>              
                 <select
                   id="country"
                   v-model="donor.country"
                   required
+                  @blur="markTouched('country')"
+                  :aria-invalid="Boolean(showError('country'))"
                 >
                   <option value="" disabled>Select your country</option>
                   <option
-                    @blur="markTouched('country')"
-                    :aria-invalid="Boolean(showError('country'))"
                     v-for="country in countries"
                     :key="country"
                     :value="country"
@@ -445,6 +454,7 @@ const paymentReady = false
                     {{ country }}
                   </option>
                 </select>
+
               </div>
               <p v-if="showError('country')" class="field-error">
                 {{ fieldErrors.country }}

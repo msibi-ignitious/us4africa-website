@@ -1,7 +1,8 @@
 
 <script setup lang="ts">
 import mentorshipImage from '../assets/mentorship.jpg'
-import sltImage from '../assets/slt.jpg'
+import sltImage from '../assets/slt1.jpeg'
+import sltStud from '../assets/slt.jpg'
 import youthImage from '../assets/youth.jpg'
 import ithembaImage from '../assets/ithemba.jpg'
 import v4allImage from '../assets/v4all.jpg'
@@ -15,7 +16,7 @@ const journey = [
   },
   {
     title: "Serving Through Leadership",
-    date: "December 2025",
+    date: "Our Heart",
     description:
       "Leadership development and servant-hearted service reflect our commitment to equipping people to make a lasting difference.",
     image: sltImage,
@@ -32,7 +33,7 @@ const journey = [
     date: "Looking Ahead",
     description:
       "We continue working towards a future where ministries have greater access to the resources and support they need to serve their communities.",
-    image: sltImage,
+    image: sltStud,
   },
 ]
 const values = [
@@ -68,14 +69,14 @@ const team = [
     role: "Executive Director",
     description:
       "Provides strategic leadership and oversees organisational direction and operations.",
-    image: "/download.png",
+    image: "/src/assets/mamam1.jpeg",
   },
   {
-    name: "Tariro Mapise",
+    name: "Blessings ",
     role: "Outreach Coordinator",
     description:
       "Supports relationships with ministries and helps connect community needs with appropriate resources.",
-    image: "/download.png",
+    image: "/src/assets/mamab.jpg",
   },
   {
     name: "George Mwanza",
@@ -104,6 +105,39 @@ const partners = [
     buttonText: "Explore Collaborations",
   },
 ]
+
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import DonationModal from '../components/DonationModal.vue'
+
+const router = useRouter()
+
+const isDonationModalOpen = ref(false)
+
+function openDonationModal() {
+  isDonationModalOpen.value = true
+}
+
+async function continueToDonation(donationDetails: {
+  amount: string | number
+  type: string
+  designation: string
+}) {
+  try {
+    await router.push({
+      name: 'donate',
+      query: {
+        amount: String(donationDetails.amount),
+        type: donationDetails.type,
+        designation: donationDetails.designation,
+      },
+    })
+
+    isDonationModalOpen.value = false
+  } catch (error) {
+    console.error('Donation navigation failed:', error)
+  }
+}
 </script>
 
 <template>
@@ -350,9 +384,13 @@ const partners = [
         </p>
 
         <div class="cta-actions">
-          <RouterLink to="/donate" class="button button-red">
+         <button
+            type="button"
+            class="button button-red"
+            @click="openDonationModal"
+          >
             Give Today
-          </RouterLink>
+          </button>
 
           <RouterLink to="/get-involved" class="button button-white">
             Partner With Us
@@ -360,6 +398,10 @@ const partners = [
         </div>
       </div>
     </section>
+    <DonationModal
+      v-model="isDonationModalOpen"
+      @donate="continueToDonation"
+    />
   </main>
 </template>
 
@@ -1157,6 +1199,16 @@ const partners = [
   gap: 18px;
   color: #fff;
   background: #d62839;
+}
+
+button.button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+button.button:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 4px;
 }
 
 /* Responsive layout */

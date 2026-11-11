@@ -100,7 +100,7 @@ onUnmounted(() => {
 
           <MDBNavbarItem>
             <RouterLink to="/contact" class="nav-link" @click="closeMenu">
-              Connect With Us
+              Contact Us
             </RouterLink>
           </MDBNavbarItem>
 

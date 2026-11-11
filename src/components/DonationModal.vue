@@ -128,8 +128,12 @@
   </Teleport>
 </template>
 
+
 <script setup>
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const props = defineProps({
   modelValue: {
@@ -149,10 +153,7 @@ const errorMessage = ref('')
 const amounts = [25, 50, 100, 250]
 
 const currentAmount = computed(() => {
-  if (
-    customAmount.value !== null &&
-    customAmount.value !== ''
-  ) {
+  if (customAmount.value !== null && customAmount.value !== '') {
     return Number(customAmount.value)
   }
 
@@ -160,10 +161,8 @@ const currentAmount = computed(() => {
 })
 
 const isValidAmount = computed(() => {
-  return (
-    Number.isFinite(currentAmount.value) &&
+  return Number.isFinite(currentAmount.value) &&
     currentAmount.value > 0
-  )
 })
 
 const formattedAmount = computed(() => {
@@ -181,41 +180,42 @@ function selectAmount(amount) {
 function closeModal() {
   emit('update:modelValue', false)
 }
-function continueToDonation() {
-  console.log('Continue button clicked')
 
+async function continueToDonation() {
   if (!isValidAmount.value) {
     errorMessage.value = 'Please enter a valid donation amount.'
     return
   }
 
+  const designationMap = {
+    'where-needed': 'where-needed',
+    dogs: 'youth',
+    kcp: 'children',
+    general: 'general',
+  }
+
   const donationDetails = {
     amount: currentAmount.value.toString(),
     type: frequency.value,
-    designation: designation.value,
+    designation: designationMap[designation.value] || 'where-needed',
   }
 
-  console.log('Donation details:', donationDetails)
-
-  emit('donate', donationDetails)
+  // Close the modal
   closeModal()
-}
 
+  // Navigate to the donor details section
+  await router.push({
+    name: 'donate',
+    query: {
+      ...donationDetails,
+      step: 'details',
+    },
+  })
+}
 function handleEscape(event) {
   if (event.key === 'Escape' && props.modelValue) {
     closeModal()
   }
-}
-
-function handleDonation(donationDetails) {
-  router.push({
-    name: 'donate',
-    query: {
-      amount: donationDetails.amount,
-      type: donationDetails.type,
-      designation: donationDetails.designation,
-    },
-  })
 }
 
 watch(
@@ -237,6 +237,7 @@ onBeforeUnmount(() => {
   window.removeEventListener('keydown', handleEscape)
 })
 </script>
+
 
 <style scoped>
 .donation-overlay {

@@ -62,7 +62,7 @@
           <article class="mission-card" data-clone aria-hidden="true">
             <img src="/src/assets/slt.jpg" alt="" />
             <div class="mission-card-content">
-              <span>03 / OUR VISION</span>
+              <span> OUR VISION</span>
               <h3>Transforming Lives</h3>
               <p>Investing in local leadership and sustainable community development for lasting impact.</p>
               <span class="mission-card-link">Learn about our vision →</span>
@@ -70,7 +70,7 @@
           </article>
 
           <article class="mission-card">
-            <img src="/src/assets/youth.jpg" alt="Youth ministry and discipleship" />
+            <img src="/src/assets/canzi2.jpeg" alt="Youth ministry and discipleship" />
             <div class="mission-card-content">
               <span>OUR PURPOSE</span>
               <h3>Supporting Local Ministries</h3>
@@ -133,7 +133,7 @@
 
       <div class="impact-grid">
         <article class="impact-card">
-          <img src="/src/assets/youth.jpg" alt="Youth ministry and discipleship" loading="lazy" />
+          <img src="/src/assets/ministry.jpeg" alt="Youth ministry and discipleship" loading="lazy" />
           <div class="impact-card-body">
             <h3>Empowerment Through Resources</h3>
             <p>We aim to empower ministries by providing essential resources, including training, materials, and financial support, enabling them to effectively reach and serve their communities. We believe that sustainable transformation occurs when local ministries are equipped with the tools, knowledge, and support they need to fulfill their calling and multiply their impact.</p>
@@ -141,7 +141,7 @@
         </article>
 
         <article class="impact-card">
-          <img src="/src/assets/children.jpg" alt="Children's outreach and learning" loading="lazy" />
+          <img src="/src/assets/food.jpeg" alt="Children's outreach and learning" loading="lazy" />
           <div class="impact-card-body">
             <h3>Community Transformation</h3>
             <p>Our mission goes beyond spiritual guidance: we focus on holistic community transformation addressing educational and socio-economic barriers while also engaging issues of worldview and mindset. Many communities face limiting beliefs that affect how they see opportunity, responsibility, and their own potential. Through teaching, mentoring, and practical development initiatives, we help cultivate new ways of thinking that promote dignity, resilience, and hope. We create pathways for individuals and communities to grow, overcome challenges, and build a sustainable future.</p>
@@ -149,7 +149,7 @@
         </article>
 
         <article class="impact-card">
-          <img src="/src/assets/slt.jpg" alt="Ministry leadership and community development" loading="lazy" />
+          <img src="/src/assets/com.jpg" alt="Ministry leadership and community development" loading="lazy" />
           <div class="impact-card-body">
             <h3>Sustainable Impact</h3>
             <p>We pursue sustainable impact by building long-term, trust-based partnerships with local ministries. Rather than offering quick, short-lived interventions, we walk alongside leaders over time—helping them strengthen their capacity, refine their vision, and grow their influence in their own communities. This ongoing collaboration ensures that every resource, training effort, and project investment contributes to lasting change, continued growth, and ministries that can stand strong long after external support has ended.</p>
@@ -286,24 +286,40 @@
   function openDonationModal() {
     isDonationModalOpen.value = true
   }
+function handleDonationKeydown(event) {
+  if (event.key === 'Escape' && isDonationModalOpen.value) {
+    isDonationModalOpen.value = false
+  }
+}
+  
+async function continueToDonation(donationDetails) {
+  console.log('1. Donation event received:', donationDetails)
 
-  function continueToDonation(donationDetails) {
-    console.log('Received donation:', donationDetails)
+  if (!donationDetails) {
+    console.error('No donation details received.')
+    return
+  }
 
-    router.push({
+  try {
+    console.log('2. Attempting navigation...')
+
+    const result = await router.push({
       path: '/donate',
       query: {
-        amount: donationDetails.amount,
-        type: donationDetails.type,
-        designation: donationDetails.designation,
+        amount: String(donationDetails.amount),
+        type: String(donationDetails.type),
+        designation: String(donationDetails.designation),
       },
-    }).then(() => {
-      console.log('Navigation successful:', router.currentRoute.value.fullPath)
-    }).catch((error) => {
-      console.error('Navigation failed:', error)
     })
+
+    console.log('3. Navigation result:', result)
+    console.log('4. Current route:', router.currentRoute.value.fullPath)
+
+  } catch (error) {
+    console.error('Navigation error:', error)
   }
-  /*
+}
+ /*
   * Infinite carousel:
   * The first and last slides are cloned in the template.
   * We start on the first real slide (index 1), then silently jump
@@ -669,4 +685,5 @@ document.body.style.overflow = ''
     padding: 25px 20px;
   }
 }
+
 </style>

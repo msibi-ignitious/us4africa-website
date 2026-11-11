@@ -2,6 +2,8 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
+import { onMounted, nextTick } from 'vue'
+
 
 const route = useRoute()
 
@@ -234,6 +236,26 @@ watch(
   { immediate: true, deep: true }
 )
 const paymentReady = false
+
+async function scrollToDonorDetails() {
+  if (route.query.step === 'details') {
+    await nextTick()
+
+    document.getElementById('donor-details')?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    })
+  }
+}
+
+onMounted(scrollToDonorDetails)
+
+watch(
+  () => route.query.step,
+  () => {
+    scrollToDonorDetails()
+  }
+)
 </script>
 
 <template>
@@ -385,7 +407,7 @@ const paymentReady = false
 </div>
 
           <!-- DONOR DETAILS -->
-          <div class="form-step">
+          <div id="donor-details" class="form-step">
 
             <div class="donor-fields">
               <div class="field-group">
@@ -806,6 +828,9 @@ const paymentReady = false
   border-top: 1px solid var(--border);
 }
 
+#donor-details {
+  scroll-margin-top: 100px;
+}
 .field-error {
   margin: 7px 0 0;
   color: #c62845;

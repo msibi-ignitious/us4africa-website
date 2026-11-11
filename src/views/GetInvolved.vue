@@ -109,17 +109,12 @@
 
             <div class="donation-card-bottom">
               <button
-
                 type="button"
-
                 class="primary-button donate-button"
-
                 @click="openDonation(item)"
-
               >
-
-                Donate Now <span aria-hidden="true">→</span>
-
+                {{ item.action === 'whatsapp' ? 'Join Community' : 'Donate Now' }}
+                <span aria-hidden="true">→</span>
               </button>
 
             </div>
@@ -250,11 +245,11 @@
 
       </p>
 
-      <a href="#donation-options" class="primary-button">
+      <RouterLink to="/donate" class="primary-button">
 
-        Support Our Mission <span aria-hidden="true">→</span>
+        GIVE TODAY
 
-      </a>
+      </RouterLink>
 
     </section>
     <VolunteerModal v-model="isVolunteerModalOpen" />
@@ -267,6 +262,7 @@
 <script setup>
 import { reactive, ref } from 'vue'
 import VolunteerModal from '../components/VolunteerModal.vue'
+import { RouterLink } from 'vue-router'
 
 
 /**
@@ -279,19 +275,18 @@ const DONATION_PAGE_URL = '/donate'
 
 
 const donationOptions = [
-
   {
-
-    id: 'corporate',
-    title: 'Prayer Support',
-    category: 'PARTNER WITH US',
+    id: 'church-support',
+    title: 'Pray Support',
+    category: 'STAND WITH US IN PRAYER',
     description:
-      'Help strengthen ministry and community initiatives through meaningful church support.',
-    symbol: '◆',
-    imageClass: 'corporate-image',
+      'Become a Prayer Partner through our WhatsApp community and receive regular prayer updates.',
+    symbol: '✝',
+    imageClass: 'church-support-image',
     image:
-      'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Colleagues working together on a shared goal',
+      '/src/assets/pray.jpeg',
+    imageAlt: 'Church community gathered together',
+    action: 'whatsapp',
   },
 
   {
@@ -345,117 +340,41 @@ const isVolunteerModalOpen = ref(false)
 function openVolunteerModal() {
   isVolunteerModalOpen.value = true
 }
+function openDonation(item = null) {
+  // Church Support opens WhatsApp instead of the donation page.
+  if (item?.action === 'whatsapp') {
+    joinChurchSupporters()
+    return
+  }
 
-function openDonation(item) {
+  const query = {
+    designation: 'where-needed',
+  }
 
-  const destination = new URL(
+  if (item) {
+    query.type = item.donationType
+  }
 
-    DONATION_PAGE_URL,
-
-    window.location.origin,
-
-  )
-
-
-
-  destination.searchParams.set('amount', String(item.amount))
-
-  destination.searchParams.set('type', item.id)
-
-
-
-  window.location.assign(destination.toString())
-
-}
-
-
-
-function selectSponsor(tier, amount) {
-
-  form.interest = tier
-
-  form.message =
-
-    `Hello US4Africa,\n\n` +
-
-    `I am interested in the ${tier} sponsorship package ` +
-
-    `with a listed contribution of $${amount.toLocaleString('en-US')}. ` +
-
-    `Please contact me with further details about the sponsorship ` +
-
-    `benefits, payment process, and next steps.`
-
-
-
-  scrollToContact()
-
-}
-
-
-
-function scrollToContact() {
-
-  document.getElementById('contact-form-panel')?.scrollIntoView({
-
-    behavior: 'smooth',
-
-    block: 'start',
-
+  router.push({
+    name: 'donate',
+    query,
+  }).catch((error) => {
+    console.error('Donation navigation failed:', error)
   })
-
-
-
-  window.setTimeout(() => {
-
-    document.getElementById('contact-name')?.focus({
-
-      preventScroll: true,
-
-    })
-
-  }, 450)
-
 }
 
+const WHATSAPP_NUMBER = '27737822117'
 
-
-function submitContact() {
-
-  const subject = encodeURIComponent(
-
-    `US4Africa ${form.interest} enquiry from ${form.name}`,
-
+function joinChurchSupporters() {
+  const message = encodeURIComponent(
+    'Hello US4Africa! I am interested in joining the Church Supporters community. Please share more information with me.'
   )
 
-
-
-  const body = encodeURIComponent(
-
-    `Name: ${form.name}\n` +
-
-    `Email: ${form.email}\n` +
-
-    `Interest: ${form.interest}\n\n` +
-
-    `Message:\n${form.message}`,
-
+  window.open(
+    `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`,
+    '_blank',
+    'noopener,noreferrer'
   )
-
-
-
-  formFeedback.value =
-
-    'Your email application should open with your message. ' +
-
-    'Send the email there to complete your enquiry.'
-
-
-
-  window.location.href =
-
-    `mailto:admin@us4africa.org?subject=${subject}&body=${body}`
-
 }
 
 </script>

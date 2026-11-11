@@ -114,7 +114,7 @@ const currentYear = new Date().getFullYear();
                 <RouterLink to="/programs">Explore Our Works</RouterLink>
               </li>
               <li>
-                <RouterLink to="/contact">Support Our Mission</RouterLink>
+                <RouterLink to="/get-involved">Support Our Mission</RouterLink>
               </li>
             </ul>
           </MDBCol>
@@ -143,7 +143,6 @@ const currentYear = new Date().getFullYear();
             <RouterLink to="/donate" class="footer-cta-link">
               <MDBBtn class="footer-donate">
                 Give Today
-                <MDBIcon icon="arrow-right" class="ms-2" />
               </MDBBtn>
             </RouterLink>
 

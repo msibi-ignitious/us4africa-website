@@ -117,10 +117,8 @@
                 class="primary-button donate-button"
                 @click="openDonation(item)"
               >
-                {{ item.action === 'whatsapp' ? 'Join Community' : 'Donate Now' }}
-                <span aria-hidden="true">→</span>
+                {{ item.buttonText || 'Donate Now' }}
               </button>
-
             </div>
 
           </div>
@@ -263,6 +261,10 @@
       :initial-type="selectedDonationType"
       @donate="continueToDonation"
     />
+    <ChurchInquiryModal
+      v-model="isChurchInquiryModalOpen"
+      @submit="handleChurchInquiry"
+    />
   </main>
 
 </template>
@@ -270,122 +272,131 @@
 
 
 <script setup>
-import { reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
+  import { reactive, ref } from 'vue'
+  import { useRouter } from 'vue-router'
 
-import VolunteerModal from '../components/VolunteerModal.vue'
-import DonationModal from '../components/DonationModal.vue'
+  import VolunteerModal from '../components/VolunteerModal.vue'
+  import DonationModal from '../components/DonationModal.vue'
+  import ChurchInquiryModal from '../components/ChurchInquiryModal.vue'
 
-// Router
-const router = useRouter()
+  // Router
+  const router = useRouter()
 
-// WhatsApp
-const WHATSAPP_NUMBER = '27737822117'
+  // WhatsApp
+  const WHATSAPP_NUMBER = '27737822117'
 
-// Donation options
-const donationOptions = [
-  {
-    id: 'church-support',
-    title: 'Prayer Support',
-    category: 'STAND WITH US IN PRAYER',
-    description:
-      'Become a Prayer Partner through our WhatsApp community and receive regular prayer updates.',
-    symbol: '✝',
-    imageClass: 'church-support-image',
-    image: '/src/assets/pray.jpeg',
-    imageAlt: 'Church community gathered together',
-    action: 'whatsapp',
-  },
-  {
-    id: 'monthly',
-    title: 'Monthly Supporter',
-    category: 'GIVE REGULARLY',
-    description:
-      'Provide ongoing support that helps us plan and sustain our work.',
-    symbol: '↻',
-    imageClass: 'monthly-image',
-    image:
-      'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Community volunteers supporting others',
-  },
-  {
-    id: 'once-off',
-    title: 'One-Time Donation',
-    category: 'MAKE A DIFFERENCE',
-    description:
-      'Make a contribution towards initiatives that serve people and communities across Africa.',
-    symbol: '♡',
-    imageClass: 'onceoff-image',
-    image:
-      'https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=900&q=85',
-    imageAlt: 'Volunteers participating in community service',
-  },
-]
+  // Donation options
+  const donationOptions = [
+    {
+      id: 'prayer-support',
+      title: 'Prayer Support',
+      category: 'STAND WITH US IN PRAYER',
+      description:
+        'Become a Prayer Partner through our WhatsApp community and receive regular prayer updates.',
+      symbol: '✝',
+      imageClass: 'church-support-image',
+      image: '/src/assets/pray.jpeg',
+      imageAlt: 'Church community gathered together',
+      action: 'whatsapp',
+      buttonText: 'Join Prayer Community',
+    },
+    {
+      id: 'once-off',
+      title: 'Financial Donation',
+      category: 'MAKE A DIFFERENCE',
+      description:
+        'Make a contribution towards initiatives that serve people and communities across Africa.',
+      symbol: '♡',
+      imageClass: 'onceoff-image',
+      image:
+        'https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=900&q=85',
+      imageAlt: 'Volunteers participating in community service',
+      buttonText: 'Donate Now',
+    },
+    {
+      id: 'church-support',
+      title: 'Church Support',
+      category: 'PARTNER WITH US',
+      description:
+        'Partner with US4Africa through prayer, outreach initiatives and funding.',
+      symbol: '✝',
+      imageClass: 'church-partnership-image',
+      image: 'https://images.unsplash.com/photo-1438032005730-c779502df39b?auto=format&fit=crop&w=900&q=85',
+      imageAlt: 'Church congregation gathered for worship',
+      action: 'church-inquiry',
+      buttonText: 'Register Your Church',
+    },
+  ]
 
-// Enquiry form
-const form = reactive({
-  name: '',
-  email: '',
-  interest: 'General Enquiry',
-  message: '',
-})
+  // Enquiry form
+  const form = reactive({
+    name: '',
+    email: '',
+    interest: 'General Enquiry',
+    message: '',
+  })
 
-const formFeedback = ref('')
+  const formFeedback = ref('')
 
-// Modal state
-const isDonationModalOpen = ref(false)
-const isVolunteerModalOpen = ref(false)
+  // Modal state
+  const isDonationModalOpen = ref(false)
+  const isVolunteerModalOpen = ref(false)
+  const isChurchInquiryModalOpen = ref(false)
+  // Default donation frequency
+  const selectedDonationType = ref('once')
 
-// Default donation frequency
-const selectedDonationType = ref('once')
-
-// Open donation modal
-function openDonationModal(type = 'once') {
-  selectedDonationType.value = type
-  isDonationModalOpen.value = true
-}
-
-// Open volunteer modal
-function openVolunteerModal() {
-  isVolunteerModalOpen.value = true
-}
-
-// Handle donation card selection
-function openDonation(item = null) {
-  if (item?.action === 'whatsapp') {
-    joinChurchSupporters()
-    return
+  // Open donation modal
+  function openDonationModal(type = 'once') {
+    selectedDonationType.value = type
+    isDonationModalOpen.value = true
   }
 
-  const donationType = item?.id === 'monthly' ? 'monthly' : 'once'
+  // Open volunteer modal
+  function openVolunteerModal() {
+    isVolunteerModalOpen.value = true
+  }
 
-  openDonationModal(donationType)
-}
+  // Handle donation card selection
+  function openDonation(item) {
+    if (!item) return
 
-// Navigate to donation page after modal submission
-function continueToDonation(donationDetails) {
-  router.push({
-    name: 'donate',
-    query: {
-      amount: donationDetails.amount,
-      type: donationDetails.type,
-      designation: donationDetails.designation,
-    },
-  }).catch((error) => {
-    console.error('Donation navigation failed:', error)
-  })
-}
+    if (item.action === 'whatsapp') {
+      joinChurchSupporters()
+      return
+    }
 
-// Open WhatsApp prayer support community
-function joinChurchSupporters() {
-  const message = encodeURIComponent(
-    'Hello US4Africa! I am interested in joining the Church Supporters community. Please share more information with me.'
-  )
+    if (item.action === 'church-inquiry') {
+      console.log('Opening Church Inquiry Modal')
+      isChurchInquiryModalOpen.value = true
+      return
+    }
 
-  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`
+    openDonationModal('once')
+  }
+  // Navigate to donation page after modal submission
+  function continueToDonation(donationDetails) {
+    router.push({
+      name: 'donate',
+      query: {
+        amount: donationDetails.amount,
+        type: donationDetails.type,
+        designation: donationDetails.designation,
+      },
+    }).catch((error) => {
+      console.error('Donation navigation failed:', error)
+    })
+  }
 
-  window.open(whatsappUrl, '_blank', 'noopener,noreferrer')
-}
+  // Open WhatsApp prayer support community
+  function joinChurchSupporters() {
+    const message = encodeURIComponent(
+      'Hello US4Africa! I am interested in joining the Church Supporters community. Please share more information with me.'
+    )
+
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`
+
+    window.open(whatsappUrl, '_blank', 'noopener,noreferrer')
+  }
 </script>
 
 

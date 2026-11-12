@@ -55,7 +55,7 @@
               <li>Mentoring, fellowship, and character development</li>
               <li>Encouragement to serve and influence their communities positively</li>
             </ul>
-            <RouterLink to="/contact" class="text-link">Connect with us about D.O.Gs <span aria-hidden="true">↗</span></RouterLink>
+            <RouterLink to="/contact#get-in-touch" class="text-link">Connect with us about D.O.Gs <span aria-hidden="true">↗</span></RouterLink>
           </div>
         </section>
 
@@ -76,7 +76,7 @@
               <li>Creative activities and caring relationships</li>
               <li>Nutritional support, literacy, and numeracy assistance</li>
             </ul>
-            <RouterLink to="/contact" class="text-link">Connect with us about KCP <span aria-hidden="true">↗</span></RouterLink>
+            <RouterLink to="/contact#get-in-touch" class="text-link">Connect with us about KCP <span aria-hidden="true">↗</span></RouterLink>
           </div>
         </section>
 

@@ -4,7 +4,7 @@ import mentorshipImage from '../assets/mentorship.jpg'
 import sltImage from '../assets/slt1.jpeg'
 import sltStud from '../assets/slt.jpg'
 import youthImage from '../assets/youth.jpg'
-import ithembaImage from '../assets/ithemba.jpeg'
+import ithembaImage from '../assets/ithemba.jpg'
 import v4allImage from '../assets/v4all.jpg'
 import mamacImage from '../assets/mamac.jpg'
 import mamabImage from '../assets/mamab.jpg'
@@ -75,10 +75,10 @@ const team = [
     image: micheleImage,
   },
   {
-    name: "Blessings",
+    name: "Blessing Byemba",
     role: "Outreach Coordinator",
     description:
-      "Blessings Liato  brings a wealth of experience in community engagement and outreach. As the Outreach Coordinator, she is dedicated to building relationships with local ministries and ensuring their needs are met effectively..",
+      "Blessing Byemba brings a wealth of experience in community engagement and outreach. As the Outreach Coordinator, she is dedicated to building relationships with local ministries and ensuring their needs are met effectively..",
     image: mamabImage,
   },
   {
@@ -89,7 +89,7 @@ const team = [
     image: "/download.png",
   },
   {
-    name: "NEW TEAM MEMBER",
+    name: "Terry Martin",
     role: "Board Member",
     description:
       "Contributes to organisational leadership, governance and strategic guidance in support of the US4Africa mission.",
@@ -97,24 +97,28 @@ const team = [
   },
 ];
 
+
 const partners = [
   {
     number: "01",
     title: "Local Ministries",
     description:
-      "US4Africa collaborates with numerous local churches across Africa, providing them with the resources and support they need to reach their communities. These partnerships are essential for fostering spiritual growth and community development, as local churches are often at the heart of their communities, addressing both spiritual and practical needs.",
+      "US4Africa works alongside local ministries that share our commitment to faith, service and community transformation. Through meaningful partnerships, we support their work and help strengthen their ability to serve the people and communities around them.",
     image: ithembaImage,
-    buttonText: "View Partners",
+    buttonText: "View Our Partners",
+    to: "/partners",
   },
   {
     number: "02",
     title: "Non-Profit Organisations",
     description:
-      "We are proud to partner with a variety of non-profit organisations that share our mission of empowering African ministries. These collaborations allow us to combine resources, expertise and networks to enhance the effectiveness of our collective efforts in ministry and outreach.",
+      "We collaborate with non-profit organisations that share our mission of empowering African ministries. These partnerships bring together resources, expertise and networks to strengthen community initiatives and expand opportunities for meaningful impact.",
     image: v4allImage,
     buttonText: "Explore Collaborations",
+    to: "/get-involved",
   },
 ]
+
 
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -316,7 +320,7 @@ async function continueToDonation(donationDetails: {
             <p>{{ partner.description }}</p>
 
             <RouterLink
-              to="/get-involved"
+              :to="partner.to"
               class="partner-button"
             >
               {{ partner.buttonText }}

@@ -67,6 +67,12 @@ const routes = [
     component: () => import("../views/admin/AdminDonations.vue"),
     meta: { requiresAdmin: true },
   },
+  {
+    path: '/partners',
+    name: 'partners',
+    component: () => import('../views/Partners.vue')
+  },
+
 ];
 
 const router = createRouter({
@@ -92,7 +98,7 @@ const router = createRouter({
           } else {
             resolve({ top: 0 });
           }
-        }, 100);
+        }, 10);
       });
     }
 

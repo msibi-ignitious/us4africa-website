@@ -95,7 +95,7 @@
               <span>OUR VISION</span>
               <h3>Fostering Leadership Development</h3>
               <p>Investing in future leaders is crucial for sustainable growth. Our Leadership Experience (LXP) Trust focuses on nurturing and mentoring emerging leaders within African ministries.</p>
-              <RouterLink to="/about">Learn about LXP →</RouterLink>
+              <RouterLink to="/partners">Learn about LXP →</RouterLink>
             </div>
           </article>
 

@@ -3,7 +3,7 @@
 import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { onMounted, nextTick } from 'vue'
-
+import { Country } from 'country-state-city'
 
 const route = useRoute()
 
@@ -28,49 +28,15 @@ const dedication = ref({
   message: '',
 })
 
-const countries = [
-  'Afghanistan', 'Albania', 'Algeria', 'Andorra', 'Angola',
-  'Antigua and Barbuda', 'Argentina', 'Armenia', 'Australia',
-  'Austria', 'Azerbaijan', 'Bahamas', 'Bahrain', 'Bangladesh',
-  'Barbados', 'Belarus', 'Belgium', 'Belize', 'Benin', 'Bhutan',
-  'Bolivia', 'Bosnia and Herzegovina', 'Botswana', 'Brazil',
-  'Brunei', 'Bulgaria', 'Burkina Faso', 'Burundi', 'Cabo Verde',
-  'Cambodia', 'Cameroon', 'Canada', 'Central African Republic',
-  'Chad', 'Chile', 'China', 'Colombia', 'Comoros', 'Congo',
-  'Costa Rica', 'Côte d’Ivoire', 'Croatia', 'Cuba', 'Cyprus',
-  'Czechia', 'Democratic Republic of the Congo', 'Denmark',
-  'Djibouti', 'Dominica', 'Dominican Republic', 'Ecuador',
-  'Egypt', 'El Salvador', 'Equatorial Guinea', 'Eritrea',
-  'Estonia', 'Eswatini', 'Ethiopia', 'Fiji', 'Finland',
-  'France', 'Gabon', 'Gambia', 'Georgia', 'Germany', 'Ghana',
-  'Greece', 'Grenada', 'Guatemala', 'Guinea', 'Guinea-Bissau',
-  'Guyana', 'Haiti', 'Honduras', 'Hungary', 'Iceland', 'India',
-  'Indonesia', 'Iran', 'Iraq', 'Ireland', 'Israel', 'Italy',
-  'Jamaica', 'Japan', 'Jordan', 'Kazakhstan', 'Kenya', 'Kiribati',
-  'Kuwait', 'Kyrgyzstan', 'Laos', 'Latvia', 'Lebanon', 'Lesotho',
-  'Liberia', 'Libya', 'Liechtenstein', 'Lithuania', 'Luxembourg',
-  'Madagascar', 'Malawi', 'Malaysia', 'Maldives', 'Mali', 'Malta',
-  'Marshall Islands', 'Mauritania', 'Mauritius', 'Mexico',
-  'Micronesia', 'Moldova', 'Monaco', 'Mongolia', 'Montenegro',
-  'Morocco', 'Mozambique', 'Myanmar', 'Namibia', 'Nauru', 'Nepal',
-  'Netherlands', 'New Zealand', 'Nicaragua', 'Niger', 'Nigeria',
-  'North Korea', 'North Macedonia', 'Norway', 'Oman', 'Pakistan',
-  'Palau', 'Palestine', 'Panama', 'Papua New Guinea', 'Paraguay',
-  'Peru', 'Philippines', 'Poland', 'Portugal', 'Qatar', 'Romania',
-  'Russia', 'Rwanda', 'Saint Kitts and Nevis', 'Saint Lucia',
-  'Saint Vincent and the Grenadines', 'Samoa', 'San Marino',
-  'São Tomé and Príncipe', 'Saudi Arabia', 'Senegal', 'Serbia',
-  'Seychelles', 'Sierra Leone', 'Singapore', 'Slovakia',
-  'Slovenia', 'Solomon Islands', 'Somalia', 'South Africa',
-  'South Korea', 'South Sudan', 'Spain', 'Sri Lanka', 'Sudan',
-  'Suriname', 'Sweden', 'Switzerland', 'Syria', 'Taiwan',
-  'Tajikistan', 'Tanzania', 'Thailand', 'Timor-Leste', 'Togo',
-  'Tonga', 'Trinidad and Tobago', 'Tunisia', 'Türkiye',
-  'Turkmenistan', 'Tuvalu', 'Uganda', 'Ukraine',
-  'United Arab Emirates', 'United Kingdom', 'United States',
-  'Uruguay', 'Uzbekistan', 'Vanuatu', 'Vatican City',
-  'Venezuela', 'Vietnam', 'Yemen', 'Zambia', 'Zimbabwe'
-].sort((a, b) => a.localeCompare(b));
+const countries = Country.getAllCountries()
+  .map(country => country.name)
+  .sort((a, b) => a.localeCompare(b))
+
+const isValidCountry = computed(() =>
+  countries.some(country =>
+    country.toLowerCase() === donor.value.country.trim().toLowerCase()
+  )
+)
 
 const amounts = [25, 50, 100, 250]
 
@@ -119,6 +85,9 @@ const selectedDesignation = computed(() =>
   designations.find(item => item.value === designation.value)?.label || 'Where Most Needed',
 )
 
+const selectedDesignationDescription = computed(() =>
+  designations.find(item => item.value === designation.value)?.description || ''
+)
 
 const touched = ref<Record<string, boolean>>({})
 
@@ -135,8 +104,10 @@ const fieldErrors = computed(() => ({
   email: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(donor.value.email.trim())
     ? ''
     : 'Please enter a valid email address.',
-  country: donor.value.country
-    ? ''
+  country: isValidCountry.value
+  ? ''
+  : donor.value.country.trim()
+    ? 'Please select a valid country from the list.'
     : 'Please select your country.',
 }))
 
@@ -148,7 +119,7 @@ const isDonorDetailsValid = computed(() =>
   donor.value.firstName.trim() !== '' &&
   donor.value.lastName.trim() !== '' &&
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(donor.value.email.trim()) &&
-  donor.value.country !== '',
+  isValidCountry.value
 )
 
 
@@ -211,10 +182,18 @@ function getGiftFromQuery() {
   return 50
 }
 
+
 function applyDonationQuery() {
   const amount = getGiftFromQuery()
 
-  selectAmount(amount)
+  // Preset amounts use the amount buttons.
+  // Custom amounts populate the custom amount input.
+  if (amounts.includes(amount)) {
+    selectAmount(amount)
+  } else {
+    selectedAmount.value = 50
+    customAmount.value = amount
+  }
 
   const requestedDesignation = String(
     route.query.designation || 'where-needed'
@@ -228,6 +207,8 @@ function applyDonationQuery() {
 
   dedicationEnabled.value = route.query.dedication === '1'
 }
+
+
 watch(
   () => route.query,
   () => {
@@ -458,26 +439,36 @@ watch(
               <p v-if="showError('email')" class="field-error">
                 {{ fieldErrors.email }}
               </p>
-             <div class="form-group">
-                <label for="country">Country <span class="required">*</span></label>              
-                <select
+              <div class="form-group">
+                <label for="country">
+                  Country <span class="required">*</span>
+                </label>
+
+                <input
                   id="country"
                   v-model="donor.country"
+                  type="text"
+                  list="donation-country-options"
+                  placeholder="Search or select your country"
+                  autocomplete="country-name"
                   required
                   @blur="markTouched('country')"
                   :aria-invalid="Boolean(showError('country'))"
-                >
-                  <option value="" disabled>Select your country</option>
+                />
+
+                <datalist id="donation-country-options">
                   <option
                     v-for="country in countries"
                     :key="country"
                     :value="country"
-                  >
-                    {{ country }}
-                  </option>
-                </select>
+                  />
+                </datalist>
 
+                <p v-if="showError('country')" class="field-error">
+                  {{ fieldErrors.country }}
+                </p>
               </div>
+
               <p v-if="showError('country')" class="field-error">
                 {{ fieldErrors.country }}
               </p>
@@ -524,9 +515,7 @@ watch(
             </div>
           </div>
 
-        </div>
-
-        <!-- DONATION SUMMARY -->
+        </div>        <!-- DONATION SUMMARY -->
         <aside class="donation-summary">
           <div class="summary-top">
             <span class="summary-label">YOUR CONTRIBUTION</span>
@@ -542,9 +531,14 @@ watch(
 
           <div class="summary-divider"></div>
 
+          <!-- DONATION DETAILS -->
+          <h4 class="summary-section-title">Donation Details</h4>
+
           <div class="summary-row">
             <span>Giving frequency</span>
-            <strong>{{ frequency === 'monthly' ? 'Monthly' : 'One-Time' }}</strong>
+            <strong>
+              {{ frequency === 'monthly' ? 'Monthly' : 'One-Time' }}
+            </strong>
           </div>
 
           <div class="summary-row">
@@ -554,17 +548,70 @@ watch(
 
           <div class="summary-divider"></div>
 
+          <!-- DONATION AMOUNT -->
           <div class="summary-total">
             <span>Your contribution</span>
             <strong>{{ formattedAmount }}</strong>
             <small v-if="frequency === 'monthly'">per month</small>
+            <small v-else>One-time contribution</small>
           </div>
 
-          <div class="summary-dedication" v-if="dedicationEnabled">
-            <span>Gift dedication</span>
-            <strong>{{ dedication.recipientName || 'Not yet specified' }}</strong>
+          <div class="summary-divider"></div>
+
+          <!-- DONOR DETAILS -->
+          <h4 class="summary-section-title">Donor Information</h4>
+
+          <div class="summary-row">
+            <span>Full name</span>
+            <strong>
+              {{ donor.firstName || donor.lastName
+                ? `${donor.firstName} ${donor.lastName}`.trim()
+                : 'Not provided' }}
+            </strong>
           </div>
 
+          <div class="summary-row">
+            <span>Email address</span>
+            <strong>{{ donor.email || 'Not provided' }}</strong>
+          </div>
+
+          <div class="summary-row">
+            <span>Country</span>
+            <strong>{{ donor.country || 'Not selected' }}</strong>
+          </div>
+
+          <!-- DEDICATION -->
+          <div v-if="dedicationEnabled">
+            <div class="summary-divider"></div>
+
+            <h4 class="summary-section-title">Gift Dedication</h4>
+
+            <div class="summary-row">
+              <span>Dedicated to</span>
+              <strong>
+                {{ dedication.recipientName || 'Not yet specified' }}
+              </strong>
+            </div>
+
+            <div v-if="dedication.message" class="summary-message">
+              <span>Dedication message</span>
+              <p>{{ dedication.message }}</p>
+            </div>
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <!-- FINAL TOTAL -->
+          <div class="summary-final">
+            <span>
+              {{ frequency === 'monthly'
+                ? 'Monthly commitment'
+                : 'Total contribution' }}
+            </span>
+            <strong>{{ formattedAmount }}</strong>
+          </div>
+
+          <!-- PAYMENT -->
           <button
             type="button"
             class="donate-button"
@@ -576,15 +623,16 @@ watch(
           </button>
 
           <p class="payment-notice">
-            Our secure payment connection is being configured. Donations
-            cannot be submitted through this form yet.
+            Our secure payment connection is being configured.
+            Donations cannot be submitted through this form yet.
           </p>
 
           <div class="security-note">
             <span>⌑</span>
             <p>
-              Your details will be used to support your donation and related
-              communication once the secure payment process is connected.
+              Your details will be used to support your donation and
+              related communication once the secure payment process
+              is connected.
             </p>
           </div>
         </aside>
@@ -1211,6 +1259,29 @@ watch(
   grid-column: 1 / -1;
 }
 
+.form-group input {
+  width: 100%;
+  min-height: 49px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  outline: none;
+  color: var(--ink);
+  background: #fff;
+  font: inherit;
+  font-size: .9rem;
+  transition: border-color .2s ease;
+}
+
+.form-group input:focus {
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px rgba(84, 37, 138, .1);
+}
+
+.form-group input[aria-invalid="true"] {
+  border-color: #c62845;
+  background: #fff9fa;
+}
 .required-note {
   margin: 14px 0 0;
   color: var(--muted);
@@ -1579,4 +1650,51 @@ watch(
     padding: 22px 17px;
   }
 }
+
+.summary-section-title {
+  margin: 5px 0 17px;
+  color: var(--purple-dark);
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.summary-message {
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 7px;
+  background: var(--purple-light);
+}
+
+.summary-message span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.summary-message p {
+  margin: 7px 0 0;
+  color: var(--ink);
+  font-size: 0.84rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.summary-final {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 15px 0;
+}
+
+.summary-final span {
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.summary-final strong {
+  color: var(--purple);
+  font-size: 1.8rem;
+  font-weight: 900;
+}
+
 </style>

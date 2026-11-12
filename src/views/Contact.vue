@@ -10,15 +10,15 @@
           Have a question, an idea, or a heart to serve? Connect with
           US4Africa. We'd be glad to hear from you.
         </p>
-        <a href="#get-in-touch" class="primary-button">
+        <RouterLink to="/contact#get-in-touch" class="primary-button">
           Contact Our Team <span aria-hidden="true">→</span>
-        </a>
+        </RouterLink>
       </div>
       <div class="hero-accent" aria-hidden="true"></div>
     </section>
 
     <!-- CONTACT -->
-    <section id="get-in-touch" class="contact-section">
+    <section  class="contact-section">
       <div class="section-heading">
         <span class="eyebrow">GET IN TOUCH</span>
         <h2>Every great connection <span>starts here.</span></h2>
@@ -79,7 +79,7 @@
           </div>
         </aside>
 
-        <section class="form-card" aria-labelledby="contact-form-title">
+        <section id="get-in-touch" class="form-card" aria-labelledby="contact-form-title">
           <span class="eyebrow">SEND US A MESSAGE</span>
           <h3 id="contact-form-title">How can we help?</h3>
           <p class="form-intro">
@@ -174,9 +174,9 @@
             We believe meaningful change happens through connection,
             collaboration and shared purpose.
           </p>
-          <a href="#get-in-touch" class="faq-link">
+          <RouterLink to="/contact#get-in-touch" class="primary-button">
             Send us your question <span aria-hidden="true">→</span>
-          </a>
+          </RouterLink>
         </div>
 
         <div class="faq-list">

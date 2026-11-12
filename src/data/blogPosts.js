@@ -46,7 +46,7 @@ export const blogPosts = [
     id: 3,
     slug: "growing-through-mentorship",
     title: "Growing Through Mentorship",
-    category: "Mentorship",
+    category: "Youth",
     excerpt:
       "Discover the impact of guidance, discipleship and relationships that help people grow.",
     image: mentorshipImage,

@@ -12,8 +12,7 @@
           locally rooted work that helps people grow in faith, purpose, and opportunity.
         </p>
         <div class="hero-actions">
-          <RouterLink to="/donate" class="primary-button">Support Our Work <span aria-hidden="true">→</span></RouterLink>
-          <a href="#initiatives" class="hero-text-link">Explore our initiatives</a>
+          <RouterLink to="/donate" class="primary-button">Support Our Work </RouterLink>
         </div>
       </div>
       <div class="hero-note"><span class="note-dot"></span> Working alongside local ministries</div>
@@ -49,9 +48,7 @@
             <h3>Youth Discipleship & Mentorship</h3>
             <p class="initiative-lead">Helping young people grow in faith and lead with character.</p>
             <p>
-              Discipleship of God (D.O.Gs), a youth discipleship initiative under The Leadership
-              Experience (LXP) Trust, creates space for young people to learn from Scripture,
-              build meaningful relationships, and grow in character and leadership.
+              Our youth discipleship program, Discipleship of God (DoGs), a core initiative of The Leadership Experience (LXP) Trust, is dedicated to shaping spiritually grounded, values-driven young people. Through intentional mentoring, biblical teaching, and practical life guidance, DoGs equips youth to develop strong character, leadership capacity, and a clear sense of purpose. By investing in discipleship, we raise a generation rooted in faith and equipped to positively influence their communities. Your support enables us to expand this transformative work and reach more young lives.
             </p>
             <ul class="initiative-points">
               <li>Biblical teaching and discipleship</li>
@@ -72,9 +69,7 @@
             <h3>Children Outreach</h3>
             <p class="initiative-lead">Supporting children as they learn, grow, and discover their potential.</p>
             <p>
-              Compassion Kids Care Point (KCP), a children’s outreach initiative under LXP Trust,
-              provides a caring environment where children can engage with biblical teaching,
-              creative activities, and practical learning support.
+              Our children’s discipleship program, Compassion Kids Care Point (KCP), a key initiative of The Leadership Experience (LXP) Trust, offers holistic spiritual guidance and mentorship to young children. Through engaging biblical teaching, creative activities, and nurturing support, KCP helps children grow in faith, character, and compassion. This program also provides nutritional support, as well as literacy and numeracy assistance, ensuring that children thrive both spiritually and academically. By investing in their holistic development, we aim to raise a generation grounded in God’s love and prepared to make a positive impact in their communities. Your contributions can help us extend this transformative program to reach more children.
             </p>
             <ul class="initiative-points">
               <li>Bible teaching and values-based learning</li>
@@ -95,8 +90,7 @@
             <h3>Leadership & Ministry Empowerment</h3>
             <p class="initiative-lead">Walking alongside ministries so they can serve their communities well.</p>
             <p>
-              We seek to strengthen African ministries by helping connect them with resources,
-              practical support, training, and relationships that can support their work. We value
+              Through community development projects, we work to enhance infrastructure and promote sustainable practices in local communities. This includes building wells, improving sanitation, and providing vocational training. Together, we can foster self-sufficiency and resilience in the communities we serve. We value
               local knowledge and believe sustainable progress is built through collaboration.
             </p>
             <ul class="initiative-points">

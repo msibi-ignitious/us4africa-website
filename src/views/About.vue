@@ -69,10 +69,10 @@ const team = [
     role: "Executive Director",
     description:
       "Provides strategic leadership and oversees organisational direction and operations.",
-    image: "/src/assets/mamam1.jpeg",
+    image: "/src/assets/michele.jpeg",
   },
   {
-    name: "Blessings ",
+    name: "Blessings",
     role: "Outreach Coordinator",
     description:
       "Supports relationships with ministries and helps connect community needs with appropriate resources.",
@@ -83,6 +83,13 @@ const team = [
     role: "Program Manager",
     description:
       "Coordinates program planning and delivery, with an emphasis on effective implementation.",
+    image: "/download.png",
+  },
+  {
+    name: "NEW TEAM MEMBER",
+    role: "Board Member",
+    description:
+      "Contributes to organisational leadership, governance and strategic guidance in support of the US4Africa mission.",
     image: "/download.png",
   },
 ];
@@ -440,17 +447,21 @@ async function continueToDonation(donationDetails: {
 }
 
 /* HERO */
+
 .about-hero {
   position: relative;
   display: flex;
   align-items: center;
-  min-height: 650px;
   min-height: min(780px, 90svh);
-  padding: 110px 7%;
+
+  /* Align hero content with the other page sections */
+  padding: 110px max(5%, calc((100% - 1160px) / 2));
+
   isolation: isolate;
   background: var(--purple-dark);
   color: var(--white);
 }
+
 
 .hero-background {
   position: absolute;
@@ -967,7 +978,7 @@ async function continueToDonation(donationDetails: {
 
 .team-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 25px;
 }
 
@@ -996,6 +1007,7 @@ async function continueToDonation(donationDetails: {
   width: 100%;
   height: 290px;
   object-fit: cover;
+  object-position: center top;
   transition: transform 0.4s ease;
 }
 
@@ -1350,7 +1362,7 @@ button.button:focus-visible {
   .about-hero {
     min-height: 650px;
     min-height: 82svh;
-    padding: 100px 0 70px;
+    padding: 100px 18px 70px;
   }
 
   .hero-content h1 {

@@ -28,48 +28,88 @@ const currentYear = new Date().getFullYear();
                 lasting transformation across Africa.
               </p>
 
-              <div class="social-links" aria-label="Social media">
-                <!-- Replace # with your official profile URLs -->
-                <a
-                  href="#"
-                  aria-label="Facebook"
-                  class="social-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <MDBIcon icon="facebook-f" />
-                </a>
+              
+<div class="social-links" aria-label="Follow US4Africa on social media">
+  <!-- Facebook -->
+  <a
+    href="YOUR_FACEBOOK_URL"
+    aria-label="Facebook"
+    class="social-link"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M13.5 21v-8.2h2.8l.4-3.2h-3.2V7.5c0-.9.3-1.5 1.6-1.5h1.7V3.1c-.8-.1-1.7-.2-2.5-.2-2.5 0-4.2 1.5-4.2 4.3v2.4H7.3v3.2h2.8V21z"
+      />
+    </svg>
+  </a>
 
-                <a
-                  href="#"
-                  aria-label="Instagram"
-                  class="social-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <MDBIcon icon="instagram" />
-                </a>
+  <!-- Instagram -->
+  <a
+    href="YOUR_INSTAGRAM_URL"
+    aria-label="Instagram"
+    class="social-link"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <rect
+        x="3"
+        y="3"
+        width="18"
+        height="18"
+        rx="5"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      />
+      <circle
+        cx="12"
+        cy="12"
+        r="4"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      />
+      <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
+    </svg>
+  </a>
 
-                <a
-                  href="#"
-                  aria-label="YouTube"
-                  class="social-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <MDBIcon icon="youtube" />
-                </a>
+  <!-- YouTube -->
+  <a
+    href="YOUR_YOUTUBE_URL"
+    aria-label="YouTube"
+    class="social-link"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6z"
+      />
+    </svg>
+  </a>
 
-                <a
-                  href="#"
-                  aria-label="LinkedIn"
-                  class="social-link"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <MDBIcon icon="linkedin-in" />
-                </a>
-              </div>
+  <!-- LinkedIn -->
+  <a
+    href="YOUR_LINKEDIN_URL"
+    aria-label="LinkedIn"
+    class="social-link"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        fill="currentColor"
+        d="M5.2 3a2.2 2.2 0 1 0 0 4.4 2.2 2.2 0 0 0 0-4.4ZM3.3 9h3.8v12H3.3zm6.2 0h3.6v1.6h.1A4 4 0 0 1 16.8 8c3.9 0 4.6 2.5 4.6 5.7V21h-3.8v-6.5c0-1.5 0-3.4-2.1-3.4s-2.4 1.6-2.4 3.3V21H9.5z"
+      />
+    </svg>
+  </a>
+</div>
+
             </div>
           </MDBCol>
 
@@ -220,37 +260,46 @@ const currentYear = new Date().getFullYear();
 }
 
 /* SOCIAL LINKS */
+
 .social-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 11px;
+  align-items: center;
+  gap: 13px;
+  margin-top: 22px;
 }
 
 .social-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 41px;
-  height: 41px;
-
+  width: 44px;
+  height: 44px;
   color: #54208c;
   background: #f5f0fa;
   border: 1px solid #e7dcef;
   border-radius: 50%;
-
   text-decoration: none;
-  transition:
-    color 0.25s ease,
-    background-color 0.25s ease,
-    border-color 0.25s ease,
-    transform 0.25s ease;
+  transition: all 0.25s ease;
+}
+
+.social-link svg {
+  display: block;
+  width: 19px;
+  height: 19px;
 }
 
 .social-link:hover {
   color: #ffffff;
-  background: #54208c;
-  border-color: #54208c;
-  transform: translateY(-3px);
+  background: #c6283d;
+  border-color: #c6283d;
+  transform: translateY(-4px);
+  box-shadow: 0 5px 14px rgba(198, 40, 61, 0.2);
+}
+
+.social-link:focus-visible {
+  outline: 3px solid #54208c;
+  outline-offset: 4px;
 }
 
 /* HEADINGS */

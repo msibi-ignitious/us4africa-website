@@ -19,9 +19,13 @@
         <p>Your support transforms lives across Africa.</p>
 
         <div class="hero-actions">
-          <router-link to="/donate" class="primary-button">
+          <button
+            type="button"
+            class="primary-button"
+            @click="openDonationModal"
+          >
             Donate Now
-          </router-link>
+          </button>
 
           <button
             type="button"
@@ -244,15 +248,21 @@
         communities thrive.
 
       </p>
-
-      <RouterLink to="/donate" class="primary-button">
-
+      <button
+        type="button"
+        class="primary-button"
+        @click="openDonationModal"
+      >
         GIVE TODAY
-
-      </RouterLink>
+      </button>
 
     </section>
     <VolunteerModal v-model="isVolunteerModalOpen" />
+    <DonationModal
+      v-model="isDonationModalOpen"
+      :initial-type="selectedDonationType"
+      @donate="continueToDonation"
+    />
   </main>
 
 </template>
@@ -261,34 +271,31 @@
 
 <script setup>
 import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
+
 import VolunteerModal from '../components/VolunteerModal.vue'
-import { RouterLink } from 'vue-router'
+import DonationModal from '../components/DonationModal.vue'
 
+// Router
+const router = useRouter()
 
-/**
- * Donation page route.
- * Donation buttons pass the selected amount and donation type
- * to the donation page through query parameters.
- */
-const DONATION_PAGE_URL = '/donate'
+// WhatsApp
+const WHATSAPP_NUMBER = '27737822117'
 
-
-
+// Donation options
 const donationOptions = [
   {
     id: 'church-support',
-    title: 'Pray Support',
+    title: 'Prayer Support',
     category: 'STAND WITH US IN PRAYER',
     description:
       'Become a Prayer Partner through our WhatsApp community and receive regular prayer updates.',
     symbol: '✝',
     imageClass: 'church-support-image',
-    image:
-      '/src/assets/pray.jpeg',
+    image: '/src/assets/pray.jpeg',
     imageAlt: 'Church community gathered together',
     action: 'whatsapp',
   },
-
   {
     id: 'monthly',
     title: 'Monthly Supporter',
@@ -301,7 +308,6 @@ const donationOptions = [
       'https://images.unsplash.com/photo-1469571486292-0ba58a3f068b?auto=format&fit=crop&w=900&q=85',
     imageAlt: 'Community volunteers supporting others',
   },
-
   {
     id: 'once-off',
     title: 'One-Time Donation',
@@ -314,71 +320,73 @@ const donationOptions = [
       'https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?auto=format&fit=crop&w=900&q=85',
     imageAlt: 'Volunteers participating in community service',
   },
-
 ]
 
-
-
+// Enquiry form
 const form = reactive({
-
   name: '',
-
   email: '',
-
   interest: 'General Enquiry',
-
   message: '',
-
 })
-
-
 
 const formFeedback = ref('')
 
+// Modal state
+const isDonationModalOpen = ref(false)
 const isVolunteerModalOpen = ref(false)
 
+// Default donation frequency
+const selectedDonationType = ref('once')
+
+// Open donation modal
+function openDonationModal(type = 'once') {
+  selectedDonationType.value = type
+  isDonationModalOpen.value = true
+}
+
+// Open volunteer modal
 function openVolunteerModal() {
   isVolunteerModalOpen.value = true
 }
+
+// Handle donation card selection
 function openDonation(item = null) {
-  // Church Support opens WhatsApp instead of the donation page.
   if (item?.action === 'whatsapp') {
     joinChurchSupporters()
     return
   }
 
-  const query = {
-    designation: 'where-needed',
-  }
+  const donationType = item?.id === 'monthly' ? 'monthly' : 'once'
 
-  if (item) {
-    query.type = item.donationType
-  }
+  openDonationModal(donationType)
+}
 
+// Navigate to donation page after modal submission
+function continueToDonation(donationDetails) {
   router.push({
     name: 'donate',
-    query,
+    query: {
+      amount: donationDetails.amount,
+      type: donationDetails.type,
+      designation: donationDetails.designation,
+    },
   }).catch((error) => {
     console.error('Donation navigation failed:', error)
   })
 }
 
-const WHATSAPP_NUMBER = '27737822117'
-
+// Open WhatsApp prayer support community
 function joinChurchSupporters() {
   const message = encodeURIComponent(
     'Hello US4Africa! I am interested in joining the Church Supporters community. Please share more information with me.'
   )
 
-  window.open(
-    `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`,
-    '_blank',
-    'noopener,noreferrer'
-  )
+  const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${message}`
+
+  window.open(whatsappUrl, '_blank', 'noopener,noreferrer')
 }
-
 </script>
-
 
 
 <style scoped>

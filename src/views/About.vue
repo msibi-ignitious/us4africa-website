@@ -72,7 +72,7 @@ const team = [
     role: "Executive Director",
     description:
       "With over 15 years of experience in nonprofit leadership, MIchele Mwanza guides our strategic vision and oversees all operations at US4Africa. Her passion for service and deep understanding of African communities empower our initiatives.",
-    image: "micheleImage",
+    image: micheleImage,
   },
   {
     name: "Blessings",

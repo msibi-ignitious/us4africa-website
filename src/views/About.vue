@@ -4,8 +4,11 @@ import mentorshipImage from '../assets/mentorship.jpg'
 import sltImage from '../assets/slt1.jpeg'
 import sltStud from '../assets/slt.jpg'
 import youthImage from '../assets/youth.jpg'
-import ithembaImage from '../assets/ithemba.jpg'
+import ithembaImage from '../assets/ithemba.jpeg'
 import v4allImage from '../assets/v4all.jpg'
+import mamacImage from '../assets/mamac.jpg'
+import mamabImage from '../assets/mamab.jpg'
+import micheleImage from '../assets/michele.jpeg'
 const journey = [
   {
     title: "The Visionary Beginning",
@@ -68,21 +71,21 @@ const team = [
     name: "Michele Mwanza",
     role: "Executive Director",
     description:
-      "Provides strategic leadership and oversees organisational direction and operations.",
-    image: "/src/assets/michele.jpeg",
+      "With over 15 years of experience in nonprofit leadership, MIchele Mwanza guides our strategic vision and oversees all operations at US4Africa. Her passion for service and deep understanding of African communities empower our initiatives.",
+    image: "micheleImage",
   },
   {
     name: "Blessings",
     role: "Outreach Coordinator",
     description:
-      "Supports relationships with ministries and helps connect community needs with appropriate resources.",
-    image: "/src/assets/mamab.jpg",
+      "Blessings Liato  brings a wealth of experience in community engagement and outreach. As the Outreach Coordinator, she is dedicated to building relationships with local ministries and ensuring their needs are met effectively..",
+    image: mamabImage,
   },
   {
     name: "George Mwanza",
     role: "Program Manager",
     description:
-      "Coordinates program planning and delivery, with an emphasis on effective implementation.",
+      "George Mwanza is responsible for the implementation and management of our various programs in Africa. His hands-on approach and commitment to excellence ensure that our projects are impactful and sustainable.",
     image: "/download.png",
   },
   {

@@ -24,7 +24,7 @@ const partners = [
   {
     name: 'The Leadership Experience (LXP) Trust',
     initials: 'LXP',
-    category: 'Leadership Development',
+    category: 'Leadership Development NPO',
     description:
       'A leadership development experience focused on building character, developing vision and equipping individuals to lead like Jesus.',
     accent: 'purple'

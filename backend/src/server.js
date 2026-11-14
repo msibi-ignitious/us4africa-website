@@ -15,10 +15,9 @@ import exportsRouter from './routes/exports.js';
 const app = express();
 
 // Allowed frontend origins
-const allowedOrigins = (config.FRONTEND_ORIGIN || '')
-  .split(',')
-  .map(origin => origin.trim().replace(/\/$/, ''))
-  .filter(Boolean);
+const allowedOrigins = config.FRONTEND_ORIGIN.map(
+  origin => origin.replace(/\/$/, '')
+);
 
 const corsOptions = {
   origin: (origin, callback) => {
